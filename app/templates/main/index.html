@@ -46,6 +46,9 @@
              data-msg-rows-label="{{ _('transactions found') }}"
              data-msg-page-label="{{ _('page') }}"
              data-msg-pages-label="{{ _('pages') }}"
+             data-msg-manual-ready="{{ _('Manual extraction is ready. Type or paste transactions into the table and download when done.') }}"
+             data-msg-manual-label="{{ _('Manual extraction') }}"
+             data-msg-inspect="{{ _('The PDF opened in a new tab for inspection.') }}"
              data-msg-expired="{{ _('Your preview expired. Please upload the PDF again.') }}">
           <div id="dropzone" class="upload-zone" tabindex="0" role="button" aria-label="{{ _('Upload a PDF bank statement') }}" aria-describedby="upload-help">
             <input id="file-input" class="visually-hidden" type="file" accept="application/pdf,.pdf">
@@ -63,6 +66,27 @@
             </div>
           </div>
 
+          <div id="selected-file-panel" class="selected-file-panel d-none" aria-live="polite">
+            <div class="selected-file-info">
+              <span class="selected-file-icon" aria-hidden="true"><i class="bi bi-file-earmark-pdf"></i></span>
+              <div>
+                <strong id="selected-filename"></strong>
+                <span id="selected-filesize"></span>
+              </div>
+            </div>
+            <div class="selected-file-actions">
+              <button id="convert-selected" type="button" class="btn btn-accent btn-sm">
+                <i class="bi bi-download me-1" aria-hidden="true"></i>{{ _("Convert") }}
+              </button>
+              <button id="inspect-selected" type="button" class="btn btn-outline-navy btn-sm">
+                <i class="bi bi-search me-1" aria-hidden="true"></i>{{ _("Inspect") }}
+              </button>
+              <button id="remove-selected" type="button" class="btn btn-link-danger btn-sm" aria-label="{{ _('Remove selected file') }}">
+                <i class="bi bi-x-lg" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
           <div id="progress-wrap" class="upload-progress d-none" aria-live="polite">
             <div class="progress-meta">
               <span id="progress-label">{{ _("Uploading and extracting transactions…") }}</span>
@@ -75,7 +99,24 @@
 
           <div id="upload-alert" class="upload-alert d-none" role="alert" aria-live="assertive"></div>
 
+          <div id="manual-offer" class="manual-offer d-none" role="status">
+            <div>
+              <strong>{{ _("Conversion failed") }}</strong>
+              <span>{{ _("We could not read this layout automatically. You can still extract it manually.") }}</span>
+            </div>
+            <button id="open-manual-editor" type="button" class="btn btn-sm btn-accent">
+              <i class="bi bi-pencil-square me-1" aria-hidden="true"></i>{{ _("Click here to manually convert") }}
+            </button>
+          </div>
+
           <section id="result-section" class="result-card d-none" aria-labelledby="result-title">
+            <div id="manual-preview" class="manual-preview d-none">
+              <div class="manual-preview-head">
+                <span><i class="bi bi-file-earmark-pdf me-1" aria-hidden="true"></i>{{ _("PDF reference") }}</span>
+                <span class="manual-mode-badge">{{ _("Manual mode") }}</span>
+              </div>
+              <iframe id="manual-pdf-frame" title="{{ _('PDF reference for manual extraction') }}"></iframe>
+            </div>
             <div class="result-header">
               <div class="result-file">
                 <span class="file-icon" aria-hidden="true"><i class="bi bi-file-earmark-spreadsheet"></i></span>
@@ -93,8 +134,8 @@
 
             <div class="result-toolbar">
               <div>
-                <p class="toolbar-title mb-1">{{ _("Click any cell to correct or enrich it.") }}</p>
-                <p class="toolbar-copy mb-0">{{ _("Your edits are included in the downloaded Excel and CSV files.") }}</p>
+                <p id="result-toolbar-title" class="toolbar-title mb-1">{{ _("Click any cell to correct or enrich it.") }}</p>
+                <p id="result-toolbar-copy" class="toolbar-copy mb-0">{{ _("Your edits are included in the downloaded Excel and CSV files.") }}</p>
               </div>
               <button id="add-row" type="button" class="btn btn-sm btn-outline-secondary">
                 <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>{{ _("Add row") }}

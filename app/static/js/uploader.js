@@ -1,7 +1,6 @@
 /**
- * Bank Statement Converter — drag/drop uploader and editable preview.
- * Vanilla JS, no framework. All server data is inserted with DOM APIs (never
- * innerHTML) to avoid script injection from statement text.
+ * Bank Statement Converter — select/inspect/convert flow, drag/drop uploader,
+ * progress display and the inline editable/manual transaction grid.
  */
 (function () {
   "use strict";
@@ -11,13 +10,26 @@
 
   var dropzone = document.getElementById("dropzone");
   var fileInput = document.getElementById("file-input");
+  var selectedPanel = document.getElementById("selected-file-panel");
+  var selectedFilename = document.getElementById("selected-filename");
+  var selectedFilesize = document.getElementById("selected-filesize");
+  var convertButton = document.getElementById("convert-selected");
+  var inspectButton = document.getElementById("inspect-selected");
+  var removeButton = document.getElementById("remove-selected");
   var progressWrap = document.getElementById("progress-wrap");
   var progressBar = document.getElementById("progress-bar");
   var progressPercent = document.getElementById("progress-percent");
   var progressLabel = document.getElementById("progress-label");
   var progressTrack = progressWrap ? progressWrap.querySelector('[role="progressbar"]') : null;
   var uploadAlert = document.getElementById("upload-alert");
+  var manualOffer = document.getElementById("manual-offer");
+  var openManualButton = document.getElementById("open-manual-editor");
   var resultSection = document.getElementById("result-section");
+  var manualPreview = document.getElementById("manual-preview");
+  var manualPdfFrame = document.getElementById("manual-pdf-frame");
+  var resultTitle = document.getElementById("result-title");
+  var resultToolbarTitle = document.getElementById("result-toolbar-title");
+  var resultToolbarCopy = document.getElementById("result-toolbar-copy");
   var resultFilename = document.getElementById("result-filename");
   var resultBank = document.getElementById("result-bank");
   var resultPages = document.getElementById("result-pages");
@@ -47,7 +59,10 @@
     fileLabel: root.dataset.msgFileLabel || "Selected file",
     rowsLabel: root.dataset.msgRowsLabel || "transactions found",
     pageLabel: root.dataset.msgPageLabel || "page",
-    pagesLabel: root.dataset.msgPagesLabel || "pages"
+    pagesLabel: root.dataset.msgPagesLabel || "pages",
+    manualReady: root.dataset.msgManualReady || "Manual extraction is ready.",
+    manualLabel: root.dataset.msgManualLabel || "Manual extraction",
+    inspect: root.dataset.msgInspect || "The PDF opened in a new tab for inspection."
   };
 
   var maxBytes = (parseInt(root.dataset.maxMb, 10) || 25) * 1024 * 1024;
@@ -55,6 +70,9 @@
   var registerUrl = root.dataset.registerUrl || "/auth/register";
   var pricingUrl = root.dataset.pricingUrl || "/pricing";
   var currentResponse = null;
+  var manualContext = null;
+  var selectedFile = null;
+  var selectedObjectUrl = null;
   var busy = false;
 
   function setAlert(message, kind, action) {
@@ -98,10 +116,19 @@
     if (progressWrap) progressWrap.classList.add("d-none");
   }
 
+  function formatBytes(bytes) {
+    if (!bytes) return "0 KB";
+    if (bytes < 1024 * 1024) return Math.max(1, Math.round(bytes / 1024)) + " KB";
+    return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+  }
+
   function setBusy(value) {
     busy = value;
     dropzone.classList.toggle("is-disabled", value);
     dropzone.setAttribute("aria-busy", value ? "true" : "false");
+    [convertButton, inspectButton, removeButton].forEach(function (button) {
+      if (button) button.disabled = value;
+    });
     downloadButtons.forEach(function (button) {
       button.disabled = value || !currentResponse;
     });
@@ -114,12 +141,37 @@
     return file.type === "application/pdf";
   }
 
-  function handleFiles(fileList) {
+  function releaseObjectUrl() {
+    if (selectedObjectUrl) {
+      URL.revokeObjectURL(selectedObjectUrl);
+      selectedObjectUrl = null;
+    }
+    if (manualPdfFrame) manualPdfFrame.removeAttribute("src");
+  }
+
+  function clearSelection() {
+    releaseObjectUrl();
+    selectedFile = null;
+    manualContext = null;
+    currentResponse = null;
+    if (selectedPanel) selectedPanel.classList.add("d-none");
+    if (manualOffer) manualOffer.classList.add("d-none");
+    if (resultSection) resultSection.classList.add("d-none");
+    if (manualPreview) manualPreview.classList.add("d-none");
+    if (downloadStatus) downloadStatus.classList.add("d-none");
+    hideProgress();
+    clearAlert();
+    downloadButtons.forEach(function (button) {
+      button.disabled = true;
+    });
+  }
+
+  function chooseFile(fileList) {
     if (busy) return;
     clearAlert();
     if (!fileList || !fileList.length) return;
     if (fileList.length > 1) {
-      setAlert(messages.invalid, "error");
+      setAlert("Please choose one PDF at a time.", "error");
       return;
     }
     var file = fileList[0];
@@ -135,18 +187,50 @@
       setAlert(messages.invalid, "error");
       return;
     }
-    startUpload(file);
+
+    releaseObjectUrl();
+    selectedFile = file;
+    selectedObjectUrl = URL.createObjectURL(file);
+    manualContext = null;
+    currentResponse = null;
+    if (selectedPanel) selectedPanel.classList.remove("d-none");
+    if (selectedFilename) {
+      selectedFilename.textContent = file.name;
+      selectedFilename.title = file.name;
+    }
+    if (selectedFilesize) selectedFilesize.textContent = formatBytes(file.size);
+    if (manualOffer) manualOffer.classList.add("d-none");
+    if (resultSection) resultSection.classList.add("d-none");
+    if (manualPreview) manualPreview.classList.add("d-none");
+    if (downloadStatus) downloadStatus.classList.add("d-none");
+    setBusy(false);
   }
 
-  function startUpload(file) {
+  function inspectSelected() {
+    if (!selectedObjectUrl) return;
+    var opened = window.open(selectedObjectUrl, "_blank", "noopener");
+    if (!opened) {
+      setAlert("Your browser blocked the new tab. Allow popups and try again.", "error");
+      return;
+    }
+    setAlert(messages.inspect, "info");
+  }
+
+  function startUpload() {
+    if (!selectedFile || busy) return;
     currentResponse = null;
-    resultSection.classList.add("d-none");
+    manualContext = null;
+    if (manualOffer) manualOffer.classList.add("d-none");
+    if (resultSection) resultSection.classList.add("d-none");
+    if (manualPreview) manualPreview.classList.add("d-none");
     if (downloadStatus) downloadStatus.classList.add("d-none");
+    if (selectedPanel) selectedPanel.classList.add("d-none");
+    clearAlert();
     setBusy(true);
     showProgress(messages.uploading, 2);
 
     var formData = new FormData();
-    formData.append("file", file, file.name);
+    formData.append("file", selectedFile, selectedFile.name);
     var xhr = new XMLHttpRequest();
     xhr.open("POST", uploadUrl, true);
     xhr.setRequestHeader("Accept", "application/json");
@@ -173,6 +257,7 @@
         setProgress(100);
         if (progressLabel) progressLabel.textContent = messages.done;
         currentResponse = payload;
+        manualContext = null;
         renderResult(payload);
         hideProgress();
         setBusy(false);
@@ -184,6 +269,7 @@
 
       hideProgress();
       setBusy(false);
+      if (selectedPanel) selectedPanel.classList.remove("d-none");
       var message = (payload && payload.message) || messages.error;
       if (xhr.status === 429) {
         setAlert(message || messages.quota, "error", {
@@ -192,7 +278,11 @@
         });
       } else if (xhr.status === 413) {
         setAlert(messages.large, "error");
-      } else if (xhr.status === 422 && payload && payload.error === "no_transactions") {
+      } else if (xhr.status === 422 && payload && payload.manual) {
+        manualContext = payload;
+        setAlert(payload.message || messages.empty, "error");
+        if (manualOffer) manualOffer.classList.remove("d-none");
+      } else if (xhr.status === 422) {
         setAlert(payload.message || messages.empty, "error");
       } else {
         setAlert(message, "error");
@@ -201,11 +291,13 @@
     xhr.onerror = function () {
       hideProgress();
       setBusy(false);
+      if (selectedPanel) selectedPanel.classList.remove("d-none");
       setAlert(messages.error, "error");
     };
     xhr.ontimeout = function () {
       hideProgress();
       setBusy(false);
+      if (selectedPanel) selectedPanel.classList.remove("d-none");
       setAlert("The conversion timed out. Please try a smaller statement.", "error");
     };
     xhr.send(formData);
@@ -322,7 +414,7 @@
   }
 
   function formatQuota(quota) {
-    if (!quota) return "";
+    if (!quota) return "Manual mode — no pages are charged for manual exports.";
     var text =
       quota.used +
       " of " +
@@ -338,9 +430,26 @@
     return text;
   }
 
+  function resetResultCopy() {
+    if (resultTitle) resultTitle.textContent = "Review your transactions";
+    if (resultToolbarTitle) {
+      resultToolbarTitle.textContent = "Click any cell to correct or enrich it.";
+    }
+    if (resultToolbarCopy) {
+      resultToolbarCopy.textContent =
+        "Your edits are included in the downloaded Excel and CSV files.";
+    }
+  }
+
   function renderResult(payload) {
     clearAlert();
+    manualContext = null;
+    if (manualOffer) manualOffer.classList.add("d-none");
+    if (manualPreview) manualPreview.classList.add("d-none");
+    if (manualPdfFrame) manualPdfFrame.removeAttribute("src");
+    resetResultCopy();
     resultSection.classList.remove("d-none");
+    if (resultTitle) resultTitle.textContent = "Review your transactions";
     if (resultFilename) {
       resultFilename.textContent = payload.original_filename || messages.fileLabel;
       resultFilename.title = payload.original_filename || "";
@@ -360,6 +469,53 @@
     downloadButtons.forEach(function (button) {
       button.disabled = false;
     });
+  }
+
+  function openManualEditor() {
+    if (!manualContext || !selectedObjectUrl) return;
+    clearAlert();
+    if (manualOffer) manualOffer.classList.add("d-none");
+    currentResponse = {
+      original_filename:
+        manualContext.original_filename ||
+        (selectedFile && selectedFile.name) ||
+        "statement.pdf",
+      page_count: manualContext.page_count || 0,
+      rows: [],
+      quota: null,
+      downloads: manualContext.manual_downloads || {},
+      manual: true
+    };
+    resultSection.classList.remove("d-none");
+    if (manualPreview) manualPreview.classList.remove("d-none");
+    if (manualPdfFrame) manualPdfFrame.src = selectedObjectUrl;
+    if (resultTitle) resultTitle.textContent = messages.manualLabel;
+    if (resultToolbarTitle) {
+      resultToolbarTitle.textContent =
+        "Type each transaction from the PDF, or add rows and paste values.";
+    }
+    if (resultToolbarCopy) {
+      resultToolbarCopy.textContent =
+        "Manual rows are exported through a signed, one-hour session. The uploaded PDF was already deleted from the server.";
+    }
+    if (resultFilename) {
+      resultFilename.textContent = currentResponse.original_filename;
+    }
+    if (resultBank) resultBank.textContent = messages.manualLabel;
+    if (resultPages) {
+      var pages = currentResponse.page_count;
+      resultPages.textContent =
+        pages + " " + (pages === 1 ? messages.pageLabel : messages.pagesLabel);
+    }
+    if (resultQuota) resultQuota.textContent = formatQuota(null);
+    renderRows([]);
+    downloadButtons.forEach(function (button) {
+      button.disabled = false;
+    });
+    if (addRowButton) addRowButton.focus();
+    if (resultSection.scrollIntoView) {
+      resultSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }
 
   function filenameFromDisposition(disposition, format) {
@@ -402,15 +558,14 @@
 
   function download(format) {
     if (!currentResponse || busy) return;
-    var url =
-      currentResponse.downloads && currentResponse.downloads[format];
+    var url = currentResponse.downloads && currentResponse.downloads[format];
     if (!url) {
       showDownloadStatus(messages.downloadError, true);
       return;
     }
     var rows = getRows();
     if (!rows.length) {
-      showDownloadStatus(messages.empty, true);
+      showDownloadStatus("Add at least one transaction before downloading.", true);
       return;
     }
 
@@ -461,6 +616,11 @@
       });
   }
 
+  if (convertButton) convertButton.addEventListener("click", startUpload);
+  if (inspectButton) inspectButton.addEventListener("click", inspectSelected);
+  if (removeButton) removeButton.addEventListener("click", clearSelection);
+  if (openManualButton) openManualButton.addEventListener("click", openManualEditor);
+
   dropzone.addEventListener("click", function (event) {
     if (busy) return;
     if (event.target === fileInput) return;
@@ -490,11 +650,11 @@
   dropzone.addEventListener("drop", function (event) {
     if (busy) return;
     if (event.dataTransfer && event.dataTransfer.files) {
-      handleFiles(event.dataTransfer.files);
+      chooseFile(event.dataTransfer.files);
     }
   });
   fileInput.addEventListener("change", function () {
-    handleFiles(fileInput.files);
+    chooseFile(fileInput.files);
     fileInput.value = "";
   });
 
@@ -517,5 +677,6 @@
     });
   });
 
+  clearSelection();
   setBusy(false);
 })();
