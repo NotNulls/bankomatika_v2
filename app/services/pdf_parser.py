@@ -815,8 +815,81 @@ def _extract_line_rows(
             pending_date = None
             pending_description = ""
 
+    if not rows and "Rbr" in text and "Odliv" in text and "Priliv" in text:
+        rows = _extract_leading_id_rows(text, page_number, warnings)
+
     if rows:
         warnings.append(f"Used line-based extraction on page {page_number}.")
+    return rows
+
+
+# OTP Banka (and similar) statements place the transaction number, ID and
+# account before two dates, debit/credit columns and the reference.  The dates
+# therefore do not start the line, which the generic parser above cannot see.
+_LEADING_ID_AMOUNT = (
+    r"\(?[-+]?\d{1,3}(?:[ .\u00a0]\d{3})*(?:[.,]\d{2})\)?-?"
+)
+_LEADING_ID_TRANSACTION_RE = re.compile(
+    r"^\s*(?P<rbr>\d{1,4})\s+"
+    r"(?P<id>[A-Z0-9]{5,})\s+"
+    r"(?P<account>\d{8,})\s+"
+    r"(?P<date1>\d{1,2}[./-]\d{1,2}[./-]\d{2,4})\s+"
+    r"(?P<date2>\d{1,2}[./-]\d{1,2}[./-]\d{2,4})\s+"
+    r"(?P<debit>" + _LEADING_ID_AMOUNT + r")\s+"
+    r"(?P<credit>" + _LEADING_ID_AMOUNT + r")"
+    r"(?:\s+(?P<rest>.+))?$",
+    re.IGNORECASE,
+)
+
+
+def _extract_leading_id_rows(
+    text: str, page_number: int, warnings: list[str]
+) -> list[dict[str, Any]]:
+    lines = text.splitlines()
+    rows: list[dict[str, Any]] = []
+    for index, raw_line in enumerate(lines):
+        line = raw_line.replace("\u00a0", " ").strip()
+        match = _LEADING_ID_TRANSACTION_RE.match(line)
+        if not match:
+            continue
+        date_value = normalise_date(match.group("date1"))
+        if not date_value:
+            continue
+        debit = parse_amount(match.group("debit"))
+        credit = parse_amount(match.group("credit"))
+        reference = (match.group("rest") or "").strip()
+        description_lines: list[str] = []
+        cursor = index + 1
+        while cursor < len(lines):
+            next_line = lines[cursor].replace("\u00a0", " ").strip()
+            if not next_line:
+                cursor += 1
+                continue
+            if _LEADING_ID_TRANSACTION_RE.match(next_line):
+                break
+            if re.match(
+                r"^(?:UKUPNO|Ukupno|Strana|Rbr|Prethodno stanje|Novo stanje)\b",
+                next_line,
+                re.IGNORECASE,
+            ):
+                break
+            description_lines.append(next_line)
+            if len(" ".join(description_lines)) > 1800:
+                break
+            cursor += 1
+        description = _clean_description(" ".join(description_lines))
+        if not reference:
+            description, reference = _extract_reference(description)
+        normalised = _row(
+            date_value,
+            description,
+            reference,
+            debit,
+            credit,
+            None,
+        )
+        if normalised:
+            rows.append(normalised)
     return rows
 
 
