@@ -1,0 +1,48 @@
+{% extends "admin/base.html" %}
+{% block title %}Audit log{% endblock %}
+{% block page_title %}Audit log{% endblock %}
+{% block content %}
+<div class="admin-page-head">
+  <div>
+    <div class="admin-breadcrumb"><a href="{{ url_for('admin.index') }}">Admin</a> / Audit</div>
+    <h1>Administrative audit trail</h1>
+    <p>Every plan, quota, status, key and retention change made through the console.</p>
+  </div>
+  <span class="admin-plan-badge">{{ total }} events</span>
+</div>
+
+<section class="admin-card">
+  {% if logs %}
+    <div class="table-responsive">
+      <table class="table admin-table">
+        <thead><tr><th>When</th><th>Admin</th><th>Action</th><th>Target</th><th>Details</th><th>IP hash</th></tr></thead>
+        <tbody>
+          {% for log in logs %}
+            <tr>
+              <td class="text-muted">{{ log.created_at|babel_datetime('medium') }}</td>
+              <td>
+                {% if log.admin_user %}
+                  <a class="admin-link" href="{{ url_for('admin.user_detail', user_id=log.admin_user.id) }}">{{ log.admin_user.email|truncate(28) }}</a>
+                {% else %}<span class="text-muted">Deleted admin</span>{% endif %}
+              </td>
+              <td><span class="admin-audit-action">{{ log.action }}</span></td>
+              <td><span class="admin-mono">{{ log.target_type or '—' }}:{{ log.target_id or '—' }}</span></td>
+              <td class="admin-audit-details">{{ log.details or '—' }}</td>
+              <td><span class="admin-mono">{{ (log.ip_hash or '—')[:12] }}</span></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="admin-pagination">
+      <span>Page {{ page }} of {{ pages }}</span>
+      <nav aria-label="Audit pages"><ul class="pagination">
+        <li class="page-item {% if page <= 1 %}disabled{% endif %}"><a class="page-link" href="{{ url_for('admin.audit', page=page-1) }}">Previous</a></li>
+        <li class="page-item {% if page >= pages %}disabled{% endif %}"><a class="page-link" href="{{ url_for('admin.audit', page=page+1) }}">Next</a></li>
+      </ul></nav>
+    </div>
+  {% else %}
+    <div class="admin-empty"><i class="bi bi-journal-check"></i>No administrative actions recorded yet.</div>
+  {% endif %}
+</section>
+{% endblock %}

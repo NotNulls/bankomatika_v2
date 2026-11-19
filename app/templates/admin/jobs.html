@@ -1,0 +1,67 @@
+{% extends "admin/base.html" %}
+{% block title %}Conversions{% endblock %}
+{% block page_title %}Conversion log{% endblock %}
+{% block content %}
+<div class="admin-page-head">
+  <div>
+    <div class="admin-breadcrumb"><a href="{{ url_for('admin.index') }}">Admin</a> / Conversions</div>
+    <h1>Conversion jobs</h1>
+    <p>{{ total }} job{{ '' if total == 1 else 's' }} matching the current filters. Raw PDFs are never retained.</p>
+  </div>
+</div>
+
+<section class="admin-card">
+  <div class="admin-card-head">
+    <form class="admin-search" method="get" action="{{ url_for('admin.jobs') }}">
+      <input class="form-control" type="search" name="q" value="{{ q }}" placeholder="Search filename">
+      <select class="form-select" name="status" aria-label="Filter by status">
+        <option value="">All statuses</option>
+        <option value="completed" {% if status == 'completed' %}selected{% endif %}>Completed</option>
+        <option value="failed" {% if status == 'failed' %}selected{% endif %}>Failed</option>
+      </select>
+      <button class="btn btn-sm btn-accent" type="submit"><i class="bi bi-search me-1"></i>Filter</button>
+      {% if q or status %}<a class="btn btn-sm btn-link text-muted" href="{{ url_for('admin.jobs') }}">Clear</a>{% endif %}
+    </form>
+  </div>
+
+  {% if jobs %}
+    <div class="table-responsive">
+      <table class="table admin-table">
+        <thead><tr><th>Job</th><th>User</th><th>Bank</th><th>Pages / rows</th><th>Status</th><th>Payload</th><th>Created</th><th></th></tr></thead>
+        <tbody>
+          {% for job in jobs %}
+            <tr>
+              <td><span class="admin-mono">#{{ job.id }} · {{ job.original_filename|truncate(25) }}</span></td>
+              <td>
+                {% if job.user %}<a class="admin-link" href="{{ url_for('admin.user_detail', user_id=job.user.id) }}">{{ job.user.email|truncate(24) }}</a>{% else %}<span class="text-muted">Anonymous</span>{% endif %}
+              </td>
+              <td>{{ job.detected_bank or '—' }}</td>
+              <td>{{ job.page_count }} / {{ job.row_count }}</td>
+              <td><span class="admin-status {{ job.status }}">{{ job.status|title }}</span></td>
+              <td>{% if job.parsed_data_json %}<span class="admin-status active">Retained 1h</span>{% else %}<span class="admin-status disabled">Purged</span>{% endif %}</td>
+              <td class="text-muted">{{ job.created_at|babel_datetime('short') }}</td>
+              <td class="text-end">
+                {% if job.parsed_data_json %}
+                  <form method="post" action="{{ url_for('admin.purge_job', job_id=job.id) }}" data-confirm="Purge this parsed payload immediately?">
+                    <input type="hidden" name="_csrf_token" value="{{ admin_csrf_token() }}">
+                    <button class="btn btn-sm btn-outline-secondary" type="submit">Purge</button>
+                  </form>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="admin-pagination">
+      <span>Page {{ page }} of {{ pages }}</span>
+      <nav aria-label="Job pages"><ul class="pagination">
+        <li class="page-item {% if page <= 1 %}disabled{% endif %}"><a class="page-link" href="{{ url_for('admin.jobs', page=page-1, q=q, status=status) }}">Previous</a></li>
+        <li class="page-item {% if page >= pages %}disabled{% endif %}"><a class="page-link" href="{{ url_for('admin.jobs', page=page+1, q=q, status=status) }}">Next</a></li>
+      </ul></nav>
+    </div>
+  {% else %}
+    <div class="admin-empty"><i class="bi bi-inbox"></i>No conversion jobs match these filters.</div>
+  {% endif %}
+</section>
+{% endblock %}

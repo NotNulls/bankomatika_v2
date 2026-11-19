@@ -1,0 +1,134 @@
+{% extends "admin/base.html" %}
+{% block title %}{{ user.email }}{% endblock %}
+{% block page_title %}User detail{% endblock %}
+{% block content %}
+<div class="admin-page-head">
+  <div>
+    <div class="admin-breadcrumb"><a href="{{ url_for('admin.index') }}">Admin</a> / <a href="{{ url_for('admin.users') }}">Users</a> / {{ user.email|truncate(30) }}</div>
+    <h1>Account management</h1>
+    <p>Change plan, reset quota or review this account’s recent activity.</p>
+  </div>
+  <a href="{{ url_for('admin.users') }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back to users</a>
+</div>
+
+<div class="admin-detail-grid">
+  <div>
+    <section class="admin-card">
+      <div class="admin-profile">
+        <span class="avatar">{{ user.initials }}</span>
+        <div>
+          <h2>{{ user.display_name }} {% if user.is_admin %}<span class="admin-plan-badge business">Admin</span>{% endif %}</h2>
+          <p>{{ user.email }} · Account #{{ user.id }}</p>
+        </div>
+        <div class="ms-auto"><span class="admin-status {{ 'active' if user.is_active else 'disabled' }}">{{ 'Active' if user.is_active else 'Disabled' }}</span></div>
+      </div>
+      <div class="admin-card-body">
+        <div class="admin-detail-list">
+          <div class="admin-detail-row"><span>Plan</span><strong>{{ user.plan_label }}</strong></div>
+          <div class="admin-detail-row"><span>Monthly quota</span><strong>{% if user.is_paid %}{{ user.pages_used_this_cycle }} / {{ user.effective_monthly_quota }} pages{% else %}0 (daily free tier){% endif %}</strong></div>
+          <div class="admin-detail-row"><span>Cycle reset</span><strong>{{ user.cycle_reset_at|babel_datetime('medium') if user.cycle_reset_at else '—' }}</strong></div>
+          <div class="admin-detail-row"><span>API access</span><strong>{{ 'Included' if user.has_api_access else 'Not included' }}</strong></div>
+          <div class="admin-detail-row"><span>Preferred language</span><strong>{{ user.preferred_lang|upper }}</strong></div>
+          <div class="admin-detail-row"><span>Joined</span><strong>{{ user.created_at|babel_datetime('medium') }}</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-card">
+      <div class="admin-card-head">
+        <div><h2>Recent conversions</h2><p>Latest jobs for this account</p></div>
+        <a class="admin-link" href="{{ url_for('admin.jobs') }}?q={{ user.email|urlencode }}">Filter log</a>
+      </div>
+      {% if jobs %}
+        <div class="table-responsive">
+          <table class="table admin-table">
+            <thead><tr><th>File</th><th>Pages</th><th>Rows</th><th>Bank</th><th>Status</th><th>When</th><th></th></tr></thead>
+            <tbody>
+              {% for job in jobs %}
+                <tr>
+                  <td><span class="admin-mono">{{ job.original_filename|truncate(28) }}</span></td>
+                  <td>{{ job.page_count }}</td>
+                  <td>{{ job.row_count }}</td>
+                  <td>{{ job.detected_bank or '—' }}</td>
+                  <td><span class="admin-status {{ job.status }}">{{ job.status|title }}</span></td>
+                  <td class="text-muted">{{ job.created_at|babel_datetime('short') }}</td>
+                  <td class="text-end">
+                    {% if job.parsed_data_json %}
+                      <form method="post" action="{{ url_for('admin.purge_job', job_id=job.id) }}" data-confirm="Purge this parsed payload?">
+                        <input type="hidden" name="_csrf_token" value="{{ admin_csrf_token() }}">
+                        <button class="btn btn-sm btn-outline-secondary" type="submit">Purge</button>
+                      </form>
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="admin-empty"><i class="bi bi-inbox"></i>No conversions for this account.</div>
+      {% endif %}
+    </section>
+  </div>
+
+  <div>
+    <section class="admin-card">
+      <div class="admin-card-head"><div><h2>Plan and quota</h2><p>Use plan changes carefully</p></div></div>
+      <div class="admin-card-body">
+        <form class="admin-form" method="post" action="{{ url_for('admin.update_plan', user_id=user.id) }}" data-confirm="Change this account’s plan? This resets the quota cycle.">
+          <input type="hidden" name="_csrf_token" value="{{ admin_csrf_token() }}">
+          <label class="form-label" for="plan-tier">Plan tier</label>
+          <select class="form-select mb-2" id="plan-tier" name="plan_tier">
+            <option value="free_registered" {% if user.plan_tier == 'free_registered' %}selected{% endif %}>Registered free — 5 pages / 24h</option>
+            <option value="starter_25" {% if user.plan_tier == 'starter_25' %}selected{% endif %}>Starter / Pro — 500 pages / month</option>
+            <option value="business_35" {% if user.plan_tier == 'business_35' %}selected{% endif %}>Business / Enterprise — 2,500 pages / month</option>
+          </select>
+          <button class="btn btn-sm btn-accent w-100" type="submit"><i class="bi bi-check2 me-1"></i>Update plan</button>
+        </form>
+        <hr class="my-3">
+        <form method="post" action="{{ url_for('admin.reset_quota', user_id=user.id) }}" data-confirm="Reset this user’s quota usage and cycle?">
+          <input type="hidden" name="_csrf_token" value="{{ admin_csrf_token() }}">
+          <button class="btn btn-sm btn-outline-secondary w-100" type="submit"><i class="bi bi-arrow-counterclockwise me-1"></i>Reset quota cycle</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="admin-card">
+      <div class="admin-card-head"><div><h2>API keys</h2><p>{{ api_keys|length }} key{{ '' if api_keys|length == 1 else 's' }}</p></div></div>
+      <div class="admin-card-body">
+        {% if api_keys %}
+          {% for key in api_keys %}
+            <div class="admin-key-row">
+              <div><code>{{ key.masked_key }}</code><span>{{ key.name }} · {{ key.created_at|babel_date('short') }}</span></div>
+              <div class="text-end">
+                <span class="admin-status {{ 'active' if key.is_active else 'disabled' }}">{{ 'Active' if key.is_active else 'Revoked' }}</span>
+                {% if key.is_active %}
+                  <form method="post" action="{{ url_for('admin.revoke_api_key', user_id=user.id, key_id=key.id) }}" data-confirm="Revoke this API key?">
+                    <input type="hidden" name="_csrf_token" value="{{ admin_csrf_token() }}">
+                    <button class="btn btn-sm btn-link text-danger p-0 mt-1" type="submit">Revoke</button>
+                  </form>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="text-muted small mb-0">No API keys issued.</p>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="admin-card admin-danger-zone">
+      <div class="admin-card-head"><div><h2>Account access</h2><p>Disable instead of deleting history</p></div></div>
+      <div class="admin-card-body">
+        <form method="post" action="{{ url_for('admin.toggle_active', user_id=user.id) }}" data-confirm="Change this account’s access status?">
+          <input type="hidden" name="_csrf_token" value="{{ admin_csrf_token() }}">
+          <button class="btn btn-sm {{ 'btn-outline-danger' if user.is_active else 'btn-outline-success' }} w-100" type="submit" {% if user.id == current_user.id %}disabled{% endif %}>
+            <i class="bi bi-person-{{ 'slash' if user.is_active else 'check' }} me-1"></i>{{ 'Disable account' if user.is_active else 'Enable account' }}
+          </button>
+          {% if user.id == current_user.id %}<p class="small text-muted mb-0 mt-2">You cannot disable your own account.</p>{% endif %}
+        </form>
+      </div>
+    </section>
+  </div>
+</div>
+{% endblock %}

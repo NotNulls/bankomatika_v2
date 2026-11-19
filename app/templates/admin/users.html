@@ -1,0 +1,79 @@
+{% extends "admin/base.html" %}
+{% block title %}Users{% endblock %}
+{% block page_title %}Users{% endblock %}
+{% block content %}
+<div class="admin-page-head">
+  <div>
+    <div class="admin-breadcrumb"><a href="{{ url_for('admin.index') }}">Admin</a> / Users</div>
+    <h1>User accounts</h1>
+    <p>{{ total }} account{{ '' if total == 1 else 's' }} matching the current filters.</p>
+  </div>
+  <a href="{{ url_for('admin.audit') }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-journal-check me-1"></i>Audit log</a>
+</div>
+
+<section class="admin-card">
+  <div class="admin-card-head">
+    <form class="admin-search" method="get" action="{{ url_for('admin.users') }}">
+      <input class="form-control" type="search" name="q" value="{{ q }}" placeholder="Search email or name">
+      <select class="form-select" name="plan" aria-label="Filter by plan">
+        <option value="">All plans</option>
+        <option value="free_registered" {% if plan == 'free_registered' %}selected{% endif %}>Registered free</option>
+        <option value="starter_25" {% if plan == 'starter_25' %}selected{% endif %}>Starter / Pro</option>
+        <option value="business_35" {% if plan == 'business_35' %}selected{% endif %}>Business / Enterprise</option>
+      </select>
+      <select class="form-select" name="status" aria-label="Filter by status">
+        <option value="">All statuses</option>
+        <option value="active" {% if status == 'active' %}selected{% endif %}>Active</option>
+        <option value="disabled" {% if status == 'disabled' %}selected{% endif %}>Disabled</option>
+      </select>
+      <button class="btn btn-sm btn-accent" type="submit"><i class="bi bi-search me-1"></i>Filter</button>
+      {% if q or plan or status %}<a class="btn btn-sm btn-link text-muted" href="{{ url_for('admin.users') }}">Clear</a>{% endif %}
+    </form>
+  </div>
+
+  {% if users %}
+    <div class="table-responsive">
+      <table class="table admin-table">
+        <thead>
+          <tr><th>Account</th><th>Plan</th><th>Quota</th><th>Status</th><th>API</th><th>Joined</th><th></th></tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+            <tr>
+              <td>
+                <div class="admin-user-cell">
+                  <span class="avatar">{{ user.initials }}</span>
+                  <div><strong>{{ user.display_name|truncate(26) }}</strong><span>{{ user.email|truncate(34) }}</span></div>
+                </div>
+              </td>
+              <td><span class="admin-plan-badge {% if user.plan_tier == 'business_35' %}business{% elif user.is_paid %}paid{% endif %}">{{ user.plan_label }}</span></td>
+              <td>
+                {% if user.is_paid %}
+                  {{ user.pages_used_this_cycle }} / {{ user.effective_monthly_quota }}
+                {% else %}
+                  <span class="text-muted">Daily free tier</span>
+                {% endif %}
+              </td>
+              <td><span class="admin-status {{ 'active' if user.is_active else 'disabled' }}">{{ 'Active' if user.is_active else 'Disabled' }}</span></td>
+              <td><span class="admin-plan-badge">{{ 'Yes' if user.has_api_access else '—' }}</span></td>
+              <td class="text-muted">{{ user.created_at|babel_date('short') }}</td>
+              <td class="text-end"><a class="btn btn-sm btn-outline-secondary" href="{{ url_for('admin.user_detail', user_id=user.id) }}">Manage</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="admin-pagination">
+      <span>Page {{ page }} of {{ pages }}</span>
+      <nav aria-label="User pages">
+        <ul class="pagination">
+          <li class="page-item {% if page <= 1 %}disabled{% endif %}"><a class="page-link" href="{{ url_for('admin.users', page=page-1, q=q, plan=plan, status=status) }}">Previous</a></li>
+          <li class="page-item {% if page >= pages %}disabled{% endif %}"><a class="page-link" href="{{ url_for('admin.users', page=page+1, q=q, plan=plan, status=status) }}">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+  {% else %}
+    <div class="admin-empty"><i class="bi bi-people"></i>No users match these filters.</div>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends "admin/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block content %}
+<div class="admin-page-head">
+  <div>
+    <div class="admin-breadcrumb">Admin / Overview</div>
+    <h1>Operations dashboard</h1>
+    <p>Live view of accounts, statement volume and recent administrative activity.</p>
+  </div>
+  <div class="d-flex gap-2">
+    <a href="{{ url_for('admin.users') }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-people me-1"></i>Manage users</a>
+    <a href="{{ url_for('admin.jobs') }}" class="btn btn-sm btn-accent"><i class="bi bi-files me-1"></i>Conversion log</a>
+  </div>
+</div>
+
+<div class="admin-stat-grid">
+  <div class="admin-stat"><i class="bi bi-people"></i><strong>{{ total_users }}</strong><span>Total users</span></div>
+  <div class="admin-stat"><i class="bi bi-gem"></i><strong>{{ paid_users }}</strong><span>Paid accounts</span></div>
+  <div class="admin-stat"><i class="bi bi-key"></i><strong>{{ active_keys }}</strong><span>Active API keys</span></div>
+  <div class="admin-stat"><i class="bi bi-files"></i><strong>{{ jobs_24h }}</strong><span>Conversions / 24h</span></div>
+  <div class="admin-stat"><i class="bi bi-file-earmark-text"></i><strong>{{ pages_24h }}</strong><span>Pages / 24h</span></div>
+  <div class="admin-stat {% if failed_jobs %}alert-stat{% endif %}"><i class="bi bi-exclamation-triangle"></i><strong>{{ failed_jobs }}</strong><span>Failed jobs</span></div>
+</div>
+
+<div class="admin-grid">
+  <div>
+    <section class="admin-card">
+      <div class="admin-card-head">
+        <div><h2>Recent conversions</h2><p>Latest statements processed by the platform</p></div>
+        <a class="admin-link" href="{{ url_for('admin.jobs') }}">View all <i class="bi bi-arrow-right"></i></a>
+      </div>
+      {% if recent_jobs %}
+        <div class="table-responsive">
+          <table class="table admin-table">
+            <thead><tr><th>Statement</th><th>User</th><th>Pages</th><th>Bank</th><th>Status</th><th>When</th></tr></thead>
+            <tbody>
+              {% for job in recent_jobs %}
+                <tr>
+                  <td><span class="admin-mono">{{ job.original_filename|truncate(30) }}</span></td>
+                  <td>
+                    {% if job.user %}
+                      <a class="admin-link" href="{{ url_for('admin.user_detail', user_id=job.user.id) }}">{{ job.user.email|truncate(25) }}</a>
+                    {% else %}<span class="text-muted">Anonymous</span>{% endif %}
+                  </td>
+                  <td>{{ job.page_count }}</td>
+                  <td>{{ job.detected_bank or '—' }}</td>
+                  <td><span class="admin-status {{ job.status }}">{{ job.status|title }}</span></td>
+                  <td class="text-muted">{{ job.created_at|babel_datetime('short') }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="admin-empty"><i class="bi bi-inbox"></i>No conversions yet.</div>
+      {% endif %}
+    </section>
+
+    <section class="admin-card">
+      <div class="admin-card-head">
+        <div><h2>Recent audit activity</h2><p>Changes made through the admin console</p></div>
+        <a class="admin-link" href="{{ url_for('admin.audit') }}">Open audit log <i class="bi bi-arrow-right"></i></a>
+      </div>
+      {% if recent_audit %}
+        <div class="table-responsive">
+          <table class="table admin-table">
+            <thead><tr><th>Action</th><th>Admin</th><th>Target</th><th>Details</th><th>When</th></tr></thead>
+            <tbody>
+              {% for log in recent_audit %}
+                <tr>
+                  <td><span class="admin-audit-action">{{ log.action }}</span></td>
+                  <td>{{ log.admin_user.email if log.admin_user else 'System' }}</td>
+                  <td><span class="admin-mono">{{ log.target_type }}:{{ log.target_id }}</span></td>
+                  <td class="admin-audit-details">{{ (log.details or '—')|truncate(42) }}</td>
+                  <td class="text-muted">{{ log.created_at|babel_datetime('short') }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="admin-empty"><i class="bi bi-journal"></i>No admin actions recorded yet.</div>
+      {% endif %}
+    </section>
+  </div>
+
+  <div>
+    <section class="admin-card">
+      <div class="admin-card-head">
+        <div><h2>Newest accounts</h2><p>Latest registrations</p></div>
+        <a class="admin-link" href="{{ url_for('admin.users') }}">All users</a>
+      </div>
+      <div class="admin-card-body">
+        {% if recent_users %}
+          {% for user in recent_users %}
+            <div class="admin-key-row">
+              <div class="admin-user-cell">
+                <span class="avatar">{{ user.initials }}</span>
+                <div>
+                  <strong><a class="admin-link" href="{{ url_for('admin.user_detail', user_id=user.id) }}">{{ user.display_name|truncate(22) }}</a></strong>
+                  <span>{{ user.email|truncate(28) }}</span>
+                </div>
+              </div>
+              <span class="admin-plan-badge {{ 'paid' if user.is_paid else '' }}">{{ user.plan_label }}</span>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="text-muted small mb-0">No users yet.</p>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="admin-card">
+      <div class="admin-card-head"><div><h2>Quick actions</h2><p>Common support workflows</p></div></div>
+      <div class="admin-card-body d-grid gap-2">
+        <a href="{{ url_for('admin.users') }}?status=disabled" class="btn btn-sm btn-outline-secondary text-start"><i class="bi bi-person-slash me-2"></i>Review disabled accounts</a>
+        <a href="{{ url_for('admin.jobs') }}?status=failed" class="btn btn-sm btn-outline-secondary text-start"><i class="bi bi-exclamation-triangle me-2"></i>Investigate failed conversions</a>
+        <a href="{{ url_for('admin.users') }}?plan=business_35" class="btn btn-sm btn-outline-secondary text-start"><i class="bi bi-building me-2"></i>Business / Enterprise accounts</a>
+        <a href="{{ url_for('admin.audit') }}" class="btn btn-sm btn-outline-secondary text-start"><i class="bi bi-journal-check me-2"></i>Review admin audit trail</a>
+      </div>
+    </section>
+
+    <section class="admin-card">
+      <div class="admin-card-head"><div><h2>Security reminder</h2><p>Admin actions are recorded</p></div></div>
+      <div class="admin-card-body">
+        <p class="small text-muted mb-2">Admin pages are protected by a session CSRF token and role check. Uploaded PDFs are never retained, and parsed payloads expire after one hour.</p>
+        <span class="admin-plan-badge">Zero-retention pipeline</span>
+      </div>
+    </section>
+  </div>
+</div>
+{% endblock %}
