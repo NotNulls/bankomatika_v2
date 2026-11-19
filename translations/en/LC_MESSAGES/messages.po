@@ -1,0 +1,2742 @@
+# English translations for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-11-18 18:05+0100\n"
+"PO-Revision-Date: 2026-11-18 18:05+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: app/blueprints/auth/routes.py:48
+msgid "Incorrect email or password. Please try again."
+msgstr "Incorrect email or password. Please try again."
+
+#: app/blueprints/auth/routes.py:61
+#, python-format
+msgid "Welcome back, %(name)s."
+msgstr "Welcome back, %(name)s."
+
+#: app/blueprints/auth/routes.py:87
+msgid "Please enter your full name."
+msgstr "Please enter your full name."
+
+#: app/blueprints/auth/routes.py:89
+msgid "Please enter a valid email address."
+msgstr "Please enter a valid email address."
+
+#: app/blueprints/auth/routes.py:92
+#, python-format
+msgid "Your password must be at least %(count)s characters."
+msgstr "Your password must be at least %(count)s characters."
+
+#: app/blueprints/auth/routes.py:95
+msgid "The passwords do not match."
+msgstr "The passwords do not match."
+
+#: app/blueprints/auth/routes.py:97 app/blueprints/auth/routes.py:126
+msgid "An account with this email already exists."
+msgstr "An account with this email already exists."
+
+#: app/blueprints/auth/routes.py:133
+msgid "Your free account is ready. You now have 5 pages every 24 hours."
+msgstr "Your free account is ready. You now have 5 pages every 24 hours."
+
+#: app/blueprints/auth/routes.py:149
+msgid "You have been signed out."
+msgstr "You have been signed out."
+
+#: app/blueprints/converter/routes.py:58
+msgid ""
+"Your conversion quota has been reached. Create a free account for 5 pages"
+" per day or upgrade for more."
+msgstr ""
+"Your conversion quota has been reached. Create a free account for 5 pages"
+" per day or upgrade for more."
+
+#: app/blueprints/dashboard/routes.py:86
+msgid "API access is available on the Business / Enterprise plan."
+msgstr "API access is available on the Business / Enterprise plan."
+
+#: app/blueprints/dashboard/routes.py:96
+msgid "You can have at most five active API keys. Revoke one first."
+msgstr "You can have at most five active API keys. Revoke one first."
+
+#: app/blueprints/dashboard/routes.py:104
+msgid "Your new API key has been created. Copy it now — it is shown only once."
+msgstr "Your new API key has been created. Copy it now — it is shown only once."
+
+#: app/blueprints/dashboard/routes.py:113
+msgid "API key not found."
+msgstr "API key not found."
+
+#: app/blueprints/dashboard/routes.py:117
+msgid "API key revoked."
+msgstr "API key revoked."
+
+#: app/blueprints/main/routes.py:72
+msgid "Thanks — our enterprise team will be in touch."
+msgstr "Thanks — our enterprise team will be in touch."
+
+#: app/blueprints/main/routes.py:75
+msgid "Please complete your name, a valid email and a message."
+msgstr "Please complete your name, a valid email and a message."
+
+#: app/blueprints/main/routes.py:84
+msgid "Thanks — our enterprise team will be in touch within one business day."
+msgstr "Thanks — our enterprise team will be in touch within one business day."
+
+#: app/templates/base.html:8
+msgid ""
+"Convert PDF bank statements from thousands of banks into clean, editable "
+"Excel and CSV files. Secure, accurate and fast."
+msgstr ""
+"Convert PDF bank statements from thousands of banks into clean, editable "
+"Excel and CSV files. Secure, accurate and fast."
+
+#: app/templates/base.html:20
+msgid "Skip to content"
+msgstr "Skip to content"
+
+#: app/templates/base.html:22
+msgid "Main navigation"
+msgstr "Main navigation"
+
+#: app/templates/base.html:28
+msgid "PDF to Excel, bank-grade"
+msgstr "PDF to Excel, bank-grade"
+
+#: app/templates/base.html:31
+msgid "Toggle navigation"
+msgstr "Toggle navigation"
+
+#: app/templates/base.html:37
+msgid "Converter"
+msgstr "Converter"
+
+#: app/templates/base.html:40 app/templates/base.html:128
+#: app/templates/main/pricing.html:9
+msgid "Pricing"
+msgstr "Pricing"
+
+#: app/templates/base.html:43
+msgid "API"
+msgstr "API"
+
+#: app/templates/base.html:46
+msgid "About"
+msgstr "About"
+
+#: app/templates/base.html:51
+msgid "Choose language"
+msgstr "Choose language"
+
+#: app/templates/base.html:71
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: app/templates/base.html:73 app/templates/dashboard/index.html:187
+#: app/templates/main/api_docs.html:46
+msgid "API keys"
+msgstr "API keys"
+
+#: app/templates/base.html:78
+msgid "Sign out"
+msgstr "Sign out"
+
+#: app/templates/auth/login.html:33 app/templates/auth/login.html:54
+#: app/templates/auth/register.html:36 app/templates/base.html:84
+msgid "Sign in"
+msgstr "Sign in"
+
+#: app/templates/base.html:85
+msgid "Start free"
+msgstr "Start free"
+
+#: app/templates/base.html:99
+msgid "Close"
+msgstr "Close"
+
+#: app/templates/base.html:118
+msgid ""
+"Bank-grade PDF statement conversion for accountants, finance teams and "
+"legal professionals."
+msgstr ""
+"Bank-grade PDF statement conversion for accountants, finance teams and "
+"legal professionals."
+
+#: app/templates/base.html:120
+msgid "256-bit TLS"
+msgstr "256-bit TLS"
+
+#: app/templates/base.html:121
+msgid "Instant file deletion"
+msgstr "Instant file deletion"
+
+#: app/templates/base.html:125
+msgid "Product"
+msgstr "Product"
+
+#: app/templates/base.html:127
+msgid "PDF converter"
+msgstr "PDF converter"
+
+#: app/templates/base.html:129
+msgid "API documentation"
+msgstr "API documentation"
+
+#: app/templates/base.html:130 app/templates/main/index.html:215
+msgid "Supported banks"
+msgstr "Supported banks"
+
+#: app/templates/base.html:134 app/templates/main/contact.html:57
+#: app/templates/main/pricing.html:175
+msgid "Company"
+msgstr "Company"
+
+#: app/templates/base.html:136 app/templates/main/about.html:11
+msgid "About us"
+msgstr "About us"
+
+#: app/templates/base.html:137
+msgid "Contact sales"
+msgstr "Contact sales"
+
+#: app/templates/base.html:138
+msgid "Terms of service"
+msgstr "Terms of service"
+
+#: app/templates/base.html:139
+msgid "Privacy policy"
+msgstr "Privacy policy"
+
+#: app/templates/base.html:143
+msgid "Security & compliance"
+msgstr "Security & compliance"
+
+#: app/templates/base.html:145
+msgid "Encrypted in transit with TLS 1.3 where supported."
+msgstr "Encrypted in transit with TLS 1.3 where supported."
+
+#: app/templates/base.html:146 app/templates/dashboard/index.html:251
+msgid "Uploaded PDFs are deleted immediately after parsing."
+msgstr "Uploaded PDFs are deleted immediately after parsing."
+
+#: app/templates/base.html:147
+msgid "Preview data is automatically purged after one hour."
+msgstr "Preview data is automatically purged after one hour."
+
+#: app/templates/base.html:153
+msgid "All rights reserved."
+msgstr "All rights reserved."
+
+#: app/templates/base.html:154
+msgid "Built for finance professionals worldwide."
+msgstr "Built for finance professionals worldwide."
+
+#: app/templates/auth/login.html:2
+msgid "Sign in — Bank Statement Converter"
+msgstr "Sign in — Bank Statement Converter"
+
+#: app/templates/auth/login.html:3
+msgid ""
+"Sign in to your Bank Statement Converter account to manage conversions, "
+"quotas and API keys."
+msgstr ""
+"Sign in to your Bank Statement Converter account to manage conversions, "
+"quotas and API keys."
+
+#: app/templates/auth/login.html:17
+msgid "Welcome back"
+msgstr "Welcome back"
+
+#: app/templates/auth/login.html:18
+msgid "Pick up where you left off and keep your statement workflow moving."
+msgstr "Pick up where you left off and keep your statement workflow moving."
+
+#: app/templates/auth/login.html:20 app/templates/main/index.html:323
+msgid "5 pages every 24 hours"
+msgstr "5 pages every 24 hours"
+
+#: app/templates/auth/login.html:20
+msgid "on the free registered plan"
+msgstr "on the free registered plan"
+
+#: app/templates/auth/login.html:21 app/templates/auth/register.html:26
+#: app/templates/dashboard/index.html:92 app/templates/main/index.html:324
+#: app/templates/main/pricing.html:49 app/templates/main/pricing.html:130
+msgid "Conversion history"
+msgstr "Conversion history"
+
+#: app/templates/auth/login.html:21
+msgid "for every statement you process"
+msgstr "for every statement you process"
+
+#: app/templates/auth/login.html:22 app/templates/main/pricing.html:95
+msgid "API key manager"
+msgstr "API key manager"
+
+#: app/templates/auth/login.html:22
+msgid "for Business / Enterprise accounts"
+msgstr "for Business / Enterprise accounts"
+
+#: app/templates/auth/login.html:26
+msgid "Your documents are deleted immediately after parsing."
+msgstr "Your documents are deleted immediately after parsing."
+
+#: app/templates/auth/login.html:34
+msgid "Access your workspace"
+msgstr "Access your workspace"
+
+#: app/templates/auth/login.html:35
+msgid "New here?"
+msgstr "New here?"
+
+#: app/templates/auth/login.html:35
+msgid "Create a free account"
+msgstr "Create a free account"
+
+#: app/templates/auth/login.html:40
+msgid "Email address"
+msgstr "Email address"
+
+#: app/templates/auth/login.html:45 app/templates/auth/register.html:50
+msgid "Password"
+msgstr "Password"
+
+#: app/templates/auth/login.html:46
+msgid "Password help"
+msgstr "Password help"
+
+#: app/templates/auth/login.html:46
+msgid "Forgot password?"
+msgstr "Forgot password?"
+
+#: app/templates/auth/login.html:52
+msgid "Keep me signed in for 14 days"
+msgstr "Keep me signed in for 14 days"
+
+#: app/templates/auth/login.html:58
+msgid "Demo accounts (development)"
+msgstr "Demo accounts (development)"
+
+#: app/templates/auth/login.html:59 app/templates/main/index.html:338
+#: app/templates/main/pricing.html:67 app/templates/main/pricing.html:122
+msgid "Starter / Pro"
+msgstr "Starter / Pro"
+
+#: app/templates/auth/login.html:60 app/templates/main/index.html:353
+#: app/templates/main/pricing.html:87
+msgid "Business / Enterprise"
+msgstr "Business / Enterprise"
+
+#: app/templates/auth/register.html:2
+msgid "Create a free account — Bank Statement Converter"
+msgstr "Create a free account — Bank Statement Converter"
+
+#: app/templates/auth/register.html:3
+msgid ""
+"Register free and convert 5 PDF bank statement pages every 24 hours with "
+"editable Excel and CSV exports and conversion history."
+msgstr ""
+"Register free and convert 5 PDF bank statement pages every 24 hours with "
+"editable Excel and CSV exports and conversion history."
+
+#: app/templates/auth/register.html:17
+msgid "Free forever"
+msgstr "Free forever"
+
+#: app/templates/auth/register.html:18
+msgid "More pages. Less retyping."
+msgstr "More pages. Less retyping."
+
+#: app/templates/auth/register.html:19
+msgid ""
+"Create an account and unlock 5 statement pages every 24 hours — no card, "
+"no commitment."
+msgstr ""
+"Create an account and unlock 5 statement pages every 24 hours — no card, "
+"no commitment."
+
+#: app/templates/auth/register.html:22 app/templates/main/pricing.html:46
+msgid "pages every 24 hours"
+msgstr "pages every 24 hours"
+
+#: app/templates/auth/register.html:25 app/templates/main/index.html:22
+#: app/templates/main/index.html:325 app/templates/main/pricing.html:129
+msgid "Editable preview"
+msgstr "Editable preview"
+
+#: app/templates/auth/register.html:25
+msgid "review every transaction before download"
+msgstr "review every transaction before download"
+
+#: app/templates/auth/register.html:26
+msgid "find recent downloads in one place"
+msgstr "find recent downloads in one place"
+
+#: app/templates/auth/register.html:27 app/templates/main/index.html:271
+msgid "Instant deletion"
+msgstr "Instant deletion"
+
+#: app/templates/auth/register.html:27
+msgid "bank-grade zero-retention processing"
+msgstr "bank-grade zero-retention processing"
+
+#: app/templates/auth/register.html:34
+msgid "Get started"
+msgstr "Get started"
+
+#: app/templates/auth/register.html:35
+msgid "Create your free account"
+msgstr "Create your free account"
+
+#: app/templates/auth/register.html:36
+msgid "Already registered?"
+msgstr "Already registered?"
+
+#: app/templates/auth/register.html:41 app/templates/main/contact.html:49
+#: app/templates/main/pricing.html:167
+msgid "Full name"
+msgstr "Full name"
+
+#: app/templates/auth/register.html:42 app/templates/main/pricing.html:168
+msgid "Ana Petrović"
+msgstr "Ana Petrović"
+
+#: app/templates/auth/register.html:45 app/templates/main/contact.html:53
+#: app/templates/main/pricing.html:171
+msgid "Work email"
+msgstr "Work email"
+
+#: app/templates/auth/register.html:52
+msgid "At least 8 characters."
+msgstr "At least 8 characters."
+
+#: app/templates/auth/register.html:55
+msgid "Confirm password"
+msgstr "Confirm password"
+
+#: app/templates/auth/register.html:62
+msgid "I agree to the"
+msgstr "I agree to the"
+
+#: app/templates/auth/register.html:62 app/templates/main/terms.html:10
+msgid "Terms of Service"
+msgstr "Terms of Service"
+
+#: app/templates/auth/register.html:62
+msgid "and"
+msgstr "and"
+
+#: app/templates/auth/register.html:62 app/templates/main/privacy.html:10
+msgid "Privacy Policy"
+msgstr "Privacy Policy"
+
+#: app/templates/auth/register.html:65 app/templates/main/index.html:330
+#: app/templates/main/pricing.html:57
+msgid "Create free account"
+msgstr "Create free account"
+
+#: app/templates/auth/register.html:66
+msgid "No credit card. Upgrade only when you need more."
+msgstr "No credit card. Upgrade only when you need more."
+
+#: app/templates/dashboard/index.html:2
+msgid "Dashboard — Bank Statement Converter"
+msgstr "Dashboard — Bank Statement Converter"
+
+#: app/templates/dashboard/index.html:3
+msgid "Manage your statement conversions, page quota, history and API keys."
+msgstr "Manage your statement conversions, page quota, history and API keys."
+
+#: app/templates/dashboard/index.html:11
+msgid "Workspace"
+msgstr "Workspace"
+
+#: app/templates/dashboard/index.html:12
+#, python-format
+msgid "Welcome, %(name)s"
+msgstr "Welcome, %(name)s"
+
+#: app/templates/dashboard/index.html:13
+msgid "Convert statements, track usage and manage your integration."
+msgstr "Convert statements, track usage and manage your integration."
+
+#: app/templates/dashboard/index.html:16
+msgid "New conversion"
+msgstr "New conversion"
+
+#: app/templates/dashboard/index.html:18
+msgid "API docs"
+msgstr "API docs"
+
+#: app/templates/dashboard/index.html:31
+msgid "Page quota"
+msgstr "Page quota"
+
+#: app/templates/dashboard/index.html:34
+#, python-format
+msgid "Monthly allowance for your %(plan)s plan"
+msgstr "Monthly allowance for your %(plan)s plan"
+
+#: app/templates/dashboard/index.html:36
+msgid "Rolling 24-hour free allowance"
+msgstr "Rolling 24-hour free allowance"
+
+#: app/templates/dashboard/index.html:44
+msgid "pages remaining"
+msgstr "pages remaining"
+
+#: app/templates/dashboard/index.html:45
+msgid "used"
+msgstr "used"
+
+#: app/templates/dashboard/index.html:45
+msgid "total"
+msgstr "total"
+
+#: app/templates/dashboard/index.html:48
+msgid "Resets"
+msgstr "Resets"
+
+#: app/templates/dashboard/index.html:52
+msgid "Quota used"
+msgstr "Quota used"
+
+#: app/templates/dashboard/index.html:56
+#, python-format
+msgid "%(percent)s%% of this allowance used"
+msgstr "%(percent)s%% of this allowance used"
+
+#: app/templates/dashboard/index.html:58
+msgid "Need more pages? Upgrade"
+msgstr "Need more pages? Upgrade"
+
+#: app/templates/dashboard/index.html:60
+msgid "Increase your quota"
+msgstr "Increase your quota"
+
+#: app/templates/dashboard/index.html:70
+msgid "conversions"
+msgstr "conversions"
+
+#: app/templates/dashboard/index.html:77
+msgid "pages processed"
+msgstr "pages processed"
+
+#: app/templates/dashboard/index.html:84
+msgid "transactions extracted"
+msgstr "transactions extracted"
+
+#: app/templates/dashboard/index.html:93
+msgid "Downloads remain available while the one-hour preview is retained."
+msgstr "Downloads remain available while the one-hour preview is retained."
+
+#: app/templates/dashboard/index.html:95
+msgid "Convert another"
+msgstr "Convert another"
+
+#: app/templates/dashboard/index.html:102
+msgid "Statement"
+msgstr "Statement"
+
+#: app/templates/dashboard/index.html:103
+msgid "Details"
+msgstr "Details"
+
+#: app/templates/dashboard/index.html:104 app/templates/main/index.html:108
+msgid "Date"
+msgstr "Date"
+
+#: app/templates/dashboard/index.html:105 app/templates/main/api_docs.html:157
+msgid "Status"
+msgstr "Status"
+
+#: app/templates/dashboard/index.html:106
+#: app/templates/dashboard/index.html:134
+msgid "Download"
+msgstr "Download"
+
+#: app/templates/dashboard/index.html:118
+msgid "Unknown bank"
+msgstr "Unknown bank"
+
+#: app/templates/dashboard/index.html:122 app/templates/main/index.html:48
+msgid "pages"
+msgstr "pages"
+
+#: app/templates/dashboard/index.html:122
+msgid "rows"
+msgstr "rows"
+
+#: app/templates/dashboard/index.html:126
+msgid "Completed"
+msgstr "Completed"
+
+#: app/templates/dashboard/index.html:128
+msgid "Failed"
+msgstr "Failed"
+
+#: app/templates/dashboard/index.html:141
+msgid "Expired"
+msgstr "Expired"
+
+#: app/templates/dashboard/index.html:152
+msgid "No conversions yet"
+msgstr "No conversions yet"
+
+#: app/templates/dashboard/index.html:153
+msgid "Upload a PDF bank statement to see it here."
+msgstr "Upload a PDF bank statement to see it here."
+
+#: app/templates/dashboard/index.html:154
+msgid "Convert your first statement"
+msgstr "Convert your first statement"
+
+#: app/templates/dashboard/index.html:164
+msgid "Your plan"
+msgstr "Your plan"
+
+#: app/templates/dashboard/index.html:165
+msgid "Membership and cycle"
+msgstr "Membership and cycle"
+
+#: app/templates/dashboard/index.html:170
+msgid "Plan tier"
+msgstr "Plan tier"
+
+#: app/templates/dashboard/index.html:171
+msgid "Monthly quota"
+msgstr "Monthly quota"
+
+#: app/templates/dashboard/index.html:172
+msgid "Daily allowance"
+msgstr "Daily allowance"
+
+#: app/templates/dashboard/index.html:173
+msgid "Cycle resets"
+msgstr "Cycle resets"
+
+#: app/templates/dashboard/index.html:173
+msgid "Rolling 24h"
+msgstr "Rolling 24h"
+
+#: app/templates/dashboard/index.html:174
+msgid "API access"
+msgstr "API access"
+
+#: app/templates/dashboard/index.html:174
+msgid "Included"
+msgstr "Included"
+
+#: app/templates/dashboard/index.html:174
+msgid "Not included"
+msgstr "Not included"
+
+#: app/templates/dashboard/index.html:175
+msgid "Member since"
+msgstr "Member since"
+
+#: app/templates/dashboard/index.html:178
+msgid "Upgrade plan"
+msgstr "Upgrade plan"
+
+#: app/templates/dashboard/index.html:180
+msgid "Add API access"
+msgstr "Add API access"
+
+#: app/templates/dashboard/index.html:188
+msgid "Programmatic statement conversion"
+msgstr "Programmatic statement conversion"
+
+#: app/templates/dashboard/index.html:196
+msgid "Copy your new key now"
+msgstr "Copy your new key now"
+
+#: app/templates/dashboard/index.html:197
+msgid "For security, this key will not be shown again."
+msgstr "For security, this key will not be shown again."
+
+#: app/templates/dashboard/index.html:199
+msgid "New API key"
+msgstr "New API key"
+
+#: app/templates/dashboard/index.html:200
+msgid "Copy"
+msgstr "Copy"
+
+#: app/templates/dashboard/index.html:206
+msgid "Create a new key"
+msgstr "Create a new key"
+
+#: app/templates/dashboard/index.html:208
+msgid "e.g. Production integration"
+msgstr "e.g. Production integration"
+
+#: app/templates/dashboard/index.html:209
+msgid "Create"
+msgstr "Create"
+
+#: app/templates/dashboard/index.html:219
+msgid "Created"
+msgstr "Created"
+
+#: app/templates/dashboard/index.html:220
+msgid "Last used"
+msgstr "Last used"
+
+#: app/templates/dashboard/index.html:220
+msgid "Never"
+msgstr "Never"
+
+#: app/templates/dashboard/index.html:224
+msgid "Active"
+msgstr "Active"
+
+#: app/templates/dashboard/index.html:225
+msgid "Revoke this API key? Applications using it will stop working immediately."
+msgstr "Revoke this API key? Applications using it will stop working immediately."
+
+#: app/templates/dashboard/index.html:226
+msgid "Revoke"
+msgstr "Revoke"
+
+#: app/templates/dashboard/index.html:229
+msgid "Revoked"
+msgstr "Revoked"
+
+#: app/templates/dashboard/index.html:236
+msgid "No API keys yet. Create one to start integrating."
+msgstr "No API keys yet. Create one to start integrating."
+
+#: app/templates/dashboard/index.html:238
+msgid "Read the API documentation"
+msgstr "Read the API documentation"
+
+#: app/templates/dashboard/index.html:242
+msgid "Unlock the REST API"
+msgstr "Unlock the REST API"
+
+#: app/templates/dashboard/index.html:243
+msgid ""
+"Business / Enterprise includes API keys, 2,500+ pages per month and "
+"custom bank formats."
+msgstr ""
+"Business / Enterprise includes API keys, 2,500+ pages per month and "
+"custom bank formats."
+
+#: app/templates/dashboard/index.html:244
+msgid "Explore Business"
+msgstr "Explore Business"
+
+#: app/templates/dashboard/index.html:251 app/templates/main/index.html:266
+msgid "Zero-retention processing"
+msgstr "Zero-retention processing"
+
+#: app/templates/errors/400.html:2
+msgid "Request error — Bank Statement Converter"
+msgstr "Request error — Bank Statement Converter"
+
+#: app/templates/errors/400.html:9
+msgid "That request could not be processed"
+msgstr "That request could not be processed"
+
+#: app/templates/errors/400.html:10
+msgid "Please go back, check the information and try again."
+msgstr "Please go back, check the information and try again."
+
+#: app/templates/errors/400.html:11 app/templates/errors/404.html:12
+msgid "Back to the converter"
+msgstr "Back to the converter"
+
+#: app/templates/errors/404.html:2
+msgid "Page not found — Bank Statement Converter"
+msgstr "Page not found — Bank Statement Converter"
+
+#: app/templates/errors/404.html:9
+msgid "This page has moved or never existed"
+msgstr "This page has moved or never existed"
+
+#: app/templates/errors/404.html:10
+msgid "Check the address, or head back to the converter and upload a statement."
+msgstr "Check the address, or head back to the converter and upload a statement."
+
+#: app/templates/errors/404.html:13
+msgid "View pricing"
+msgstr "View pricing"
+
+#: app/templates/errors/413.html:2
+msgid "File too large — Bank Statement Converter"
+msgstr "File too large — Bank Statement Converter"
+
+#: app/templates/errors/413.html:9
+msgid "That PDF is too large"
+msgstr "That PDF is too large"
+
+#: app/templates/errors/413.html:10
+msgid ""
+"The maximum upload size is 25 MB. Try compressing the statement or "
+"splitting it into smaller files."
+msgstr ""
+"The maximum upload size is 25 MB. Try compressing the statement or "
+"splitting it into smaller files."
+
+#: app/templates/errors/413.html:11
+msgid "Choose another PDF"
+msgstr "Choose another PDF"
+
+#: app/templates/errors/429.html:2
+msgid "Quota reached — Bank Statement Converter"
+msgstr "Quota reached — Bank Statement Converter"
+
+#: app/templates/errors/429.html:9
+msgid "You have reached your page allowance"
+msgstr "You have reached your page allowance"
+
+#: app/templates/errors/429.html:13
+msgid "pages used"
+msgstr "pages used"
+
+#: app/templates/errors/429.html:14
+msgid "page limit"
+msgstr "page limit"
+
+#: app/templates/errors/429.html:15
+msgid "remaining"
+msgstr "remaining"
+
+#: app/templates/errors/429.html:17
+msgid "Your allowance refreshes on"
+msgstr "Your allowance refreshes on"
+
+#: app/templates/errors/429.html:19
+msgid "Too many requests have been made. Please wait a moment and try again."
+msgstr "Too many requests have been made. Please wait a moment and try again."
+
+#: app/templates/errors/429.html:23
+msgid "Create a free account for 5 pages/day"
+msgstr "Create a free account for 5 pages/day"
+
+#: app/templates/errors/429.html:25 app/templates/main/pricing.html:112
+msgid "Compare plans"
+msgstr "Compare plans"
+
+#: app/templates/errors/500.html:2
+msgid "Server error — Bank Statement Converter"
+msgstr "Server error — Bank Statement Converter"
+
+#: app/templates/errors/500.html:9
+msgid "Something went wrong on our side"
+msgstr "Something went wrong on our side"
+
+#: app/templates/errors/500.html:10
+msgid ""
+"The request could not be completed. Please try again in a moment. Your "
+"uploaded file was not retained."
+msgstr ""
+"The request could not be completed. Please try again in a moment. Your "
+"uploaded file was not retained."
+
+#: app/templates/errors/500.html:12
+msgid "Try again"
+msgstr "Try again"
+
+#: app/templates/errors/500.html:13
+msgid "Contact support"
+msgstr "Contact support"
+
+#: app/templates/main/about.html:2
+msgid "About — Bank Statement Converter"
+msgstr "About — Bank Statement Converter"
+
+#: app/templates/main/about.html:3
+msgid ""
+"Why we built a bank-grade PDF statement converter for accountants, "
+"finance teams and legal professionals."
+msgstr ""
+"Why we built a bank-grade PDF statement converter for accountants, "
+"finance teams and legal professionals."
+
+#: app/templates/main/about.html:12
+msgid "Clean financial data should not require manual retyping"
+msgstr "Clean financial data should not require manual retyping"
+
+#: app/templates/main/about.html:13
+msgid ""
+"Bank Statement Converter exists to remove one of the most tedious, error-"
+"prone tasks in accounting: rebuilding a transaction ledger from a PDF."
+msgstr ""
+"Bank Statement Converter exists to remove one of the most tedious, error-"
+"prone tasks in accounting: rebuilding a transaction ledger from a PDF."
+
+#: app/templates/main/about.html:23
+msgid "Our mission"
+msgstr "Our mission"
+
+#: app/templates/main/about.html:24
+msgid ""
+"Give finance professionals a trustworthy, confidential way to turn bank "
+"statements into structured data — without desktop software, copy-paste "
+"marathons or sending client documents to unknown tools."
+msgstr ""
+"Give finance professionals a trustworthy, confidential way to turn bank "
+"statements into structured data — without desktop software, copy-paste "
+"marathons or sending client documents to unknown tools."
+
+#: app/templates/main/about.html:25
+msgid ""
+"Statements arrive as PDFs from hundreds of banks, each with its own "
+"column order, number format and date convention. A single misread decimal"
+" can break a reconciliation. Our parser combines table detection, bank-"
+"specific header heuristics and line-level fallback rules so the output is"
+" predictable and reviewable."
+msgstr ""
+"Statements arrive as PDFs from hundreds of banks, each with its own "
+"column order, number format and date convention. A single misread decimal"
+" can break a reconciliation. Our parser combines table detection, bank-"
+"specific header heuristics and line-level fallback rules so the output is"
+" predictable and reviewable."
+
+#: app/templates/main/about.html:26
+msgid ""
+"We believe conversion tools should be boring in the best way: consistent,"
+" transparent and respectful of the documents you trust them with."
+msgstr ""
+"We believe conversion tools should be boring in the best way: consistent,"
+" transparent and respectful of the documents you trust them with."
+
+#: app/templates/main/about.html:30
+msgid "What we optimise for"
+msgstr "What we optimise for"
+
+#: app/templates/main/about.html:31
+msgid "Confidentiality first"
+msgstr "Confidentiality first"
+
+#: app/templates/main/about.html:31
+msgid ""
+"Raw PDFs are deleted immediately after extraction. Previews expire in an "
+"hour."
+msgstr ""
+"Raw PDFs are deleted immediately after extraction. Previews expire in an "
+"hour."
+
+#: app/templates/main/about.html:32
+msgid "Reviewable accuracy"
+msgstr "Reviewable accuracy"
+
+#: app/templates/main/about.html:32
+msgid "Every row is editable before export, so a human stays in control."
+msgstr "Every row is editable before export, so a human stays in control."
+
+#: app/templates/main/about.html:33
+msgid "Professional workflow"
+msgstr "Professional workflow"
+
+#: app/templates/main/about.html:33
+msgid "Exports are built for ledgers, reconciliation and audit trails."
+msgstr "Exports are built for ledgers, reconciliation and audit trails."
+
+#: app/templates/main/about.html:34
+msgid "Global by default"
+msgstr "Global by default"
+
+#: app/templates/main/about.html:34
+msgid ""
+"International formats plus English, Montenegrin/Serbian, Croatian and "
+"Bosnian interfaces."
+msgstr ""
+"International formats plus English, Montenegrin/Serbian, Croatian and "
+"Bosnian interfaces."
+
+#: app/templates/main/about.html:44
+msgid "of bank layouts"
+msgstr "of bank layouts"
+
+#: app/templates/main/about.html:45
+msgid "maximum statement size"
+msgstr "maximum statement size"
+
+#: app/templates/main/about.html:46
+msgid "preview retention"
+msgstr "preview retention"
+
+#: app/templates/main/about.html:47
+msgid "PDFs kept after parsing"
+msgstr "PDFs kept after parsing"
+
+#: app/templates/main/about.html:58
+msgid "For accounting firms"
+msgstr "For accounting firms"
+
+#: app/templates/main/about.html:59
+msgid ""
+"Convert recurring client statements into clean workpapers without hiring "
+"a data-entry layer."
+msgstr ""
+"Convert recurring client statements into clean workpapers without hiring "
+"a data-entry layer."
+
+#: app/templates/main/about.html:65
+msgid "For finance teams"
+msgstr "For finance teams"
+
+#: app/templates/main/about.html:66
+msgid ""
+"Normalise statements from multiple banking relationships before "
+"reconciliation and reporting."
+msgstr ""
+"Normalise statements from multiple banking relationships before "
+"reconciliation and reporting."
+
+#: app/templates/main/about.html:72
+msgid "For legal & advisory"
+msgstr "For legal & advisory"
+
+#: app/templates/main/about.html:73
+msgid ""
+"Turn disclosure bundles into searchable, attributable transaction "
+"schedules with references intact."
+msgstr ""
+"Turn disclosure bundles into searchable, attributable transaction "
+"schedules with references intact."
+
+#: app/templates/main/about.html:83
+msgid "Try it with a statement you already have"
+msgstr "Try it with a statement you already have"
+
+#: app/templates/main/about.html:84
+msgid "One free page, no signup. See the extracted rows before you decide."
+msgstr "One free page, no signup. See the extracted rows before you decide."
+
+#: app/templates/main/about.html:85
+msgid "Open the converter"
+msgstr "Open the converter"
+
+#: app/templates/main/api_docs.html:2
+msgid "API Documentation — Bank Statement Converter"
+msgstr "API Documentation — Bank Statement Converter"
+
+#: app/templates/main/api_docs.html:3
+msgid ""
+"REST API v1 documentation for converting PDF bank statements to "
+"structured JSON, Excel and CSV with Bearer authentication."
+msgstr ""
+"REST API v1 documentation for converting PDF bank statements to "
+"structured JSON, Excel and CSV with Bearer authentication."
+
+#: app/templates/main/api_docs.html:11
+msgid "Developer API"
+msgstr "Developer API"
+
+#: app/templates/main/api_docs.html:12
+msgid "Convert statements from your own stack"
+msgstr "Convert statements from your own stack"
+
+#: app/templates/main/api_docs.html:13
+msgid ""
+"A single REST endpoint turns a PDF bank statement into structured "
+"transactions, an XLSX download and a CSV download. Authenticate with a "
+"Bearer API key."
+msgstr ""
+"A single REST endpoint turns a PDF bank statement into structured "
+"transactions, an XLSX download and a CSV download. Authenticate with a "
+"Bearer API key."
+
+#: app/templates/main/api_docs.html:15
+msgid "Bearer authentication"
+msgstr "Bearer authentication"
+
+#: app/templates/main/api_docs.html:16
+msgid "JSON responses"
+msgstr "JSON responses"
+
+#: app/templates/main/api_docs.html:17
+msgid "Monthly page quotas"
+msgstr "Monthly page quotas"
+
+#: app/templates/main/api_docs.html:27
+msgid "API documentation navigation"
+msgstr "API documentation navigation"
+
+#: app/templates/main/api_docs.html:28
+msgid "On this page"
+msgstr "On this page"
+
+#: app/templates/main/api_docs.html:29 app/templates/main/api_docs.html:50
+msgid "Authentication"
+msgstr "Authentication"
+
+#: app/templates/main/api_docs.html:30 app/templates/main/api_docs.html:57
+msgid "Endpoint"
+msgstr "Endpoint"
+
+#: app/templates/main/api_docs.html:31
+msgid "Request"
+msgstr "Request"
+
+#: app/templates/main/api_docs.html:32 app/templates/main/api_docs.html:98
+msgid "Response"
+msgstr "Response"
+
+#: app/templates/main/api_docs.html:33 app/templates/main/api_docs.html:147
+msgid "Downloads"
+msgstr "Downloads"
+
+#: app/templates/main/api_docs.html:34 app/templates/main/api_docs.html:154
+msgid "Errors"
+msgstr "Errors"
+
+#: app/templates/main/api_docs.html:35
+msgid "Rate limits"
+msgstr "Rate limits"
+
+#: app/templates/main/api_docs.html:43
+msgid "API access is included with Business / Enterprise."
+msgstr "API access is included with Business / Enterprise."
+
+#: app/templates/main/api_docs.html:44
+msgid ""
+"Create and manage keys from your dashboard. Keys are shown once and "
+"stored only as a hash."
+msgstr ""
+"Create and manage keys from your dashboard. Keys are shown once and "
+"stored only as a hash."
+
+#: app/templates/main/api_docs.html:51
+msgid ""
+"Send your API key in the standard HTTP Authorization header. Keys are "
+"prefixed with"
+msgstr ""
+"Send your API key in the standard HTTP Authorization header. Keys are "
+"prefixed with"
+
+#: app/templates/main/api_docs.html:53
+msgid ""
+"The X-API-Key header is also accepted for convenience, but Bearer is "
+"recommended. Never expose a key in client-side code."
+msgstr ""
+"The X-API-Key header is also accepted for convenience, but Bearer is "
+"recommended. Never expose a key in client-side code."
+
+#: app/templates/main/api_docs.html:62
+msgid "Send a multipart/form-data request with a single PDF field named"
+msgstr "Send a multipart/form-data request with a single PDF field named"
+
+#: app/templates/main/api_docs.html:62
+msgid "The maximum upload is 25 MB."
+msgstr "The maximum upload is 25 MB."
+
+#: app/templates/main/api_docs.html:65
+msgid "Field"
+msgstr "Field"
+
+#: app/templates/main/api_docs.html:65
+msgid "Type"
+msgstr "Type"
+
+#: app/templates/main/api_docs.html:65
+msgid "Required"
+msgstr "Required"
+
+#: app/templates/main/api_docs.html:65 app/templates/main/index.html:109
+msgid "Description"
+msgstr "Description"
+
+#: app/templates/main/api_docs.html:67
+msgid "binary"
+msgstr "binary"
+
+#: app/templates/main/api_docs.html:67
+msgid "Yes"
+msgstr "Yes"
+
+#: app/templates/main/api_docs.html:67
+msgid "PDF bank statement, text-based, up to 25 MB."
+msgstr "PDF bank statement, text-based, up to 25 MB."
+
+#: app/templates/main/api_docs.html:74
+msgid "Request example"
+msgstr "Request example"
+
+#: app/templates/main/api_docs.html:99
+msgid ""
+"A successful call returns the parsed rows, page count, bank detection, "
+"quota state and signed download URLs."
+msgstr ""
+"A successful call returns the parsed rows, page count, bank detection, "
+"quota state and signed download URLs."
+
+#: app/templates/main/api_docs.html:139
+msgid "Date is ISO YYYY-MM-DD. Debit, credit and balance are numeric or null."
+msgstr "Date is ISO YYYY-MM-DD. Debit, credit and balance are numeric or null."
+
+#: app/templates/main/api_docs.html:140
+msgid "Signed, expiring capability for preview and downloads."
+msgstr "Signed, expiring capability for preview and downloads."
+
+#: app/templates/main/api_docs.html:141
+msgid "Current monthly page allowance after this conversion."
+msgstr "Current monthly page allowance after this conversion."
+
+#: app/templates/main/api_docs.html:142
+msgid "Signed URLs valid while the parsed preview is retained (one hour)."
+msgstr "Signed URLs valid while the parsed preview is retained (one hour)."
+
+#: app/templates/main/api_docs.html:148
+msgid ""
+"Use the signed URLs from the response to download an Excel workbook or "
+"CSV. The URLs are capability links and expire with the one-hour preview "
+"window."
+msgstr ""
+"Use the signed URLs from the response to download an Excel workbook or "
+"CSV. The URLs are capability links and expire with the one-hour preview "
+"window."
+
+#: app/templates/main/api_docs.html:157
+msgid "Code"
+msgstr "Code"
+
+#: app/templates/main/api_docs.html:157
+msgid "Meaning"
+msgstr "Meaning"
+
+#: app/templates/main/api_docs.html:159
+msgid "The request is missing a valid PDF upload."
+msgstr "The request is missing a valid PDF upload."
+
+#: app/templates/main/api_docs.html:160
+msgid "API key is missing, invalid or revoked."
+msgstr "API key is missing, invalid or revoked."
+
+#: app/templates/main/api_docs.html:161
+msgid "Your account plan does not include API access."
+msgstr "Your account plan does not include API access."
+
+#: app/templates/main/api_docs.html:162
+msgid "The upload exceeds 25 MB."
+msgstr "The upload exceeds 25 MB."
+
+#: app/templates/main/api_docs.html:163
+msgid "The PDF is protected, scanned or contains no detectable transactions."
+msgstr "The PDF is protected, scanned or contains no detectable transactions."
+
+#: app/templates/main/api_docs.html:164
+msgid "Monthly page allowance exhausted. The Retry-After header is set."
+msgstr "Monthly page allowance exhausted. The Retry-After header is set."
+
+#: app/templates/main/api_docs.html:165
+msgid "Unexpected server error; safe to retry with backoff."
+msgstr "Unexpected server error; safe to retry with backoff."
+
+#: app/templates/main/api_docs.html:169
+msgid "Error responses use the shape:"
+msgstr "Error responses use the shape:"
+
+#: app/templates/main/api_docs.html:173
+msgid "Rate limits and quotas"
+msgstr "Rate limits and quotas"
+
+#: app/templates/main/api_docs.html:174
+msgid ""
+"API calls consume pages from your monthly Business quota (2,500 pages by "
+"default). The exact PDF page count is checked before parsing, so an "
+"oversized statement is rejected without consuming pages. Every response "
+"includes the remaining allowance."
+msgstr ""
+"API calls consume pages from your monthly Business quota (2,500 pages by "
+"default). The exact PDF page count is checked before parsing, so an "
+"oversized statement is rejected without consuming pages. Every response "
+"includes the remaining allowance."
+
+#: app/templates/main/api_docs.html:177
+msgid "Retry responsibly"
+msgstr "Retry responsibly"
+
+#: app/templates/main/api_docs.html:177
+msgid ""
+"If you receive a 429, respect the Retry-After header. For higher volume, "
+"contact enterprise sales."
+msgstr ""
+"If you receive a 429, respect the Retry-After header. For higher volume, "
+"contact enterprise sales."
+
+#: app/templates/main/contact.html:2
+msgid "Contact sales — Bank Statement Converter"
+msgstr "Contact sales — Bank Statement Converter"
+
+#: app/templates/main/contact.html:3
+msgid ""
+"Contact the Bank Statement Converter enterprise team about volume "
+"pricing, custom bank formats, API integrations and security reviews."
+msgstr ""
+"Contact the Bank Statement Converter enterprise team about volume "
+"pricing, custom bank formats, API integrations and security reviews."
+
+#: app/templates/main/contact.html:11
+msgid "Enterprise enquiries"
+msgstr "Enterprise enquiries"
+
+#: app/templates/main/contact.html:12
+msgid "Let's scope your statement workflow"
+msgstr "Let's scope your statement workflow"
+
+#: app/templates/main/contact.html:13
+msgid ""
+"Tell us about your banks, volumes and integration requirements. We will "
+"reply within one business day with next steps."
+msgstr ""
+"Tell us about your banks, volumes and integration requirements. We will "
+"reply within one business day with next steps."
+
+#: app/templates/main/contact.html:24
+msgid "Enterprise includes"
+msgstr "Enterprise includes"
+
+#: app/templates/main/contact.html:26
+msgid "2,500+ pages per month with volume pricing"
+msgstr "2,500+ pages per month with volume pricing"
+
+#: app/templates/main/contact.html:27
+msgid "REST API and key management"
+msgstr "REST API and key management"
+
+#: app/templates/main/contact.html:28
+msgid "Custom bank parser development"
+msgstr "Custom bank parser development"
+
+#: app/templates/main/contact.html:29
+msgid "Priority parsing and support"
+msgstr "Priority parsing and support"
+
+#: app/templates/main/contact.html:30 app/templates/main/pricing.html:153
+msgid "Security review and DPA"
+msgstr "Security review and DPA"
+
+#: app/templates/main/contact.html:33
+msgid "Prefer email?"
+msgstr "Prefer email?"
+
+#: app/templates/main/contact.html:40
+msgid "Enterprise contact form"
+msgstr "Enterprise contact form"
+
+#: app/templates/main/contact.html:41
+msgid "All fields marked required help us route your enquiry."
+msgstr "All fields marked required help us route your enquiry."
+
+#: app/templates/main/contact.html:61
+msgid "I'm interested in"
+msgstr "I'm interested in"
+
+#: app/templates/main/contact.html:63
+msgid "Starter / Pro — 500 pages per month"
+msgstr "Starter / Pro — 500 pages per month"
+
+#: app/templates/main/contact.html:64
+msgid "Business / Enterprise — 2,500+ pages per month"
+msgstr "Business / Enterprise — 2,500+ pages per month"
+
+#: app/templates/main/contact.html:65
+msgid "Custom volume or bank format"
+msgstr "Custom volume or bank format"
+
+#: app/templates/main/contact.html:69
+msgid "How can we help?"
+msgstr "How can we help?"
+
+#: app/templates/main/contact.html:70
+msgid "Banks, monthly statement volume, API or integration needs…"
+msgstr "Banks, monthly statement volume, API or integration needs…"
+
+#: app/templates/main/contact.html:73
+msgid "Send enquiry"
+msgstr "Send enquiry"
+
+#: app/templates/main/contact.html:74
+msgid "We never share your details."
+msgstr "We never share your details."
+
+#: app/templates/main/index.html:2
+msgid "Bank Statement Converter — PDF to Excel & CSV"
+msgstr "Bank Statement Converter — PDF to Excel & CSV"
+
+#: app/templates/main/index.html:3
+msgid ""
+"Convert PDF bank statements from 1000s of banks into clean Excel (XLSX) "
+"and CSV. Edit transactions in your browser. Files deleted instantly. 1 "
+"free page every 24 hours."
+msgstr ""
+"Convert PDF bank statements from 1000s of banks into clean Excel (XLSX) "
+"and CSV. Edit transactions in your browser. Files deleted instantly. 1 "
+"free page every 24 hours."
+
+#: app/templates/main/index.html:15
+msgid "Bank-grade security · No signup needed · 25 MB max"
+msgstr "Bank-grade security · No signup needed · 25 MB max"
+
+#: app/templates/main/index.html:17
+msgid "The world's most trusted"
+msgstr "The world's most trusted"
+
+#: app/templates/main/index.html:17
+msgid "bank statement converter"
+msgstr "bank statement converter"
+
+#: app/templates/main/index.html:18
+msgid ""
+"Easily convert PDF bank statements from 1000s of banks worldwide into "
+"clean Excel (XLS) and CSV format"
+msgstr ""
+"Easily convert PDF bank statements from 1000s of banks worldwide into "
+"clean Excel (XLS) and CSV format"
+
+#: app/templates/main/index.html:20
+msgid "Files deleted instantly"
+msgstr "Files deleted instantly"
+
+#: app/templates/main/index.html:21
+msgid "1000s of banks"
+msgstr "1000s of banks"
+
+#: app/templates/main/index.html:35
+msgid "Please choose a PDF bank statement."
+msgstr "Please choose a PDF bank statement."
+
+#: app/templates/main/index.html:36
+msgid "That PDF is larger than the upload limit."
+msgstr "That PDF is larger than the upload limit."
+
+#: app/templates/main/index.html:37 app/templates/main/index.html:68
+msgid "Uploading and extracting transactions…"
+msgstr "Uploading and extracting transactions…"
+
+#: app/templates/main/index.html:38
+msgid "Extracting transactions…"
+msgstr "Extracting transactions…"
+
+#: app/templates/main/index.html:39
+msgid "Conversion complete. Review and edit your transactions below."
+msgstr "Conversion complete. Review and edit your transactions below."
+
+#: app/templates/main/index.html:40
+msgid "The conversion could not be completed."
+msgstr "The conversion could not be completed."
+
+#: app/templates/main/index.html:41
+msgid "Your free page limit has been reached."
+msgstr "Your free page limit has been reached."
+
+#: app/templates/main/index.html:42
+msgid "No transactions were found in this PDF."
+msgstr "No transactions were found in this PDF."
+
+#: app/templates/main/index.html:43
+msgid "Preparing your download…"
+msgstr "Preparing your download…"
+
+#: app/templates/main/index.html:44
+msgid "The download could not be prepared."
+msgstr "The download could not be prepared."
+
+#: app/templates/main/index.html:45
+msgid "Selected file"
+msgstr "Selected file"
+
+#: app/templates/main/index.html:46
+msgid "transactions found"
+msgstr "transactions found"
+
+#: app/templates/main/index.html:47
+msgid "page"
+msgstr "page"
+
+#: app/templates/main/index.html:49
+msgid "Your preview expired. Please upload the PDF again."
+msgstr "Your preview expired. Please upload the PDF again."
+
+#: app/templates/main/index.html:50
+msgid "Upload a PDF bank statement"
+msgstr "Upload a PDF bank statement"
+
+#: app/templates/main/index.html:56
+msgid "Drop your bank statement here"
+msgstr "Drop your bank statement here"
+
+#: app/templates/main/index.html:57
+msgid "or"
+msgstr "or"
+
+#: app/templates/main/index.html:57
+msgid "browse your files"
+msgstr "browse your files"
+
+#: app/templates/main/index.html:58
+msgid "PDF only · up to 25 MB · no signup required"
+msgstr "PDF only · up to 25 MB · no signup required"
+
+#: app/templates/main/index.html:60
+msgid "Private"
+msgstr "Private"
+
+#: app/templates/main/index.html:61 app/templates/main/index.html:281
+msgid "Deleted after parsing"
+msgstr "Deleted after parsing"
+
+#: app/templates/main/index.html:62
+msgid "Results in seconds"
+msgstr "Results in seconds"
+
+#: app/templates/main/index.html:71
+msgid "Conversion progress"
+msgstr "Conversion progress"
+
+#: app/templates/main/index.html:83
+msgid "Review your transactions"
+msgstr "Review your transactions"
+
+#: app/templates/main/index.html:96
+msgid "Click any cell to correct or enrich it."
+msgstr "Click any cell to correct or enrich it."
+
+#: app/templates/main/index.html:97
+msgid "Your edits are included in the downloaded Excel and CSV files."
+msgstr "Your edits are included in the downloaded Excel and CSV files."
+
+#: app/templates/main/index.html:100
+msgid "Add row"
+msgstr "Add row"
+
+#: app/templates/main/index.html:110
+msgid "Reference"
+msgstr "Reference"
+
+#: app/templates/main/index.html:111
+msgid "Debit"
+msgstr "Debit"
+
+#: app/templates/main/index.html:112
+msgid "Credit"
+msgstr "Credit"
+
+#: app/templates/main/index.html:113
+msgid "Balance"
+msgstr "Balance"
+
+#: app/templates/main/index.html:114
+msgid "Remove"
+msgstr "Remove"
+
+#: app/templates/main/index.html:125
+msgid "Download Excel (.XLSX)"
+msgstr "Download Excel (.XLSX)"
+
+#: app/templates/main/index.html:128
+msgid "Download CSV (.CSV)"
+msgstr "Download CSV (.CSV)"
+
+#: app/templates/main/index.html:137
+msgid ""
+"Your PDF is processed in an isolated request and permanently deleted the "
+"moment extraction finishes."
+msgstr ""
+"Your PDF is processed in an isolated request and permanently deleted the "
+"moment extraction finishes."
+
+#: app/templates/main/index.html:145
+msgid "Why professionals choose us"
+msgstr "Why professionals choose us"
+
+#: app/templates/main/index.html:150
+msgid "Secure by design"
+msgstr "Secure by design"
+
+#: app/templates/main/index.html:150
+msgid "Banking-grade handling and instant deletion."
+msgstr "Banking-grade handling and instant deletion."
+
+#: app/templates/main/index.html:154
+msgid "Built for professionals"
+msgstr "Built for professionals"
+
+#: app/templates/main/index.html:154
+msgid "Accounting, financial and legal firms."
+msgstr "Accounting, financial and legal firms."
+
+#: app/templates/main/index.html:158
+msgid "Accurate extraction"
+msgstr "Accurate extraction"
+
+#: app/templates/main/index.html:158
+msgid "Multi-bank tables with editable review."
+msgstr "Multi-bank tables with editable review."
+
+#: app/templates/main/index.html:167
+msgid "Why Bank Statement Converter"
+msgstr "Why Bank Statement Converter"
+
+#: app/templates/main/index.html:168
+msgid "Converted statements you can trust"
+msgstr "Converted statements you can trust"
+
+#: app/templates/main/index.html:169
+msgid ""
+"Built around the three things finance teams care about most: "
+"confidentiality, accuracy and speed."
+msgstr ""
+"Built around the three things finance teams care about most: "
+"confidentiality, accuracy and speed."
+
+#: app/templates/main/index.html:175
+msgid "Secure"
+msgstr "Secure"
+
+#: app/templates/main/index.html:176
+msgid ""
+"Strict banking-grade handling with encrypted transfer, isolated "
+"processing and instant deletion of every uploaded PDF."
+msgstr ""
+"Strict banking-grade handling with encrypted transfer, isolated "
+"processing and instant deletion of every uploaded PDF."
+
+#: app/templates/main/index.html:178
+msgid "Raw PDFs deleted immediately after parsing"
+msgstr "Raw PDFs deleted immediately after parsing"
+
+#: app/templates/main/index.html:179
+msgid "Preview data purged automatically after one hour"
+msgstr "Preview data purged automatically after one hour"
+
+#: app/templates/main/index.html:180
+msgid "No document content used for model training"
+msgstr "No document content used for model training"
+
+#: app/templates/main/index.html:187
+msgid "Institutional"
+msgstr "Institutional"
+
+#: app/templates/main/index.html:188
+msgid ""
+"Designed for accounting, financial and legal firms that need repeatable, "
+"audit-friendly transaction data."
+msgstr ""
+"Designed for accounting, financial and legal firms that need repeatable, "
+"audit-friendly transaction data."
+
+#: app/templates/main/index.html:190
+msgid "Clean columns built for ledger imports"
+msgstr "Clean columns built for ledger imports"
+
+#: app/templates/main/index.html:191
+msgid "Batch and API access on business plans"
+msgstr "Batch and API access on business plans"
+
+#: app/templates/main/index.html:192
+msgid "Printable, formula-ready Excel exports"
+msgstr "Printable, formula-ready Excel exports"
+
+#: app/templates/main/index.html:199
+msgid "Accurate"
+msgstr "Accurate"
+
+#: app/templates/main/index.html:200
+msgid ""
+"Multi-bank table extraction with header detection, European number "
+"normalisation and a line-based fallback."
+msgstr ""
+"Multi-bank table extraction with header detection, European number "
+"normalisation and a line-based fallback."
+
+#: app/templates/main/index.html:202
+msgid "Balkan and international bank layouts"
+msgstr "Balkan and international bank layouts"
+
+#: app/templates/main/index.html:203
+msgid "DD.MM.YYYY and YYYY-MM-DD dates"
+msgstr "DD.MM.YYYY and YYYY-MM-DD dates"
+
+#: app/templates/main/index.html:204
+msgid "1.250,50 converted to 1250.50"
+msgstr "1.250,50 converted to 1250.50"
+
+#: app/templates/main/index.html:214
+msgid "Works with statements from 1000s of banks, including"
+msgstr "Works with statements from 1000s of banks, including"
+
+#: app/templates/main/index.html:218
+msgid ""
+"Don't see your bank? Generic international table detection handles most "
+"PDF layouts. Business plans include custom format support."
+msgstr ""
+"Don't see your bank? Generic international table detection handles most "
+"PDF layouts. Business plans include custom format support."
+
+#: app/templates/main/index.html:226
+msgid "Three steps. One clean file."
+msgstr "Three steps. One clean file."
+
+#: app/templates/main/index.html:227
+msgid "From PDF to ledger-ready in under a minute"
+msgstr "From PDF to ledger-ready in under a minute"
+
+#: app/templates/main/index.html:230
+msgid ""
+"No templates to configure, no desktop software, no waiting on a back "
+"office."
+msgstr ""
+"No templates to configure, no desktop software, no waiting on a back "
+"office."
+
+#: app/templates/main/index.html:238
+msgid "Upload your PDF"
+msgstr "Upload your PDF"
+
+#: app/templates/main/index.html:239
+msgid ""
+"Drop in a statement from online banking. We verify the page count before "
+"touching a single row."
+msgstr ""
+"Drop in a statement from online banking. We verify the page count before "
+"touching a single row."
+
+#: app/templates/main/index.html:246
+msgid "Review and edit"
+msgstr "Review and edit"
+
+#: app/templates/main/index.html:247
+msgid ""
+"Every extracted transaction appears in an inline-editable table. Fix a "
+"date, add a note, remove a row."
+msgstr ""
+"Every extracted transaction appears in an inline-editable table. Fix a "
+"date, add a note, remove a row."
+
+#: app/templates/main/index.html:254
+msgid "Download clean files"
+msgstr "Download clean files"
+
+#: app/templates/main/index.html:255
+msgid ""
+"Export formatted XLSX with totals or a UTF-8 CSV that imports cleanly "
+"into your accounting stack."
+msgstr ""
+"Export formatted XLSX with totals or a UTF-8 CSV that imports cleanly "
+"into your accounting stack."
+
+#: app/templates/main/index.html:267
+msgid "Your statements are not our business."
+msgstr "Your statements are not our business."
+
+#: app/templates/main/index.html:268
+msgid ""
+"We only need the transactions. The uploaded PDF is removed in a "
+"guaranteed cleanup step immediately after extraction, and the preview "
+"itself expires after one hour."
+msgstr ""
+"We only need the transactions. The uploaded PDF is removed in a "
+"guaranteed cleanup step immediately after extraction, and the preview "
+"itself expires after one hour."
+
+#: app/templates/main/index.html:270
+msgid "TLS in transit"
+msgstr "TLS in transit"
+
+#: app/templates/main/index.html:270
+msgid "Encrypted from browser to server."
+msgstr "Encrypted from browser to server."
+
+#: app/templates/main/index.html:271
+msgid "No PDF archive, no manual cleanup."
+msgstr "No PDF archive, no manual cleanup."
+
+#: app/templates/main/index.html:272
+msgid "Expiring previews"
+msgstr "Expiring previews"
+
+#: app/templates/main/index.html:272
+msgid "Parsed rows purged after 60 minutes."
+msgstr "Parsed rows purged after 60 minutes."
+
+#: app/templates/main/index.html:279
+msgid "Zero-retention pipeline"
+msgstr "Zero-retention pipeline"
+
+#: app/templates/main/index.html:281
+msgid "Raw PDF"
+msgstr "Raw PDF"
+
+#: app/templates/main/index.html:282
+msgid "Preview data"
+msgstr "Preview data"
+
+#: app/templates/main/index.html:282
+msgid "Expires in 1 hour"
+msgstr "Expires in 1 hour"
+
+#: app/templates/main/index.html:283
+msgid "Account content"
+msgstr "Account content"
+
+#: app/templates/main/index.html:283
+msgid "Private to your workspace"
+msgstr "Private to your workspace"
+
+#: app/templates/main/index.html:284
+msgid "Model training"
+msgstr "Model training"
+
+#: app/templates/main/index.html:284
+msgid "Never used"
+msgstr "Never used"
+
+#: app/templates/main/index.html:285
+msgid "Designed for confidentiality-sensitive finance workflows."
+msgstr "Designed for confidentiality-sensitive finance workflows."
+
+#: app/templates/main/index.html:295
+msgid "Simple, transparent pricing"
+msgstr "Simple, transparent pricing"
+
+#: app/templates/main/index.html:296
+msgid "Start free. Scale when your team does."
+msgstr "Start free. Scale when your team does."
+
+#: app/templates/main/index.html:297
+msgid "No credit card for the free tiers. Upgrade only when you need more pages."
+msgstr "No credit card for the free tiers. Upgrade only when you need more pages."
+
+#: app/templates/main/index.html:303 app/templates/main/pricing.html:22
+#: app/templates/main/pricing.html:120
+msgid "Anonymous"
+msgstr "Anonymous"
+
+#: app/templates/main/index.html:304 app/templates/main/index.html:319
+#: app/templates/main/pricing.html:23 app/templates/main/pricing.html:43
+msgid "forever"
+msgstr "forever"
+
+#: app/templates/main/index.html:305
+msgid "Try the converter with no account at all."
+msgstr "Try the converter with no account at all."
+
+#: app/templates/main/index.html:308
+msgid "1 page every 24 hours"
+msgstr "1 page every 24 hours"
+
+#: app/templates/main/index.html:309 app/templates/main/pricing.html:128
+msgid "Excel and CSV export"
+msgstr "Excel and CSV export"
+
+#: app/templates/main/index.html:310
+msgid "Instant PDF deletion"
+msgstr "Instant PDF deletion"
+
+#: app/templates/main/index.html:312 app/templates/main/pricing.html:34
+msgid "Convert a PDF"
+msgstr "Convert a PDF"
+
+#: app/templates/main/index.html:318 app/templates/main/pricing.html:42
+#: app/templates/main/pricing.html:121
+msgid "Registered"
+msgstr "Registered"
+
+#: app/templates/main/index.html:320
+msgid "A free account unlocks more pages and history."
+msgstr "A free account unlocks more pages and history."
+
+#: app/templates/main/index.html:328 app/templates/main/pricing.html:55
+msgid "Go to dashboard"
+msgstr "Go to dashboard"
+
+#: app/templates/main/index.html:336 app/templates/main/pricing.html:65
+msgid "Most popular"
+msgstr "Most popular"
+
+#: app/templates/main/index.html:339 app/templates/main/index.html:354
+#: app/templates/main/pricing.html:68 app/templates/main/pricing.html:88
+#: app/templates/main/pricing.html:127
+msgid "month"
+msgstr "month"
+
+#: app/templates/main/index.html:340
+msgid "For busy accountants and small finance teams."
+msgstr "For busy accountants and small finance teams."
+
+#: app/templates/main/index.html:343
+msgid "500 pages per month"
+msgstr "500 pages per month"
+
+#: app/templates/main/index.html:344 app/templates/main/pricing.html:74
+#: app/templates/main/pricing.html:131
+msgid "Batch multi-PDF upload"
+msgstr "Batch multi-PDF upload"
+
+#: app/templates/main/index.html:345 app/templates/main/pricing.html:132
+msgid "Priority parsing"
+msgstr "Priority parsing"
+
+#: app/templates/main/index.html:347
+msgid "Upgrade to Pro"
+msgstr "Upgrade to Pro"
+
+#: app/templates/main/index.html:355
+msgid "For firms that need volume, API access and custom formats."
+msgstr "For firms that need volume, API access and custom formats."
+
+#: app/templates/main/index.html:358
+msgid "2,500+ pages per month"
+msgstr "2,500+ pages per month"
+
+#: app/templates/main/index.html:359 app/templates/main/pricing.html:94
+#: app/templates/main/pricing.html:133
+msgid "REST API access"
+msgstr "REST API access"
+
+#: app/templates/main/index.html:360 app/templates/main/pricing.html:96
+#: app/templates/main/pricing.html:134
+msgid "Custom bank format support"
+msgstr "Custom bank format support"
+
+#: app/templates/main/index.html:362
+msgid "Talk to sales"
+msgstr "Talk to sales"
+
+#: app/templates/main/index.html:366
+msgid ""
+"Prices exclude applicable taxes. Monthly plans can be cancelled at any "
+"time."
+msgstr ""
+"Prices exclude applicable taxes. Monthly plans can be cancelled at any "
+"time."
+
+#: app/templates/main/index.html:374
+msgid "Questions"
+msgstr "Questions"
+
+#: app/templates/main/index.html:375
+msgid "Everything you need to know"
+msgstr "Everything you need to know"
+
+#: app/templates/main/index.html:376
+msgid "Still deciding? Read the answers below or talk to our team."
+msgstr "Still deciding? Read the answers below or talk to our team."
+
+#: app/templates/main/index.html:377
+msgid "Contact us"
+msgstr "Contact us"
+
+#: app/templates/main/index.html:383
+msgid "Is my bank statement secure?"
+msgstr "Is my bank statement secure?"
+
+#: app/templates/main/index.html:386
+msgid ""
+"Yes. Uploads travel over encrypted connections, are processed in an "
+"isolated request and are deleted immediately after extraction. Parsed "
+"previews expire after one hour and are never used for model training."
+msgstr ""
+"Yes. Uploads travel over encrypted connections, are processed in an "
+"isolated request and are deleted immediately after extraction. Parsed "
+"previews expire after one hour and are never used for model training."
+
+#: app/templates/main/index.html:391
+msgid "Which banks are supported?"
+msgstr "Which banks are supported?"
+
+#: app/templates/main/index.html:394
+msgid ""
+"We handle 1000s of international formats plus common Balkan banks such as"
+" CKB, NLB, Hipotekarna, Erste, Raiffeisen, Intesa, UniCredit and Addiko. "
+"Generic table detection covers most other text-based PDFs."
+msgstr ""
+"We handle 1000s of international formats plus common Balkan banks such as"
+" CKB, NLB, Hipotekarna, Erste, Raiffeisen, Intesa, UniCredit and Addiko. "
+"Generic table detection covers most other text-based PDFs."
+
+#: app/templates/main/index.html:399
+msgid "Can I edit the extracted transactions?"
+msgstr "Can I edit the extracted transactions?"
+
+#: app/templates/main/index.html:402
+msgid ""
+"Yes. The on-page preview is fully editable. Correct any date, "
+"description, reference or amount before downloading, and your edits are "
+"included in both XLSX and CSV exports."
+msgstr ""
+"Yes. The on-page preview is fully editable. Correct any date, "
+"description, reference or amount before downloading, and your edits are "
+"included in both XLSX and CSV exports."
+
+#: app/templates/main/index.html:407
+msgid "What are the free limits?"
+msgstr "What are the free limits?"
+
+#: app/templates/main/index.html:410
+msgid ""
+"Anonymous visitors can convert 1 page every 24 hours. A free registered "
+"account converts 5 pages every 24 hours and keeps a conversion history. "
+"Paid plans use a monthly page allowance."
+msgstr ""
+"Anonymous visitors can convert 1 page every 24 hours. A free registered "
+"account converts 5 pages every 24 hours and keeps a conversion history. "
+"Paid plans use a monthly page allowance."
+
+#: app/templates/main/index.html:415
+msgid "Do you support scanned PDFs?"
+msgstr "Do you support scanned PDFs?"
+
+#: app/templates/main/index.html:418
+msgid ""
+"The converter requires a text-based PDF from online banking. Scanned "
+"image statements need OCR and are not supported yet. Business customers "
+"can contact us about custom workflows."
+msgstr ""
+"The converter requires a text-based PDF from online banking. Scanned "
+"image statements need OCR and are not supported yet. Business customers "
+"can contact us about custom workflows."
+
+#: app/templates/main/index.html:423
+msgid "Can I use the API?"
+msgstr "Can I use the API?"
+
+#: app/templates/main/index.html:426
+msgid ""
+"Yes. REST API access with Bearer authentication is included in the "
+"Business / Enterprise plan. See the API documentation for request "
+"examples and response schemas."
+msgstr ""
+"Yes. REST API access with Bearer authentication is included in the "
+"Business / Enterprise plan. See the API documentation for request "
+"examples and response schemas."
+
+#: app/templates/main/index.html:440
+msgid "Ready to turn that PDF into a clean workbook?"
+msgstr "Ready to turn that PDF into a clean workbook?"
+
+#: app/templates/main/index.html:441
+msgid ""
+"No signup. No software. Just your statement, your transactions and an "
+"Excel file you can trust."
+msgstr ""
+"No signup. No software. Just your statement, your transactions and an "
+"Excel file you can trust."
+
+#: app/templates/main/index.html:444
+msgid "Convert a statement"
+msgstr "Convert a statement"
+
+#: app/templates/main/pricing.html:2
+msgid "Pricing — Bank Statement Converter"
+msgstr "Pricing — Bank Statement Converter"
+
+#: app/templates/main/pricing.html:3
+msgid ""
+"Convert one page free, get 5 pages per day with a free account, or choose"
+" 500 or 2,500 monthly pages for teams. Transparent pricing, no setup "
+"fees."
+msgstr ""
+"Convert one page free, get 5 pages per day with a free account, or choose"
+" 500 or 2,500 monthly pages for teams. Transparent pricing, no setup "
+"fees."
+
+#: app/templates/main/pricing.html:10
+msgid "Straightforward pricing for clean statements"
+msgstr "Straightforward pricing for clean statements"
+
+#: app/templates/main/pricing.html:11
+msgid ""
+"Start with a single free page. Register for more. Upgrade when your "
+"accounting workflow demands volume, API access or custom formats."
+msgstr ""
+"Start with a single free page. Register for more. Upgrade when your "
+"accounting workflow demands volume, API access or custom formats."
+
+#: app/templates/main/pricing.html:12
+msgid "No credit card required for free tiers"
+msgstr "No credit card required for free tiers"
+
+#: app/templates/main/pricing.html:24
+msgid "No signup, no account, no card. Ideal for a one-off statement."
+msgstr "No signup, no account, no card. Ideal for a one-off statement."
+
+#: app/templates/main/pricing.html:26
+msgid "page every 24 hours"
+msgstr "page every 24 hours"
+
+#: app/templates/main/pricing.html:28
+msgid "Multi-bank PDF extraction"
+msgstr "Multi-bank PDF extraction"
+
+#: app/templates/main/pricing.html:29
+msgid "Inline editable preview"
+msgstr "Inline editable preview"
+
+#: app/templates/main/pricing.html:30
+msgid "Formatted XLSX download"
+msgstr "Formatted XLSX download"
+
+#: app/templates/main/pricing.html:31
+msgid "UTF-8 CSV download"
+msgstr "UTF-8 CSV download"
+
+#: app/templates/main/pricing.html:32
+msgid "Immediate PDF deletion"
+msgstr "Immediate PDF deletion"
+
+#: app/templates/main/pricing.html:35
+msgid "1 page per rolling 24-hour window per network."
+msgstr "1 page per rolling 24-hour window per network."
+
+#: app/templates/main/pricing.html:44
+msgid "A free account for regular statement conversions and history."
+msgstr "A free account for regular statement conversions and history."
+
+#: app/templates/main/pricing.html:48
+msgid "Everything in Anonymous"
+msgstr "Everything in Anonymous"
+
+#: app/templates/main/pricing.html:50
+msgid "Quota meter and cycle details"
+msgstr "Quota meter and cycle details"
+
+#: app/templates/main/pricing.html:51
+msgid "Saved language preference"
+msgstr "Saved language preference"
+
+#: app/templates/main/pricing.html:52
+msgid "No monthly commitment"
+msgstr "No monthly commitment"
+
+#: app/templates/main/pricing.html:59
+msgid "5 pages per rolling 24-hour window per account."
+msgstr "5 pages per rolling 24-hour window per account."
+
+#: app/templates/main/pricing.html:69
+msgid "For accounting practices converting client statements every week."
+msgstr "For accounting practices converting client statements every week."
+
+#: app/templates/main/pricing.html:71 app/templates/main/pricing.html:91
+msgid "pages per month"
+msgstr "pages per month"
+
+#: app/templates/main/pricing.html:73
+msgid "Everything in Registered"
+msgstr "Everything in Registered"
+
+#: app/templates/main/pricing.html:75
+msgid "Priority parsing queue"
+msgstr "Priority parsing queue"
+
+#: app/templates/main/pricing.html:76
+msgid "Monthly usage analytics"
+msgstr "Monthly usage analytics"
+
+#: app/templates/main/pricing.html:77
+msgid "Email support"
+msgstr "Email support"
+
+#: app/templates/main/pricing.html:79
+msgid "Start with Pro"
+msgstr "Start with Pro"
+
+#: app/templates/main/pricing.html:80
+msgid "Billed monthly. Cancel any time."
+msgstr "Billed monthly. Cancel any time."
+
+#: app/templates/main/pricing.html:89
+msgid "For firms, platforms and finance teams that need volume or integration."
+msgstr "For firms, platforms and finance teams that need volume or integration."
+
+#: app/templates/main/pricing.html:93
+msgid "Everything in Starter / Pro"
+msgstr "Everything in Starter / Pro"
+
+#: app/templates/main/pricing.html:97
+msgid "Bespoke enterprise onboarding"
+msgstr "Bespoke enterprise onboarding"
+
+#: app/templates/main/pricing.html:99
+msgid "Contact enterprise"
+msgstr "Contact enterprise"
+
+#: app/templates/main/pricing.html:100
+msgid "Volume pricing available."
+msgstr "Volume pricing available."
+
+#: app/templates/main/pricing.html:105
+msgid ""
+"All prices are shown in euros and exclude applicable VAT or local taxes. "
+"Monthly quotas reset on your billing anniversary."
+msgstr ""
+"All prices are shown in euros and exclude applicable VAT or local taxes. "
+"Monthly quotas reset on your billing anniversary."
+
+#: app/templates/main/pricing.html:113
+msgid "What is included"
+msgstr "What is included"
+
+#: app/templates/main/pricing.html:119
+msgid "Feature"
+msgstr "Feature"
+
+#: app/templates/main/pricing.html:123
+msgid "Business"
+msgstr "Business"
+
+#: app/templates/main/pricing.html:127
+msgid "Page allowance"
+msgstr "Page allowance"
+
+#: app/templates/main/pricing.html:135
+msgid "Support"
+msgstr "Support"
+
+#: app/templates/main/pricing.html:135
+msgid "Email"
+msgstr "Email"
+
+#: app/templates/main/pricing.html:135
+msgid "Priority & onboarding"
+msgstr "Priority & onboarding"
+
+#: app/templates/main/pricing.html:146
+msgid "Enterprise"
+msgstr "Enterprise"
+
+#: app/templates/main/pricing.html:147
+msgid "Need a custom bank format or higher volume?"
+msgstr "Need a custom bank format or higher volume?"
+
+#: app/templates/main/pricing.html:148
+msgid ""
+"Tell us which banks and workflows you handle. Our team can scope custom "
+"parsers, volume pricing, SSO and compliance requirements."
+msgstr ""
+"Tell us which banks and workflows you handle. Our team can scope custom "
+"parsers, volume pricing, SSO and compliance requirements."
+
+#: app/templates/main/pricing.html:150
+msgid "Custom parser development"
+msgstr "Custom parser development"
+
+#: app/templates/main/pricing.html:151
+msgid "Volume page pricing"
+msgstr "Volume page pricing"
+
+#: app/templates/main/pricing.html:152
+msgid "API integration support"
+msgstr "API integration support"
+
+#: app/templates/main/pricing.html:158
+msgid "Talk to our enterprise team"
+msgstr "Talk to our enterprise team"
+
+#: app/templates/main/pricing.html:159
+msgid "We reply within one business day."
+msgstr "We reply within one business day."
+
+#: app/templates/main/pricing.html:172
+msgid "ana@firm.com"
+msgstr "ana@firm.com"
+
+#: app/templates/main/pricing.html:176
+msgid "Firm or company name"
+msgstr "Firm or company name"
+
+#: app/templates/main/pricing.html:179
+msgid "What do you need?"
+msgstr "What do you need?"
+
+#: app/templates/main/pricing.html:180
+msgid "Banks, monthly volume, API requirements…"
+msgstr "Banks, monthly volume, API requirements…"
+
+#: app/templates/main/pricing.html:183
+msgid "Request enterprise pricing"
+msgstr "Request enterprise pricing"
+
+#: app/templates/main/pricing.html:196
+msgid "Billing questions"
+msgstr "Billing questions"
+
+#: app/templates/main/pricing.html:197
+msgid "Good to know"
+msgstr "Good to know"
+
+#: app/templates/main/pricing.html:202
+msgid "How are pages counted?"
+msgstr "How are pages counted?"
+
+#: app/templates/main/pricing.html:203
+msgid ""
+"We count the exact number of PDF pages before parsing. A 3-page statement"
+" uses 3 pages from your allowance. If a statement cannot be parsed, pages"
+" are not consumed."
+msgstr ""
+"We count the exact number of PDF pages before parsing. A 3-page statement"
+" uses 3 pages from your allowance. If a statement cannot be parsed, pages"
+" are not consumed."
+
+#: app/templates/main/pricing.html:206
+msgid "When does the free 24-hour limit reset?"
+msgstr "When does the free 24-hour limit reset?"
+
+#: app/templates/main/pricing.html:207
+msgid ""
+"Limits use a rolling 24-hour window. Your allowance becomes available "
+"again 24 hours after your earliest counted conversion in that window."
+msgstr ""
+"Limits use a rolling 24-hour window. Your allowance becomes available "
+"again 24 hours after your earliest counted conversion in that window."
+
+#: app/templates/main/pricing.html:210
+msgid "Can I cancel a paid plan?"
+msgstr "Can I cancel a paid plan?"
+
+#: app/templates/main/pricing.html:211
+msgid ""
+"Yes. Monthly plans can be cancelled at any time from your account or by "
+"contacting support. You keep access until the end of the paid cycle."
+msgstr ""
+"Yes. Monthly plans can be cancelled at any time from your account or by "
+"contacting support. You keep access until the end of the paid cycle."
+
+#: app/templates/main/pricing.html:214
+msgid "Do you offer invoices or VAT receipts?"
+msgstr "Do you offer invoices or VAT receipts?"
+
+#: app/templates/main/pricing.html:215
+msgid ""
+"Yes. Business customers can request invoices with company details and VAT"
+" information during onboarding."
+msgstr ""
+"Yes. Business customers can request invoices with company details and VAT"
+" information during onboarding."
+
+#: app/templates/main/privacy.html:2
+msgid "Privacy Policy — Bank Statement Converter"
+msgstr "Privacy Policy — Bank Statement Converter"
+
+#: app/templates/main/privacy.html:3
+msgid ""
+"How Bank Statement Converter handles uploaded PDFs, account data, usage "
+"logs and privacy rights."
+msgstr ""
+"How Bank Statement Converter handles uploaded PDFs, account data, usage "
+"logs and privacy rights."
+
+#: app/templates/main/privacy.html:9
+msgid "Privacy"
+msgstr "Privacy"
+
+#: app/templates/main/privacy.html:11 app/templates/main/terms.html:11
+msgid "Last updated:"
+msgstr "Last updated:"
+
+#: app/templates/main/privacy.html:19
+msgid "Privacy navigation"
+msgstr "Privacy navigation"
+
+#: app/templates/main/privacy.html:20
+msgid "Summary"
+msgstr "Summary"
+
+#: app/templates/main/privacy.html:21
+msgid "Uploaded documents"
+msgstr "Uploaded documents"
+
+#: app/templates/main/privacy.html:22
+msgid "Account data"
+msgstr "Account data"
+
+#: app/templates/main/privacy.html:23
+msgid "Usage data"
+msgstr "Usage data"
+
+#: app/templates/main/privacy.html:24
+msgid "Cookies"
+msgstr "Cookies"
+
+#: app/templates/main/privacy.html:25
+msgid "Sharing"
+msgstr "Sharing"
+
+#: app/templates/main/privacy.html:26
+msgid "Retention"
+msgstr "Retention"
+
+#: app/templates/main/privacy.html:27
+msgid "Your rights"
+msgstr "Your rights"
+
+#: app/templates/main/privacy.html:28 app/templates/main/terms.html:27
+msgid "Contact"
+msgstr "Contact"
+
+#: app/templates/main/privacy.html:35
+msgid "The short version"
+msgstr "The short version"
+
+#: app/templates/main/privacy.html:36
+msgid ""
+"We process your statement only to convert it, delete the raw PDF "
+"immediately, purge previews after about one hour, and never sell your "
+"data or use document content to train models."
+msgstr ""
+"We process your statement only to convert it, delete the raw PDF "
+"immediately, purge previews after about one hour, and never sell your "
+"data or use document content to train models."
+
+#: app/templates/main/privacy.html:40
+msgid "1. Uploaded documents"
+msgstr "1. Uploaded documents"
+
+#: app/templates/main/privacy.html:41
+msgid ""
+"When you upload a PDF, we store it temporarily in a private upload "
+"directory so the parser can read it. The file is removed in a guaranteed "
+"cleanup step immediately after extraction, including when parsing fails. "
+"The extracted rows are held in the database for approximately one hour to"
+" support the editable preview and downloads, after which the payload is "
+"purged. We do not use your document content for advertising or model "
+"training."
+msgstr ""
+"When you upload a PDF, we store it temporarily in a private upload "
+"directory so the parser can read it. The file is removed in a guaranteed "
+"cleanup step immediately after extraction, including when parsing fails. "
+"The extracted rows are held in the database for approximately one hour to"
+" support the editable preview and downloads, after which the payload is "
+"purged. We do not use your document content for advertising or model "
+"training."
+
+#: app/templates/main/privacy.html:43
+msgid "2. Account data"
+msgstr "2. Account data"
+
+#: app/templates/main/privacy.html:44
+msgid ""
+"If you register, we store your email address, optional full name, a "
+"salted password hash, plan tier, quota counters, billing-cycle dates, "
+"preferred interface language and account creation time. We never store "
+"plaintext passwords. If you create API keys, we store a short display "
+"prefix and a keyed hash, never the full key."
+msgstr ""
+"If you register, we store your email address, optional full name, a "
+"salted password hash, plan tier, quota counters, billing-cycle dates, "
+"preferred interface language and account creation time. We never store "
+"plaintext passwords. If you create API keys, we store a short display "
+"prefix and a keyed hash, never the full key."
+
+#: app/templates/main/privacy.html:46
+msgid "3. Usage data"
+msgstr "3. Usage data"
+
+#: app/templates/main/privacy.html:47
+msgid ""
+"To enforce quotas we record the number of pages converted, the associated"
+" account (if any), a one-way salted hash of the client IP address and a "
+"timestamp. We do not store the raw IP address in the usage log. This data"
+" is used for rate limiting, abuse prevention and aggregate service "
+"metrics."
+msgstr ""
+"To enforce quotas we record the number of pages converted, the associated"
+" account (if any), a one-way salted hash of the client IP address and a "
+"timestamp. We do not store the raw IP address in the usage log. This data"
+" is used for rate limiting, abuse prevention and aggregate service "
+"metrics."
+
+#: app/templates/main/privacy.html:49
+msgid "4. Cookies and local storage"
+msgstr "4. Cookies and local storage"
+
+#: app/templates/main/privacy.html:50
+msgid ""
+"We use a small number of essential cookies: a signed session cookie for "
+"language choice and sign-in state, and a remember-me cookie if you select"
+" that option. We do not use advertising cookies. Static assets may be "
+"served by a CDN, which receives standard request metadata."
+msgstr ""
+"We use a small number of essential cookies: a signed session cookie for "
+"language choice and sign-in state, and a remember-me cookie if you select"
+" that option. We do not use advertising cookies. Static assets may be "
+"served by a CDN, which receives standard request metadata."
+
+#: app/templates/main/privacy.html:52
+msgid "5. Sharing and processors"
+msgstr "5. Sharing and processors"
+
+#: app/templates/main/privacy.html:53
+msgid ""
+"We use infrastructure and content-delivery providers to host and serve "
+"the application. They process data only on our instructions and under "
+"appropriate safeguards. We may disclose information if required by law or"
+" to protect the service and its users. We do not sell personal data."
+msgstr ""
+"We use infrastructure and content-delivery providers to host and serve "
+"the application. They process data only on our instructions and under "
+"appropriate safeguards. We may disclose information if required by law or"
+" to protect the service and its users. We do not sell personal data."
+
+#: app/templates/main/privacy.html:55
+msgid "6. Retention"
+msgstr "6. Retention"
+
+#: app/templates/main/privacy.html:56
+msgid ""
+"Raw uploaded PDFs: deleted immediately after extraction. Parsed preview "
+"payloads: approximately one hour. Usage logs and conversion history: "
+"retained while needed for quota enforcement, account history and legal "
+"obligations. Account data: retained until you delete your account or ask "
+"us to erase it, subject to legal retention requirements."
+msgstr ""
+"Raw uploaded PDFs: deleted immediately after extraction. Parsed preview "
+"payloads: approximately one hour. Usage logs and conversion history: "
+"retained while needed for quota enforcement, account history and legal "
+"obligations. Account data: retained until you delete your account or ask "
+"us to erase it, subject to legal retention requirements."
+
+#: app/templates/main/privacy.html:58
+msgid "7. Your rights"
+msgstr "7. Your rights"
+
+#: app/templates/main/privacy.html:59
+msgid ""
+"Depending on your jurisdiction, you may have rights to access, correct, "
+"export or erase personal data, object to or restrict processing, or "
+"withdraw consent. To exercise these rights, contact us. You may also "
+"lodge a complaint with your local data protection authority."
+msgstr ""
+"Depending on your jurisdiction, you may have rights to access, correct, "
+"export or erase personal data, object to or restrict processing, or "
+"withdraw consent. To exercise these rights, contact us. You may also "
+"lodge a complaint with your local data protection authority."
+
+#: app/templates/main/privacy.html:61 app/templates/main/terms.html:56
+msgid "8. Contact"
+msgstr "8. Contact"
+
+#: app/templates/main/privacy.html:62
+msgid "For privacy requests, contact"
+msgstr "For privacy requests, contact"
+
+#: app/templates/main/privacy.html:62
+msgid "We aim to respond within 30 days."
+msgstr "We aim to respond within 30 days."
+
+#: app/templates/main/terms.html:2
+msgid "Terms of Service — Bank Statement Converter"
+msgstr "Terms of Service — Bank Statement Converter"
+
+#: app/templates/main/terms.html:3
+msgid ""
+"Terms of service for the Bank Statement Converter PDF to Excel and CSV "
+"platform."
+msgstr ""
+"Terms of service for the Bank Statement Converter PDF to Excel and CSV "
+"platform."
+
+#: app/templates/main/terms.html:9
+msgid "Legal"
+msgstr "Legal"
+
+#: app/templates/main/terms.html:19
+msgid "Terms navigation"
+msgstr "Terms navigation"
+
+#: app/templates/main/terms.html:20
+msgid "The service"
+msgstr "The service"
+
+#: app/templates/main/terms.html:21
+msgid "Accounts & plans"
+msgstr "Accounts & plans"
+
+#: app/templates/main/terms.html:22
+msgid "Acceptable use"
+msgstr "Acceptable use"
+
+#: app/templates/main/terms.html:23
+msgid "Your documents"
+msgstr "Your documents"
+
+#: app/templates/main/terms.html:24
+msgid "Intellectual property"
+msgstr "Intellectual property"
+
+#: app/templates/main/terms.html:25
+msgid "Disclaimers"
+msgstr "Disclaimers"
+
+#: app/templates/main/terms.html:26
+msgid "Liability"
+msgstr "Liability"
+
+#: app/templates/main/terms.html:31
+msgid ""
+"These terms govern your use of the Bank Statement Converter website, "
+"converter, dashboard and API. By using the service, you agree to them."
+msgstr ""
+"These terms govern your use of the Bank Statement Converter website, "
+"converter, dashboard and API. By using the service, you agree to them."
+
+#: app/templates/main/terms.html:33
+msgid "1. The service"
+msgstr "1. The service"
+
+#: app/templates/main/terms.html:34
+msgid ""
+"Bank Statement Converter extracts transaction data from PDF bank "
+"statements and produces downloadable Excel and CSV files. The service is "
+"provided on an as-is basis and may be updated, suspended or discontinued."
+" We do not provide accounting, tax, legal or financial advice."
+msgstr ""
+"Bank Statement Converter extracts transaction data from PDF bank "
+"statements and produces downloadable Excel and CSV files. The service is "
+"provided on an as-is basis and may be updated, suspended or discontinued."
+" We do not provide accounting, tax, legal or financial advice."
+
+#: app/templates/main/terms.html:36
+msgid "2. Accounts and plans"
+msgstr "2. Accounts and plans"
+
+#: app/templates/main/terms.html:37
+msgid ""
+"Anonymous conversions are limited to 1 page per rolling 24-hour period "
+"per network. Registered free accounts are limited to 5 pages per rolling "
+"24-hour period. Paid plans have a monthly page allowance shown on the "
+"pricing page. Quotas are checked against the exact PDF page count before "
+"parsing. Failed conversions do not consume pages."
+msgstr ""
+"Anonymous conversions are limited to 1 page per rolling 24-hour period "
+"per network. Registered free accounts are limited to 5 pages per rolling "
+"24-hour period. Paid plans have a monthly page allowance shown on the "
+"pricing page. Quotas are checked against the exact PDF page count before "
+"parsing. Failed conversions do not consume pages."
+
+#: app/templates/main/terms.html:38
+msgid ""
+"You are responsible for keeping your credentials and API keys secure. "
+"Notify us immediately if you believe a key has been compromised. We may "
+"revoke keys or suspend accounts that abuse the service or create multiple"
+" accounts to bypass limits."
+msgstr ""
+"You are responsible for keeping your credentials and API keys secure. "
+"Notify us immediately if you believe a key has been compromised. We may "
+"revoke keys or suspend accounts that abuse the service or create multiple"
+" accounts to bypass limits."
+
+#: app/templates/main/terms.html:40
+msgid "3. Acceptable use"
+msgstr "3. Acceptable use"
+
+#: app/templates/main/terms.html:41
+msgid ""
+"You may use the service only for documents you are authorised to process."
+" You must not upload malware, attempt to disrupt the service, probe or "
+"bypass security controls, scrape the service, resell access without an "
+"agreement, or use the service to violate applicable law or the rights of "
+"others."
+msgstr ""
+"You may use the service only for documents you are authorised to process."
+" You must not upload malware, attempt to disrupt the service, probe or "
+"bypass security controls, scrape the service, resell access without an "
+"agreement, or use the service to violate applicable law or the rights of "
+"others."
+
+#: app/templates/main/terms.html:43
+msgid "4. Your documents and data"
+msgstr "4. Your documents and data"
+
+#: app/templates/main/terms.html:44
+msgid ""
+"You retain ownership of your bank statements and the data extracted from "
+"them. You grant us a limited licence to process the documents solely to "
+"provide the conversion, preview and download you requested. Raw PDFs are "
+"deleted immediately after extraction. Parsed previews and job payloads "
+"expire after approximately one hour, after which downloads are no longer "
+"available."
+msgstr ""
+"You retain ownership of your bank statements and the data extracted from "
+"them. You grant us a limited licence to process the documents solely to "
+"provide the conversion, preview and download you requested. Raw PDFs are "
+"deleted immediately after extraction. Parsed previews and job payloads "
+"expire after approximately one hour, after which downloads are no longer "
+"available."
+
+#: app/templates/main/terms.html:45
+msgid ""
+"Our privacy policy describes in more detail what account and usage data "
+"we collect and how it is handled."
+msgstr ""
+"Our privacy policy describes in more detail what account and usage data "
+"we collect and how it is handled."
+
+#: app/templates/main/terms.html:47
+msgid "5. Intellectual property"
+msgstr "5. Intellectual property"
+
+#: app/templates/main/terms.html:48
+msgid ""
+"The service, its software, design, documentation and branding are owned "
+"by us or our licensors. These terms do not grant you ownership of the "
+"service. You may not copy, modify or create derivative works of the "
+"service except as permitted by law."
+msgstr ""
+"The service, its software, design, documentation and branding are owned "
+"by us or our licensors. These terms do not grant you ownership of the "
+"service. You may not copy, modify or create derivative works of the "
+"service except as permitted by law."
+
+#: app/templates/main/terms.html:50
+msgid "6. Disclaimers"
+msgstr "6. Disclaimers"
+
+#: app/templates/main/terms.html:51
+msgid ""
+"PDF parsing is inherently probabilistic. Although we test against many "
+"bank formats, we cannot guarantee that every statement will extract "
+"correctly or that every layout will be supported. You are responsible for"
+" reviewing the editable preview and the exported file before using it for"
+" accounting, reporting, legal or audit purposes. The service is provided "
+"without warranties of any kind, to the maximum extent permitted by law."
+msgstr ""
+"PDF parsing is inherently probabilistic. Although we test against many "
+"bank formats, we cannot guarantee that every statement will extract "
+"correctly or that every layout will be supported. You are responsible for"
+" reviewing the editable preview and the exported file before using it for"
+" accounting, reporting, legal or audit purposes. The service is provided "
+"without warranties of any kind, to the maximum extent permitted by law."
+
+#: app/templates/main/terms.html:53
+msgid "7. Limitation of liability"
+msgstr "7. Limitation of liability"
+
+#: app/templates/main/terms.html:54
+msgid ""
+"To the maximum extent permitted by law, we are not liable for indirect, "
+"incidental, special, consequential or punitive damages, or for lost "
+"profits, revenue, data or goodwill. Our aggregate liability arising from "
+"the service is limited to the amount you paid us in the twelve months "
+"before the event giving rise to the claim."
+msgstr ""
+"To the maximum extent permitted by law, we are not liable for indirect, "
+"incidental, special, consequential or punitive damages, or for lost "
+"profits, revenue, data or goodwill. Our aggregate liability arising from "
+"the service is limited to the amount you paid us in the twelve months "
+"before the event giving rise to the claim."
+
+#: app/templates/main/terms.html:57
+msgid "Questions about these terms can be sent to"
+msgstr "Questions about these terms can be sent to"
+

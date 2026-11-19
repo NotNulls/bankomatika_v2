@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}{{ _("About — Bank Statement Converter") }}{% endblock %}
+{% block meta_description %}{{ _("Why we built a bank-grade PDF statement converter for accountants, finance teams and legal professionals.") }}{% endblock %}
+{% block body_class %}site-body{% endblock %}
+
+{% block content %}
+<section class="page-hero page-hero-left">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9">
+        <span class="eyebrow">{{ _("About us") }}</span>
+        <h1>{{ _("Clean financial data should not require manual retyping") }}</h1>
+        <p class="page-hero-copy">{{ _("Bank Statement Converter exists to remove one of the most tedious, error-prone tasks in accounting: rebuilding a transaction ledger from a PDF.") }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad pt-0">
+  <div class="container">
+    <div class="row g-5 align-items-start">
+      <div class="col-lg-7">
+        <h2>{{ _("Our mission") }}</h2>
+        <p class="lead-copy">{{ _("Give finance professionals a trustworthy, confidential way to turn bank statements into structured data — without desktop software, copy-paste marathons or sending client documents to unknown tools.") }}</p>
+        <p>{{ _("Statements arrive as PDFs from hundreds of banks, each with its own column order, number format and date convention. A single misread decimal can break a reconciliation. Our parser combines table detection, bank-specific header heuristics and line-level fallback rules so the output is predictable and reviewable.") }}</p>
+        <p>{{ _("We believe conversion tools should be boring in the best way: consistent, transparent and respectful of the documents you trust them with.") }}</p>
+      </div>
+      <div class="col-lg-5">
+        <div class="values-card">
+          <h3>{{ _("What we optimise for") }}</h3>
+          <div class="value-row"><span class="value-number">01</span><div><strong>{{ _("Confidentiality first") }}</strong><p>{{ _("Raw PDFs are deleted immediately after extraction. Previews expire in an hour.") }}</p></div></div>
+          <div class="value-row"><span class="value-number">02</span><div><strong>{{ _("Reviewable accuracy") }}</strong><p>{{ _("Every row is editable before export, so a human stays in control.") }}</p></div></div>
+          <div class="value-row"><span class="value-number">03</span><div><strong>{{ _("Professional workflow") }}</strong><p>{{ _("Exports are built for ledgers, reconciliation and audit trails.") }}</p></div></div>
+          <div class="value-row"><span class="value-number">04</span><div><strong>{{ _("Global by default") }}</strong><p>{{ _("International formats plus English, Montenegrin/Serbian, Croatian and Bosnian interfaces.") }}</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad-sm">
+  <div class="container">
+    <div class="stats-band">
+      <div><strong>1000s</strong><span>{{ _("of bank layouts") }}</span></div>
+      <div><strong>25 MB</strong><span>{{ _("maximum statement size") }}</span></div>
+      <div><strong>1 hour</strong><span>{{ _("preview retention") }}</span></div>
+      <div><strong>0</strong><span>{{ _("PDFs kept after parsing") }}</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <article class="feature-card h-100">
+          <span class="feature-icon feature-icon-green" aria-hidden="true"><i class="bi bi-people"></i></span>
+          <h3>{{ _("For accounting firms") }}</h3>
+          <p>{{ _("Convert recurring client statements into clean workpapers without hiring a data-entry layer.") }}</p>
+        </article>
+      </div>
+      <div class="col-md-4">
+        <article class="feature-card h-100">
+          <span class="feature-icon feature-icon-blue" aria-hidden="true"><i class="bi bi-briefcase"></i></span>
+          <h3>{{ _("For finance teams") }}</h3>
+          <p>{{ _("Normalise statements from multiple banking relationships before reconciliation and reporting.") }}</p>
+        </article>
+      </div>
+      <div class="col-md-4">
+        <article class="feature-card h-100">
+          <span class="feature-icon feature-icon-amber" aria-hidden="true"><i class="bi bi-bank"></i></span>
+          <h3>{{ _("For legal & advisory") }}</h3>
+          <p>{{ _("Turn disclosure bundles into searchable, attributable transaction schedules with references intact.") }}</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-card text-center">
+      <h2>{{ _("Try it with a statement you already have") }}</h2>
+      <p>{{ _("One free page, no signup. See the extracted rows before you decide.") }}</p>
+      <a href="{{ url_for('main.index') }}#converter" class="btn btn-accent btn-lg mt-2">{{ _("Open the converter") }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

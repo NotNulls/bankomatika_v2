@@ -1,0 +1,25 @@
+# Core web framework
+Flask>=3.1,<4.0
+Flask-SQLAlchemy>=3.1,<4.0
+Flask-Migrate>=4.0,<5.0
+Flask-Login>=0.6.3,<1.0
+Flask-Babel>=4.0,<5.0
+SQLAlchemy>=2.0,<3.0
+Werkzeug>=3.1,<4.0
+python-dotenv>=1.0,<2.0
+
+# PostgreSQL (production database)
+psycopg2-binary>=2.9.9,<3.0
+
+# PDF parsing and export engine
+pdfplumber>=0.11,<1.0
+pypdf>=5.0,<7.0
+pandas>=2.2,<4.0
+openpyxl>=3.1,<4.0
+
+# Test & sample-generation tooling
+pytest>=8.0,<10.0
+reportlab>=4.2,<5.0
+
+# Production WSGI server (Linux/Docker; skipped on Windows)
+#gunicorn>=23.0,<24.0; platform_system != "Windows"

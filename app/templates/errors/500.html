@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Server error — Bank Statement Converter") }}{% endblock %}
+{% block body_class %}site-body error-page{% endblock %}
+{% block content %}
+<section class="error-section">
+  <div class="container">
+    <div class="error-card">
+      <span class="error-code">500</span>
+      <h1>{{ _("Something went wrong on our side") }}</h1>
+      <p>{{ _("The request could not be completed. Please try again in a moment. Your uploaded file was not retained.") }}</p>
+      <div class="d-flex flex-wrap justify-content-center gap-2">
+        <a href="{{ url_for('main.index') }}#converter" class="btn btn-accent">{{ _("Try again") }}</a>
+        <a href="mailto:{{ support_email }}" class="btn btn-outline-navy">{{ _("Contact support") }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+.env
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# Flask / local state
+instance/
+*.sqlite
+*.sqlite3
+*.db
+uploads/
+tmp/
+tmpwork/
+.tmp/
+sitecustomize.py
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Test artifacts
+tests/tmp/

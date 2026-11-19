@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Dashboard — Bank Statement Converter") }}{% endblock %}
+{% block meta_description %}{{ _("Manage your statement conversions, page quota, history and API keys.") }}{% endblock %}
+{% block body_class %}site-body dashboard-page{% endblock %}
+
+{% block content %}
+<section class="dashboard-header">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+      <div>
+        <span class="eyebrow eyebrow-light">{{ _("Workspace") }}</span>
+        <h1>{{ _("Welcome, %(name)s", name=current_user.display_name) }}</h1>
+        <p class="mb-0">{{ _("Convert statements, track usage and manage your integration.") }}</p>
+      </div>
+      <div class="d-flex flex-wrap gap-2">
+        <a href="{{ url_for('main.index') }}#converter" class="btn btn-accent"><i class="bi bi-cloud-arrow-up me-2" aria-hidden="true"></i>{{ _("New conversion") }}</a>
+        {% if current_user.has_api_access %}
+          <a href="{{ url_for('main.api_docs') }}" class="btn btn-outline-light"><i class="bi bi-code-slash me-2" aria-hidden="true"></i>{{ _("API docs") }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container dashboard-body">
+  <div class="row g-4">
+    <div class="col-xl-8">
+      <section class="panel quota-panel" aria-labelledby="quota-title">
+        <div class="panel-head">
+          <div>
+            <h2 id="quota-title" class="panel-title">{{ _("Page quota") }}</h2>
+            <p class="panel-subtitle">
+              {% if quota.scope == 'paid' %}
+                {{ _("Monthly allowance for your %(plan)s plan", plan=current_user.plan_label) }}
+              {% else %}
+                {{ _("Rolling 24-hour free allowance") }}
+              {% endif %}
+            </p>
+          </div>
+          <span class="plan-pill">{{ current_user.plan_label }}</span>
+        </div>
+        <div class="quota-main">
+          <div>
+            <div class="quota-big"><strong>{{ quota.remaining }}</strong><span>{{ _("pages remaining") }}</span></div>
+            <p class="quota-usage">{{ quota.used }} {{ _("used") }} / {{ quota.limit }} {{ _("total") }} · {{ quota.label }}</p>
+          </div>
+          <div class="quota-reset">
+            <span class="quota-reset-label">{{ _("Resets") }}</span>
+            <strong>{{ quota.resets_at|babel_datetime('medium') }}</strong>
+          </div>
+        </div>
+        <div class="progress quota-progress" role="progressbar" aria-label="{{ _('Quota used') }}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ quota.percent_used }}">
+          <div class="progress-bar" style="width: {{ quota.percent_used }}%"></div>
+        </div>
+        <div class="quota-foot">
+          <span>{{ _("%(percent)s%% of this allowance used", percent=quota.percent_used) }}</span>
+          {% if not current_user.is_paid %}
+            <a href="{{ url_for('main.pricing') }}">{{ _("Need more pages? Upgrade") }} <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+          {% else %}
+            <a href="{{ url_for('main.pricing') }}#enterprise">{{ _("Increase your quota") }} <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+          {% endif %}
+        </div>
+      </section>
+
+      <div class="row g-3 stats-row">
+        <div class="col-sm-4">
+          <div class="stat-card">
+            <span class="stat-icon"><i class="bi bi-files" aria-hidden="true"></i></span>
+            <strong>{{ total_jobs }}</strong>
+            <span>{{ _("conversions") }}</span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="stat-card">
+            <span class="stat-icon"><i class="bi bi-file-earmark-text" aria-hidden="true"></i></span>
+            <strong>{{ total_pages }}</strong>
+            <span>{{ _("pages processed") }}</span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="stat-card">
+            <span class="stat-icon"><i class="bi bi-rows" aria-hidden="true"></i></span>
+            <strong>{{ total_rows }}</strong>
+            <span>{{ _("transactions extracted") }}</span>
+          </div>
+        </div>
+      </div>
+
+      <section class="panel history-panel" id="history" aria-labelledby="history-title">
+        <div class="panel-head">
+          <div>
+            <h2 id="history-title" class="panel-title">{{ _("Conversion history") }}</h2>
+            <p class="panel-subtitle">{{ _("Downloads remain available while the one-hour preview is retained.") }}</p>
+          </div>
+          <a href="{{ url_for('main.index') }}#converter" class="btn btn-sm btn-outline-navy">{{ _("Convert another") }}</a>
+        </div>
+        {% if history %}
+          <div class="table-responsive">
+            <table class="table history-table align-middle mb-0">
+              <thead>
+                <tr>
+                  <th scope="col">{{ _("Statement") }}</th>
+                  <th scope="col">{{ _("Details") }}</th>
+                  <th scope="col">{{ _("Date") }}</th>
+                  <th scope="col">{{ _("Status") }}</th>
+                  <th scope="col" class="text-end">{{ _("Download") }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in history %}
+                  {% set job = item.job %}
+                  <tr>
+                    <td>
+                      <div class="history-file">
+                        <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+                        <div>
+                          <strong title="{{ job.original_filename }}">{{ job.original_filename|truncate(38) }}</strong>
+                          <span>{{ job.detected_bank or _('Unknown bank') }}</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="history-details">{{ job.page_count }} {{ _("pages") }} · {{ job.row_count }} {{ _("rows") }}</td>
+                    <td class="history-date">{{ job.created_at|babel_datetime('short') }}</td>
+                    <td>
+                      {% if job.status == 'completed' %}
+                        <span class="status-badge status-success"><span class="status-dot"></span>{{ _("Completed") }}</span>
+                      {% else %}
+                        <span class="status-badge status-failed">{{ _("Failed") }}</span>
+                      {% endif %}
+                    </td>
+                    <td class="text-end">
+                      {% if item.available %}
+                        <div class="dropdown">
+                          <button class="btn btn-sm btn-outline-navy dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ _("Download") }}</button>
+                          <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{{ url_for('converter.download', token=item.token, export_format='xlsx') }}"><i class="bi bi-file-earmark-excel me-2" aria-hidden="true"></i>Excel (.XLSX)</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('converter.download', token=item.token, export_format='csv') }}"><i class="bi bi-filetype-csv me-2" aria-hidden="true"></i>CSV (.CSV)</a></li>
+                          </ul>
+                        </div>
+                      {% else %}
+                        <span class="expired-label">{{ _("Expired") }}</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <div class="empty-state">
+            <span class="empty-icon"><i class="bi bi-inbox" aria-hidden="true"></i></span>
+            <h3>{{ _("No conversions yet") }}</h3>
+            <p>{{ _("Upload a PDF bank statement to see it here.") }}</p>
+            <a href="{{ url_for('main.index') }}#converter" class="btn btn-accent">{{ _("Convert your first statement") }}</a>
+          </div>
+        {% endif %}
+      </section>
+    </div>
+
+    <div class="col-xl-4">
+      <section class="panel plan-panel" aria-labelledby="plan-title">
+        <div class="panel-head">
+          <div>
+            <h2 id="plan-title" class="panel-title">{{ _("Your plan") }}</h2>
+            <p class="panel-subtitle">{{ _("Membership and cycle") }}</p>
+          </div>
+          <span class="plan-pill">{{ current_user.plan_label }}</span>
+        </div>
+        <div class="plan-detail">
+          <div class="plan-detail-row"><span>{{ _("Plan tier") }}</span><strong>{{ current_user.plan_label }}</strong></div>
+          <div class="plan-detail-row"><span>{{ _("Monthly quota") }}</span><strong>{% if current_user.is_paid %}{{ current_user.effective_monthly_quota }}{% else %}0{% endif %}</strong></div>
+          <div class="plan-detail-row"><span>{{ _("Daily allowance") }}</span><strong>{% if current_user.is_paid %}—{% else %}5{% endif %}</strong></div>
+          <div class="plan-detail-row"><span>{{ _("Cycle resets") }}</span><strong>{% if current_user.is_paid %}{{ current_user.cycle_label }}{% else %}{{ _("Rolling 24h") }}{% endif %}</strong></div>
+          <div class="plan-detail-row"><span>{{ _("API access") }}</span><strong>{% if current_user.has_api_access %}{{ _("Included") }}{% else %}{{ _("Not included") }}{% endif %}</strong></div>
+          <div class="plan-detail-row"><span>{{ _("Member since") }}</span><strong>{{ current_user.created_at|babel_date('medium') }}</strong></div>
+        </div>
+        {% if not current_user.is_paid %}
+          <a href="{{ url_for('main.pricing') }}" class="btn btn-accent w-100 mt-3">{{ _("Upgrade plan") }}</a>
+        {% elif current_user.plan_tier == 'starter_25' %}
+          <a href="{{ url_for('main.pricing') }}#enterprise" class="btn btn-outline-navy w-100 mt-3">{{ _("Add API access") }}</a>
+        {% endif %}
+      </section>
+
+      <section class="panel api-panel" id="api-keys" aria-labelledby="api-title">
+        <div class="panel-head">
+          <div>
+            <h2 id="api-title" class="panel-title">{{ _("API keys") }}</h2>
+            <p class="panel-subtitle">{{ _("Programmatic statement conversion") }}</p>
+          </div>
+          {% if current_user.has_api_access %}<span class="count-badge">{{ active_api_keys }}/5</span>{% endif %}
+        </div>
+
+        {% if current_user.has_api_access %}
+          {% if new_api_key %}
+            <div class="new-key-box" role="status">
+              <div class="new-key-head"><i class="bi bi-key-fill" aria-hidden="true"></i><strong>{{ _("Copy your new key now") }}</strong></div>
+              <p>{{ _("For security, this key will not be shown again.") }}</p>
+              <div class="input-group">
+                <input id="new-api-key" class="form-control" type="text" readonly value="{{ new_api_key }}" aria-label="{{ _('New API key') }}">
+                <button class="btn btn-outline-navy" type="button" data-copy-target="new-api-key">{{ _("Copy") }}</button>
+              </div>
+            </div>
+          {% endif %}
+
+          <form method="post" action="{{ url_for('dashboard.create_api_key') }}" class="key-form">
+            <label class="form-label" for="key-name">{{ _("Create a new key") }}</label>
+            <div class="input-group">
+              <input class="form-control" id="key-name" name="name" maxlength="120" placeholder="{{ _('e.g. Production integration') }}">
+              <button class="btn btn-accent" type="submit" {% if active_api_keys >= 5 %}disabled{% endif %}>{{ _("Create") }}</button>
+            </div>
+          </form>
+
+          {% if api_keys %}
+            <div class="key-list">
+              {% for key in api_keys %}
+                <div class="key-row">
+                  <div class="key-info">
+                    <code>{{ key.masked_key }}</code>
+                    <span>{{ key.name }} · {{ _("Created") }} {{ key.created_at|babel_date('short') }}</span>
+                    <span>{{ _("Last used") }}: {% if key.last_used_at %}{{ key.last_used_at|babel_datetime('short') }}{% else %}{{ _("Never") }}{% endif %}</span>
+                  </div>
+                  <div class="key-actions">
+                    {% if key.is_active %}
+                      <span class="status-badge status-success">{{ _("Active") }}</span>
+                      <form method="post" action="{{ url_for('dashboard.revoke_api_key', key_id=key.id) }}" data-confirm="{{ _('Revoke this API key? Applications using it will stop working immediately.') }}">
+                        <button type="submit" class="btn btn-sm btn-link-danger">{{ _("Revoke") }}</button>
+                      </form>
+                    {% else %}
+                      <span class="status-badge status-muted">{{ _("Revoked") }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="api-empty">{{ _("No API keys yet. Create one to start integrating.") }}</p>
+          {% endif %}
+          <a href="{{ url_for('main.api_docs') }}" class="api-docs-link">{{ _("Read the API documentation") }} <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        {% else %}
+          <div class="api-upsell">
+            <span class="api-upsell-icon"><i class="bi bi-code-slash" aria-hidden="true"></i></span>
+            <h3>{{ _("Unlock the REST API") }}</h3>
+            <p>{{ _("Business / Enterprise includes API keys, 2,500+ pages per month and custom bank formats.") }}</p>
+            <a href="{{ url_for('main.pricing') }}#enterprise" class="btn btn-outline-navy w-100">{{ _("Explore Business") }}</a>
+          </div>
+        {% endif %}
+      </section>
+
+      <section class="panel security-mini">
+        <i class="bi bi-shield-lock" aria-hidden="true"></i>
+        <div><strong>{{ _("Zero-retention processing") }}</strong><p>{{ _("Uploaded PDFs are deleted immediately after parsing.") }}</p></div>
+      </section>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}" defer></script>
+{% endblock %}

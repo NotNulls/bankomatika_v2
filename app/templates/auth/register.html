@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Create a free account — Bank Statement Converter") }}{% endblock %}
+{% block meta_description %}{{ _("Register free and convert 5 PDF bank statement pages every 24 hours with editable Excel and CSV exports and conversion history.") }}{% endblock %}
+{% block body_class %}site-body auth-page{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+  <div class="container">
+    <div class="auth-shell">
+      <div class="row g-0">
+        <div class="col-lg-5 auth-aside auth-aside-register">
+          <div class="auth-aside-inner">
+            <a class="auth-brand" href="{{ url_for('main.index') }}">
+              <span class="brand-mark" aria-hidden="true"><i class="bi bi-file-earmark-spreadsheet"></i></span>
+              <span>{{ app_name }}</span>
+            </a>
+            <span class="free-badge">{{ _("Free forever") }}</span>
+            <h1>{{ _("More pages. Less retyping.") }}</h1>
+            <p>{{ _("Create an account and unlock 5 statement pages every 24 hours — no card, no commitment.") }}</p>
+            <div class="register-quota">
+              <strong>5</strong>
+              <span>{{ _("pages every 24 hours") }}</span>
+            </div>
+            <ul class="auth-benefits">
+              <li><i class="bi bi-check2-circle" aria-hidden="true"></i><span><strong>{{ _("Editable preview") }}</strong>{{ _("review every transaction before download") }}</span></li>
+              <li><i class="bi bi-check2-circle" aria-hidden="true"></i><span><strong>{{ _("Conversion history") }}</strong>{{ _("find recent downloads in one place") }}</span></li>
+              <li><i class="bi bi-check2-circle" aria-hidden="true"></i><span><strong>{{ _("Instant deletion") }}</strong>{{ _("bank-grade zero-retention processing") }}</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="auth-form-wrap">
+            <div class="auth-form-head">
+              <span class="eyebrow">{{ _("Get started") }}</span>
+              <h2>{{ _("Create your free account") }}</h2>
+              <p>{{ _("Already registered?") }} <a href="{{ url_for('auth.login') }}">{{ _("Sign in") }}</a>.</p>
+            </div>
+            <form method="post" action="{{ url_for('auth.register') }}" class="auth-form">
+              <input type="hidden" name="lang" value="{{ selected_lang or 'en' }}">
+              <div class="mb-3">
+                <label class="form-label" for="register-name">{{ _("Full name") }}</label>
+                <input class="form-control form-control-lg" id="register-name" name="full_name" autocomplete="name" required value="{{ form.get('full_name', '') }}" placeholder="{{ _('Ana Petrović') }}">
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="register-email">{{ _("Work email") }}</label>
+                <input class="form-control form-control-lg" id="register-email" name="email" type="email" autocomplete="email" required value="{{ form.get('email', '') }}" placeholder="you@firm.com">
+              </div>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label" for="register-password">{{ _("Password") }}</label>
+                  <input class="form-control form-control-lg" id="register-password" name="password" type="password" autocomplete="new-password" minlength="8" required>
+                  <div class="form-text">{{ _("At least 8 characters.") }}</div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="register-confirm">{{ _("Confirm password") }}</label>
+                  <input class="form-control form-control-lg" id="register-confirm" name="confirm_password" type="password" autocomplete="new-password" minlength="8" required>
+                </div>
+              </div>
+              <div class="form-check my-4">
+                <input class="form-check-input" type="checkbox" value="1" id="register-terms" required>
+                <label class="form-check-label" for="register-terms">
+                  {{ _("I agree to the") }} <a href="{{ url_for('main.terms') }}" target="_blank" rel="noopener">{{ _("Terms of Service") }}</a> {{ _("and") }} <a href="{{ url_for('main.privacy') }}" target="_blank" rel="noopener">{{ _("Privacy Policy") }}</a>.
+                </label>
+              </div>
+              <button class="btn btn-accent btn-lg w-100" type="submit">{{ _("Create free account") }} <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i></button>
+              <p class="form-note text-center mt-3 mb-0">{{ _("No credit card. Upgrade only when you need more.") }}</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Pricing — Bank Statement Converter") }}{% endblock %}
+{% block meta_description %}{{ _("Convert one page free, get 5 pages per day with a free account, or choose 500 or 2,500 monthly pages for teams. Transparent pricing, no setup fees.") }}{% endblock %}
+{% block body_class %}site-body pricing-page{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container text-center">
+    <span class="eyebrow">{{ _("Pricing") }}</span>
+    <h1>{{ _("Straightforward pricing for clean statements") }}</h1>
+    <p class="page-hero-copy">{{ _("Start with a single free page. Register for more. Upgrade when your accounting workflow demands volume, API access or custom formats.") }}</p>
+    <div class="pricing-switch-note"><i class="bi bi-check2-circle" aria-hidden="true"></i> {{ _("No credit card required for free tiers") }}</div>
+  </div>
+</section>
+
+<section class="section-pad pt-0" id="plans">
+  <div class="container">
+    <div class="row g-4 align-items-stretch">
+      <div class="col-md-6 col-xl-3">
+        <article class="pricing-card pricing-card-tall h-100">
+          <div class="pricing-head">
+            <span class="plan-kicker">{{ _("Anonymous") }}</span>
+            <div class="plan-price">€0<span>/{{ _("forever") }}</span></div>
+            <p class="plan-copy">{{ _("No signup, no account, no card. Ideal for a one-off statement.") }}</p>
+          </div>
+          <div class="plan-quota"><strong>1</strong> {{ _("page every 24 hours") }}</div>
+          <ul class="plan-features">
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Multi-bank PDF extraction") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Inline editable preview") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Formatted XLSX download") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("UTF-8 CSV download") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Immediate PDF deletion") }}</li>
+          </ul>
+          <a href="{{ url_for('main.index') }}#converter" class="btn btn-outline-navy w-100 mt-auto">{{ _("Convert a PDF") }}</a>
+          <p class="plan-footnote">{{ _("1 page per rolling 24-hour window per network.") }}</p>
+        </article>
+      </div>
+
+      <div class="col-md-6 col-xl-3">
+        <article class="pricing-card pricing-card-tall h-100">
+          <div class="pricing-head">
+            <span class="plan-kicker">{{ _("Registered") }}</span>
+            <div class="plan-price">€0<span>/{{ _("forever") }}</span></div>
+            <p class="plan-copy">{{ _("A free account for regular statement conversions and history.") }}</p>
+          </div>
+          <div class="plan-quota"><strong>5</strong> {{ _("pages every 24 hours") }}</div>
+          <ul class="plan-features">
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Everything in Anonymous") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Conversion history") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Quota meter and cycle details") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Saved language preference") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("No monthly commitment") }}</li>
+          </ul>
+          {% if current_user.is_authenticated %}
+            <a href="{{ url_for('dashboard.index') }}" class="btn btn-outline-navy w-100 mt-auto">{{ _("Go to dashboard") }}</a>
+          {% else %}
+            <a href="{{ url_for('auth.register') }}" class="btn btn-outline-navy w-100 mt-auto">{{ _("Create free account") }}</a>
+          {% endif %}
+          <p class="plan-footnote">{{ _("5 pages per rolling 24-hour window per account.") }}</p>
+        </article>
+      </div>
+
+      <div class="col-md-6 col-xl-3">
+        <article class="pricing-card pricing-card-tall pricing-card-featured h-100">
+          <span class="popular-badge">{{ _("Most popular") }}</span>
+          <div class="pricing-head">
+            <span class="plan-kicker">{{ _("Starter / Pro") }}</span>
+            <div class="plan-price">€25<span>/{{ _("month") }}</span></div>
+            <p class="plan-copy">{{ _("For accounting practices converting client statements every week.") }}</p>
+          </div>
+          <div class="plan-quota"><strong>500</strong> {{ _("pages per month") }}</div>
+          <ul class="plan-features">
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Everything in Registered") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Batch multi-PDF upload") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Priority parsing queue") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Monthly usage analytics") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Email support") }}</li>
+          </ul>
+          <a href="{{ url_for('main.contact', plan='starter') }}" class="btn btn-accent w-100 mt-auto">{{ _("Start with Pro") }}</a>
+          <p class="plan-footnote">{{ _("Billed monthly. Cancel any time.") }}</p>
+        </article>
+      </div>
+
+      <div class="col-md-6 col-xl-3">
+        <article class="pricing-card pricing-card-tall h-100">
+          <div class="pricing-head">
+            <span class="plan-kicker">{{ _("Business / Enterprise") }}</span>
+            <div class="plan-price">€35+<span>/{{ _("month") }}</span></div>
+            <p class="plan-copy">{{ _("For firms, platforms and finance teams that need volume or integration.") }}</p>
+          </div>
+          <div class="plan-quota"><strong>2,500+</strong> {{ _("pages per month") }}</div>
+          <ul class="plan-features">
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Everything in Starter / Pro") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("REST API access") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("API key manager") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Custom bank format support") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Bespoke enterprise onboarding") }}</li>
+          </ul>
+          <a href="#enterprise" class="btn btn-outline-navy w-100 mt-auto">{{ _("Contact enterprise") }}</a>
+          <p class="plan-footnote">{{ _("Volume pricing available.") }}</p>
+        </article>
+      </div>
+    </div>
+
+    <p class="pricing-footnote text-center">{{ _("All prices are shown in euros and exclude applicable VAT or local taxes. Monthly quotas reset on your billing anniversary.") }}</p>
+  </div>
+</section>
+
+<section class="section-pad-sm comparison-section">
+  <div class="container">
+    <div class="section-intro text-center">
+      <span class="eyebrow">{{ _("Compare plans") }}</span>
+      <h2>{{ _("What is included") }}</h2>
+    </div>
+    <div class="table-responsive comparison-wrap">
+      <table class="table comparison-table align-middle">
+        <thead>
+          <tr>
+            <th scope="col">{{ _("Feature") }}</th>
+            <th scope="col">{{ _("Anonymous") }}</th>
+            <th scope="col">{{ _("Registered") }}</th>
+            <th scope="col" class="featured-col">{{ _("Starter / Pro") }}</th>
+            <th scope="col">{{ _("Business") }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">{{ _("Page allowance") }}</th><td>1 / 24h</td><td>5 / 24h</td><td>500 / {{ _("month") }}</td><td>2,500+ / {{ _("month") }}</td></tr>
+          <tr><th scope="row">{{ _("Excel and CSV export") }}</th><td><i class="bi bi-check-lg text-success"></i></td><td><i class="bi bi-check-lg text-success"></i></td><td><i class="bi bi-check-lg text-success"></i></td><td><i class="bi bi-check-lg text-success"></i></td></tr>
+          <tr><th scope="row">{{ _("Editable preview") }}</th><td><i class="bi bi-check-lg text-success"></i></td><td><i class="bi bi-check-lg text-success"></i></td><td><i class="bi bi-check-lg text-success"></i></td><td><i class="bi bi-check-lg text-success"></i></td></tr>
+          <tr><th scope="row">{{ _("Conversion history") }}</th><td>—</td><td><i class="bi bi-check-lg text-success"></i></td><td><i class="bi bi-check-lg text-success"></i></td><td><i class="bi bi-check-lg text-success"></i></td></tr>
+          <tr><th scope="row">{{ _("Batch multi-PDF upload") }}</th><td>—</td><td>—</td><td><i class="bi bi-check-lg text-success"></i></td><td><i class="bi bi-check-lg text-success"></i></td></tr>
+          <tr><th scope="row">{{ _("Priority parsing") }}</th><td>—</td><td>—</td><td><i class="bi bi-check-lg text-success"></i></td><td><i class="bi bi-check-lg text-success"></i></td></tr>
+          <tr><th scope="row">{{ _("REST API access") }}</th><td>—</td><td>—</td><td>—</td><td><i class="bi bi-check-lg text-success"></i></td></tr>
+          <tr><th scope="row">{{ _("Custom bank format support") }}</th><td>—</td><td>—</td><td>—</td><td><i class="bi bi-check-lg text-success"></i></td></tr>
+          <tr><th scope="row">{{ _("Support") }}</th><td>—</td><td>—</td><td>{{ _("Email") }}</td><td>{{ _("Priority & onboarding") }}</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad enterprise-section" id="enterprise">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-5">
+        <span class="eyebrow eyebrow-light">{{ _("Enterprise") }}</span>
+        <h2>{{ _("Need a custom bank format or higher volume?") }}</h2>
+        <p>{{ _("Tell us which banks and workflows you handle. Our team can scope custom parsers, volume pricing, SSO and compliance requirements.") }}</p>
+        <ul class="enterprise-list">
+          <li><i class="bi bi-check2-circle" aria-hidden="true"></i>{{ _("Custom parser development") }}</li>
+          <li><i class="bi bi-check2-circle" aria-hidden="true"></i>{{ _("Volume page pricing") }}</li>
+          <li><i class="bi bi-check2-circle" aria-hidden="true"></i>{{ _("API integration support") }}</li>
+          <li><i class="bi bi-check2-circle" aria-hidden="true"></i>{{ _("Security review and DPA") }}</li>
+        </ul>
+      </div>
+      <div class="col-lg-7">
+        <div class="contact-card">
+          <h3>{{ _("Talk to our enterprise team") }}</h3>
+          <p class="contact-sub">{{ _("We reply within one business day.") }}</p>
+          <form method="post" action="{{ url_for('main.contact') }}" class="row g-3">
+            <input type="hidden" name="plan" value="{{ request.args.get('plan', 'business') }}">
+            <div class="position-absolute" style="left: -9999px;" aria-hidden="true">
+              <label for="website-pricing">Website</label>
+              <input type="text" id="website-pricing" name="website" tabindex="-1" autocomplete="off">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="name-pricing">{{ _("Full name") }}</label>
+              <input class="form-control" id="name-pricing" name="name" required autocomplete="name" placeholder="{{ _('Ana Petrović') }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="email-pricing">{{ _("Work email") }}</label>
+              <input class="form-control" id="email-pricing" name="email" type="email" required autocomplete="email" placeholder="{{ _('ana@firm.com') }}">
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="company-pricing">{{ _("Company") }}</label>
+              <input class="form-control" id="company-pricing" name="company" autocomplete="organization" placeholder="{{ _('Firm or company name') }}">
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="message-pricing">{{ _("What do you need?") }}</label>
+              <textarea class="form-control" id="message-pricing" name="message" rows="4" required placeholder="{{ _('Banks, monthly volume, API requirements…') }}"></textarea>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-accent">{{ _("Request enterprise pricing") }} <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad faq-section">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <span class="eyebrow">{{ _("Billing questions") }}</span>
+        <h2>{{ _("Good to know") }}</h2>
+      </div>
+      <div class="col-lg-8">
+        <div class="accordion faq-accordion" id="pricingFaq">
+          <div class="accordion-item">
+            <h3 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#pfaq1" aria-expanded="true" aria-controls="pfaq1">{{ _("How are pages counted?") }}</button></h3>
+            <div id="pfaq1" class="accordion-collapse collapse show" data-bs-parent="#pricingFaq"><div class="accordion-body">{{ _("We count the exact number of PDF pages before parsing. A 3-page statement uses 3 pages from your allowance. If a statement cannot be parsed, pages are not consumed.") }}</div></div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pfaq2" aria-expanded="false" aria-controls="pfaq2">{{ _("When does the free 24-hour limit reset?") }}</button></h3>
+            <div id="pfaq2" class="accordion-collapse collapse" data-bs-parent="#pricingFaq"><div class="accordion-body">{{ _("Limits use a rolling 24-hour window. Your allowance becomes available again 24 hours after your earliest counted conversion in that window.") }}</div></div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pfaq3" aria-expanded="false" aria-controls="pfaq3">{{ _("Can I cancel a paid plan?") }}</button></h3>
+            <div id="pfaq3" class="accordion-collapse collapse" data-bs-parent="#pricingFaq"><div class="accordion-body">{{ _("Yes. Monthly plans can be cancelled at any time from your account or by contacting support. You keep access until the end of the paid cycle.") }}</div></div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pfaq4" aria-expanded="false" aria-controls="pfaq4">{{ _("Do you offer invoices or VAT receipts?") }}</button></h3>
+            <div id="pfaq4" class="accordion-collapse collapse" data-bs-parent="#pricingFaq"><div class="accordion-body">{{ _("Yes. Business customers can request invoices with company details and VAT information during onboarding.") }}</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

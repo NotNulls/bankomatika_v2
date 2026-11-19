@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Terms of Service — Bank Statement Converter") }}{% endblock %}
+{% block meta_description %}{{ _("Terms of service for the Bank Statement Converter PDF to Excel and CSV platform.") }}{% endblock %}
+{% block body_class %}site-body legal-page{% endblock %}
+
+{% block content %}
+<section class="page-hero page-hero-left page-hero-compact">
+  <div class="container">
+    <span class="eyebrow">{{ _("Legal") }}</span>
+    <h1>{{ _("Terms of Service") }}</h1>
+    <p class="page-hero-copy">{{ _("Last updated:") }} {{ current_year }}</p>
+  </div>
+</section>
+
+<section class="section-pad pt-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 d-none d-lg-block">
+        <nav class="legal-nav sticky-top" aria-label="{{ _('Terms navigation') }}">
+          <a href="#service">{{ _("The service") }}</a>
+          <a href="#accounts">{{ _("Accounts & plans") }}</a>
+          <a href="#use">{{ _("Acceptable use") }}</a>
+          <a href="#data">{{ _("Your documents") }}</a>
+          <a href="#ip">{{ _("Intellectual property") }}</a>
+          <a href="#disclaimer">{{ _("Disclaimers") }}</a>
+          <a href="#liability">{{ _("Liability") }}</a>
+          <a href="#contact">{{ _("Contact") }}</a>
+        </nav>
+      </div>
+      <div class="col-lg-9 legal-content">
+        <p class="lead-copy">{{ _("These terms govern your use of the Bank Statement Converter website, converter, dashboard and API. By using the service, you agree to them.") }}</p>
+
+        <h2 id="service">{{ _("1. The service") }}</h2>
+        <p>{{ _("Bank Statement Converter extracts transaction data from PDF bank statements and produces downloadable Excel and CSV files. The service is provided on an as-is basis and may be updated, suspended or discontinued. We do not provide accounting, tax, legal or financial advice.") }}</p>
+
+        <h2 id="accounts">{{ _("2. Accounts and plans") }}</h2>
+        <p>{{ _("Anonymous conversions are limited to 1 page per rolling 24-hour period per network. Registered free accounts are limited to 5 pages per rolling 24-hour period. Paid plans have a monthly page allowance shown on the pricing page. Quotas are checked against the exact PDF page count before parsing. Failed conversions do not consume pages.") }}</p>
+        <p>{{ _("You are responsible for keeping your credentials and API keys secure. Notify us immediately if you believe a key has been compromised. We may revoke keys or suspend accounts that abuse the service or create multiple accounts to bypass limits.") }}</p>
+
+        <h2 id="use">{{ _("3. Acceptable use") }}</h2>
+        <p>{{ _("You may use the service only for documents you are authorised to process. You must not upload malware, attempt to disrupt the service, probe or bypass security controls, scrape the service, resell access without an agreement, or use the service to violate applicable law or the rights of others.") }}</p>
+
+        <h2 id="data">{{ _("4. Your documents and data") }}</h2>
+        <p>{{ _("You retain ownership of your bank statements and the data extracted from them. You grant us a limited licence to process the documents solely to provide the conversion, preview and download you requested. Raw PDFs are deleted immediately after extraction. Parsed previews and job payloads expire after approximately one hour, after which downloads are no longer available.") }}</p>
+        <p>{{ _("Our privacy policy describes in more detail what account and usage data we collect and how it is handled.") }}</p>
+
+        <h2 id="ip">{{ _("5. Intellectual property") }}</h2>
+        <p>{{ _("The service, its software, design, documentation and branding are owned by us or our licensors. These terms do not grant you ownership of the service. You may not copy, modify or create derivative works of the service except as permitted by law.") }}</p>
+
+        <h2 id="disclaimer">{{ _("6. Disclaimers") }}</h2>
+        <p>{{ _("PDF parsing is inherently probabilistic. Although we test against many bank formats, we cannot guarantee that every statement will extract correctly or that every layout will be supported. You are responsible for reviewing the editable preview and the exported file before using it for accounting, reporting, legal or audit purposes. The service is provided without warranties of any kind, to the maximum extent permitted by law.") }}</p>
+
+        <h2 id="liability">{{ _("7. Limitation of liability") }}</h2>
+        <p>{{ _("To the maximum extent permitted by law, we are not liable for indirect, incidental, special, consequential or punitive damages, or for lost profits, revenue, data or goodwill. Our aggregate liability arising from the service is limited to the amount you paid us in the twelve months before the event giving rise to the claim.") }}</p>
+
+        <h2 id="contact">{{ _("8. Contact") }}</h2>
+        <p>{{ _("Questions about these terms can be sent to") }} <a href="mailto:{{ support_email }}">{{ support_email }}</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

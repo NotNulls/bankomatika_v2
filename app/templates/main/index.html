@@ -1,0 +1,454 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Bank Statement Converter — PDF to Excel & CSV") }}{% endblock %}
+{% block meta_description %}{{ _("Convert PDF bank statements from 1000s of banks into clean Excel (XLSX) and CSV. Edit transactions in your browser. Files deleted instantly. 1 free page every 24 hours.") }}{% endblock %}
+{% block body_class %}site-body home-page{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-glow hero-glow-one" aria-hidden="true"></div>
+  <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
+  <div class="container position-relative">
+    <div class="row justify-content-center">
+      <div class="col-xl-10 text-center">
+        <div class="hero-eyebrow">
+          <span class="status-dot" aria-hidden="true"></span>
+          {{ _("Bank-grade security · No signup needed · 25 MB max") }}
+        </div>
+        <h1 class="hero-title">{{ _("The world's most trusted") }} <span class="text-gradient">{{ _("bank statement converter") }}</span></h1>
+        <p class="hero-subtitle">{{ _("Easily convert PDF bank statements from 1000s of banks worldwide into clean Excel (XLS) and CSV format") }}</p>
+        <div class="hero-proof">
+          <span><i class="bi bi-shield-check" aria-hidden="true"></i> {{ _("Files deleted instantly") }}</span>
+          <span><i class="bi bi-bank" aria-hidden="true"></i> {{ _("1000s of banks") }}</span>
+          <span><i class="bi bi-pencil-square" aria-hidden="true"></i> {{ _("Editable preview") }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-xl-10">
+        <div id="converter-app"
+             class="converter-shell"
+             data-upload-url="{{ url_for('converter.convert') }}"
+             data-max-mb="{{ max_upload_mb }}"
+             data-register-url="{{ url_for('auth.register') }}"
+             data-pricing-url="{{ url_for('main.pricing') }}"
+             data-msg-invalid="{{ _('Please choose a PDF bank statement.') }}"
+             data-msg-large="{{ _('That PDF is larger than the upload limit.') }}"
+             data-msg-uploading="{{ _('Uploading and extracting transactions…') }}"
+             data-msg-parsing="{{ _('Extracting transactions…') }}"
+             data-msg-done="{{ _('Conversion complete. Review and edit your transactions below.') }}"
+             data-msg-error="{{ _('The conversion could not be completed.') }}"
+             data-msg-quota="{{ _('Your free page limit has been reached.') }}"
+             data-msg-empty="{{ _('No transactions were found in this PDF.') }}"
+             data-msg-downloading="{{ _('Preparing your download…') }}"
+             data-msg-download-error="{{ _('The download could not be prepared.') }}"
+             data-msg-file-label="{{ _('Selected file') }}"
+             data-msg-rows-label="{{ _('transactions found') }}"
+             data-msg-page-label="{{ _('page') }}"
+             data-msg-pages-label="{{ _('pages') }}"
+             data-msg-expired="{{ _('Your preview expired. Please upload the PDF again.') }}">
+          <div id="dropzone" class="upload-zone" tabindex="0" role="button" aria-label="{{ _('Upload a PDF bank statement') }}" aria-describedby="upload-help">
+            <input id="file-input" class="visually-hidden" type="file" accept="application/pdf,.pdf">
+            <div class="upload-icon-wrap" aria-hidden="true">
+              <i class="bi bi-cloud-arrow-up"></i>
+              <span class="pdf-chip">PDF</span>
+            </div>
+            <h2 class="upload-title">{{ _("Drop your bank statement here") }}</h2>
+            <p class="upload-subtitle">{{ _("or") }} <span class="upload-link">{{ _("browse your files") }}</span></p>
+            <p id="upload-help" class="upload-hint">{{ _("PDF only · up to 25 MB · no signup required") }}</p>
+            <div class="upload-trust">
+              <span><i class="bi bi-lock" aria-hidden="true"></i> {{ _("Private") }}</span>
+              <span><i class="bi bi-trash3" aria-hidden="true"></i> {{ _("Deleted after parsing") }}</span>
+              <span><i class="bi bi-lightning-charge" aria-hidden="true"></i> {{ _("Results in seconds") }}</span>
+            </div>
+          </div>
+
+          <div id="progress-wrap" class="upload-progress d-none" aria-live="polite">
+            <div class="progress-meta">
+              <span id="progress-label">{{ _("Uploading and extracting transactions…") }}</span>
+              <span id="progress-percent">0%</span>
+            </div>
+            <div class="progress progress-slim" role="progressbar" aria-label="{{ _('Conversion progress') }}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div id="upload-alert" class="upload-alert d-none" role="alert" aria-live="assertive"></div>
+
+          <section id="result-section" class="result-card d-none" aria-labelledby="result-title">
+            <div class="result-header">
+              <div class="result-file">
+                <span class="file-icon" aria-hidden="true"><i class="bi bi-file-earmark-spreadsheet"></i></span>
+                <div>
+                  <h2 id="result-title" class="result-title">{{ _("Review your transactions") }}</h2>
+                  <p id="result-filename" class="result-filename mb-0"></p>
+                </div>
+              </div>
+              <div class="result-meta">
+                <span id="result-bank" class="bank-badge"></span>
+                <span id="result-pages" class="meta-chip"></span>
+                <span id="result-rows" class="meta-chip"></span>
+              </div>
+            </div>
+
+            <div class="result-toolbar">
+              <div>
+                <p class="toolbar-title mb-1">{{ _("Click any cell to correct or enrich it.") }}</p>
+                <p class="toolbar-copy mb-0">{{ _("Your edits are included in the downloaded Excel and CSV files.") }}</p>
+              </div>
+              <button id="add-row" type="button" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>{{ _("Add row") }}
+              </button>
+            </div>
+
+            <div class="table-responsive transaction-scroll">
+              <table class="table transactions-table align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col" class="date-col">{{ _("Date") }}</th>
+                    <th scope="col">{{ _("Description") }}</th>
+                    <th scope="col" class="ref-col">{{ _("Reference") }}</th>
+                    <th scope="col" class="amount-col">{{ _("Debit") }}</th>
+                    <th scope="col" class="amount-col">{{ _("Credit") }}</th>
+                    <th scope="col" class="amount-col">{{ _("Balance") }}</th>
+                    <th scope="col" class="action-col"><span class="visually-hidden">{{ _("Remove") }}</span></th>
+                  </tr>
+                </thead>
+                <tbody id="transactions-body"></tbody>
+              </table>
+            </div>
+
+            <div class="result-footer">
+              <div id="result-quota" class="result-quota" aria-live="polite"></div>
+              <div class="download-actions">
+                <button type="button" class="btn btn-accent btn-download" data-export="xlsx">
+                  <i class="bi bi-file-earmark-excel me-2" aria-hidden="true"></i>{{ _("Download Excel (.XLSX)") }}
+                </button>
+                <button type="button" class="btn btn-outline-navy btn-download" data-export="csv">
+                  <i class="bi bi-filetype-csv me-2" aria-hidden="true"></i>{{ _("Download CSV (.CSV)") }}
+                </button>
+              </div>
+            </div>
+            <div id="download-status" class="download-status d-none" role="status" aria-live="polite"></div>
+          </section>
+
+          <p class="uploader-footnote">
+            <i class="bi bi-shield-lock me-1" aria-hidden="true"></i>
+            {{ _("Your PDF is processed in an isolated request and permanently deleted the moment extraction finishes.") }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust-strip" aria-label="{{ _('Why professionals choose us') }}">
+  <div class="container">
+    <div class="row g-0 trust-strip-inner">
+      <div class="col-md-4 trust-item">
+        <i class="bi bi-shield-lock" aria-hidden="true"></i>
+        <div><strong>{{ _("Secure by design") }}</strong><span>{{ _("Banking-grade handling and instant deletion.") }}</span></div>
+      </div>
+      <div class="col-md-4 trust-item">
+        <i class="bi bi-buildings" aria-hidden="true"></i>
+        <div><strong>{{ _("Built for professionals") }}</strong><span>{{ _("Accounting, financial and legal firms.") }}</span></div>
+      </div>
+      <div class="col-md-4 trust-item">
+        <i class="bi bi-bullseye" aria-hidden="true"></i>
+        <div><strong>{{ _("Accurate extraction") }}</strong><span>{{ _("Multi-bank tables with editable review.") }}</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="trust">
+  <div class="container">
+    <div class="section-intro text-center">
+      <span class="eyebrow">{{ _("Why Bank Statement Converter") }}</span>
+      <h2>{{ _("Converted statements you can trust") }}</h2>
+      <p>{{ _("Built around the three things finance teams care about most: confidentiality, accuracy and speed.") }}</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <article class="feature-card h-100">
+          <span class="feature-icon feature-icon-green" aria-hidden="true"><i class="bi bi-shield-lock"></i></span>
+          <h3>{{ _("Secure") }}</h3>
+          <p>{{ _("Strict banking-grade handling with encrypted transfer, isolated processing and instant deletion of every uploaded PDF.") }}</p>
+          <ul class="feature-list">
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Raw PDFs deleted immediately after parsing") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Preview data purged automatically after one hour") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("No document content used for model training") }}</li>
+          </ul>
+        </article>
+      </div>
+      <div class="col-lg-4">
+        <article class="feature-card h-100">
+          <span class="feature-icon feature-icon-blue" aria-hidden="true"><i class="bi bi-buildings"></i></span>
+          <h3>{{ _("Institutional") }}</h3>
+          <p>{{ _("Designed for accounting, financial and legal firms that need repeatable, audit-friendly transaction data.") }}</p>
+          <ul class="feature-list">
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Clean columns built for ledger imports") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Batch and API access on business plans") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Printable, formula-ready Excel exports") }}</li>
+          </ul>
+        </article>
+      </div>
+      <div class="col-lg-4">
+        <article class="feature-card h-100">
+          <span class="feature-icon feature-icon-amber" aria-hidden="true"><i class="bi bi-bullseye"></i></span>
+          <h3>{{ _("Accurate") }}</h3>
+          <p>{{ _("Multi-bank table extraction with header detection, European number normalisation and a line-based fallback.") }}</p>
+          <ul class="feature-list">
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Balkan and international bank layouts") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("DD.MM.YYYY and YYYY-MM-DD dates") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("1.250,50 converted to 1250.50") }}</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="banks-section section-pad-sm" id="supported-banks">
+  <div class="container">
+    <p class="banks-label">{{ _("Works with statements from 1000s of banks, including") }}</p>
+    <div class="bank-logo-row" aria-label="{{ _('Supported banks') }}">
+      <span>CKB</span><span>NLB</span><span>Hipotekarna</span><span>Erste</span><span>Raiffeisen</span><span>Intesa</span><span>UniCredit</span><span>Addiko</span><span>OTP</span><span>Sparkasse</span>
+    </div>
+    <p class="banks-note">{{ _("Don't see your bank? Generic international table detection handles most PDF layouts. Business plans include custom format support.") }}</p>
+  </div>
+</section>
+
+<section class="section-pad how-section">
+  <div class="container">
+    <div class="row align-items-end mb-5">
+      <div class="col-lg-7">
+        <span class="eyebrow">{{ _("Three steps. One clean file.") }}</span>
+        <h2 class="mb-2">{{ _("From PDF to ledger-ready in under a minute") }}</h2>
+      </div>
+      <div class="col-lg-5">
+        <p class="section-side-copy mb-0">{{ _("No templates to configure, no desktop software, no waiting on a back office.") }}</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="step-card">
+          <span class="step-number">01</span>
+          <i class="bi bi-cloud-arrow-up step-icon" aria-hidden="true"></i>
+          <h3>{{ _("Upload your PDF") }}</h3>
+          <p>{{ _("Drop in a statement from online banking. We verify the page count before touching a single row.") }}</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="step-card">
+          <span class="step-number">02</span>
+          <i class="bi bi-table step-icon" aria-hidden="true"></i>
+          <h3>{{ _("Review and edit") }}</h3>
+          <p>{{ _("Every extracted transaction appears in an inline-editable table. Fix a date, add a note, remove a row.") }}</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="step-card">
+          <span class="step-number">03</span>
+          <i class="bi bi-download step-icon" aria-hidden="true"></i>
+          <h3>{{ _("Download clean files") }}</h3>
+          <p>{{ _("Export formatted XLSX with totals or a UTF-8 CSV that imports cleanly into your accounting stack.") }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="security-band">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <span class="eyebrow eyebrow-light">{{ _("Zero-retention processing") }}</span>
+        <h2>{{ _("Your statements are not our business.") }}</h2>
+        <p>{{ _("We only need the transactions. The uploaded PDF is removed in a guaranteed cleanup step immediately after extraction, and the preview itself expires after one hour.") }}</p>
+        <div class="security-points">
+          <div><i class="bi bi-shield-check" aria-hidden="true"></i><span><strong>{{ _("TLS in transit") }}</strong>{{ _("Encrypted from browser to server.") }}</span></div>
+          <div><i class="bi bi-trash3" aria-hidden="true"></i><span><strong>{{ _("Instant deletion") }}</strong>{{ _("No PDF archive, no manual cleanup.") }}</span></div>
+          <div><i class="bi bi-hourglass-split" aria-hidden="true"></i><span><strong>{{ _("Expiring previews") }}</strong>{{ _("Parsed rows purged after 60 minutes.") }}</span></div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="security-card">
+          <div class="security-card-top">
+            <span class="security-lock"><i class="bi bi-lock-fill" aria-hidden="true"></i></span>
+            <span class="security-status"><span class="status-dot"></span> {{ _("Zero-retention pipeline") }}</span>
+          </div>
+          <div class="security-row"><span>{{ _("Raw PDF") }}</span><span class="security-deleted"><i class="bi bi-trash3 me-1"></i>{{ _("Deleted after parsing") }}</span></div>
+          <div class="security-row"><span>{{ _("Preview data") }}</span><span>{{ _("Expires in 1 hour") }}</span></div>
+          <div class="security-row"><span>{{ _("Account content") }}</span><span>{{ _("Private to your workspace") }}</span></div>
+          <div class="security-row"><span>{{ _("Model training") }}</span><span>{{ _("Never used") }}</span></div>
+          <div class="security-foot">{{ _("Designed for confidentiality-sensitive finance workflows.") }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad pricing-preview" id="pricing">
+  <div class="container">
+    <div class="section-intro text-center">
+      <span class="eyebrow">{{ _("Simple, transparent pricing") }}</span>
+      <h2>{{ _("Start free. Scale when your team does.") }}</h2>
+      <p>{{ _("No credit card for the free tiers. Upgrade only when you need more pages.") }}</p>
+    </div>
+    <div class="row g-4 align-items-stretch">
+      <div class="col-md-6 col-xl-3">
+        <article class="pricing-card h-100">
+          <div class="pricing-head">
+            <span class="plan-kicker">{{ _("Anonymous") }}</span>
+            <div class="plan-price">€0<span>/{{ _("forever") }}</span></div>
+            <p class="plan-copy">{{ _("Try the converter with no account at all.") }}</p>
+          </div>
+          <ul class="plan-features">
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("1 page every 24 hours") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Excel and CSV export") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Instant PDF deletion") }}</li>
+          </ul>
+          <a href="#converter" class="btn btn-outline-navy w-100 mt-auto">{{ _("Convert a PDF") }}</a>
+        </article>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <article class="pricing-card h-100">
+          <div class="pricing-head">
+            <span class="plan-kicker">{{ _("Registered") }}</span>
+            <div class="plan-price">€0<span>/{{ _("forever") }}</span></div>
+            <p class="plan-copy">{{ _("A free account unlocks more pages and history.") }}</p>
+          </div>
+          <ul class="plan-features">
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("5 pages every 24 hours") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Conversion history") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Editable preview") }}</li>
+          </ul>
+          {% if current_user.is_authenticated %}
+            <a href="{{ url_for('dashboard.index') }}" class="btn btn-outline-navy w-100 mt-auto">{{ _("Go to dashboard") }}</a>
+          {% else %}
+            <a href="{{ url_for('auth.register') }}" class="btn btn-outline-navy w-100 mt-auto">{{ _("Create free account") }}</a>
+          {% endif %}
+        </article>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <article class="pricing-card pricing-card-featured h-100">
+          <span class="popular-badge">{{ _("Most popular") }}</span>
+          <div class="pricing-head">
+            <span class="plan-kicker">{{ _("Starter / Pro") }}</span>
+            <div class="plan-price">€25<span>/{{ _("month") }}</span></div>
+            <p class="plan-copy">{{ _("For busy accountants and small finance teams.") }}</p>
+          </div>
+          <ul class="plan-features">
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("500 pages per month") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Batch multi-PDF upload") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Priority parsing") }}</li>
+          </ul>
+          <a href="{{ url_for('main.pricing') }}#plans" class="btn btn-accent w-100 mt-auto">{{ _("Upgrade to Pro") }}</a>
+        </article>
+      </div>
+      <div class="col-md-6 col-xl-3">
+        <article class="pricing-card h-100">
+          <div class="pricing-head">
+            <span class="plan-kicker">{{ _("Business / Enterprise") }}</span>
+            <div class="plan-price">€35+<span>/{{ _("month") }}</span></div>
+            <p class="plan-copy">{{ _("For firms that need volume, API access and custom formats.") }}</p>
+          </div>
+          <ul class="plan-features">
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("2,500+ pages per month") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("REST API access") }}</li>
+            <li><i class="bi bi-check2" aria-hidden="true"></i> {{ _("Custom bank format support") }}</li>
+          </ul>
+          <a href="{{ url_for('main.pricing') }}#enterprise" class="btn btn-outline-navy w-100 mt-auto">{{ _("Talk to sales") }}</a>
+        </article>
+      </div>
+    </div>
+    <p class="pricing-footnote text-center">{{ _("Prices exclude applicable taxes. Monthly plans can be cancelled at any time.") }}</p>
+  </div>
+</section>
+
+<section class="section-pad faq-section">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <span class="eyebrow">{{ _("Questions") }}</span>
+        <h2>{{ _("Everything you need to know") }}</h2>
+        <p>{{ _("Still deciding? Read the answers below or talk to our team.") }}</p>
+        <a href="{{ url_for('main.contact') }}" class="btn btn-outline-navy">{{ _("Contact us") }}</a>
+      </div>
+      <div class="col-lg-8">
+        <div class="accordion faq-accordion" id="faqAccordion">
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">{{ _("Is my bank statement secure?") }}</button>
+            </h3>
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">{{ _("Yes. Uploads travel over encrypted connections, are processed in an isolated request and are deleted immediately after extraction. Parsed previews expire after one hour and are never used for model training.") }}</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">{{ _("Which banks are supported?") }}</button>
+            </h3>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">{{ _("We handle 1000s of international formats plus common Balkan banks such as CKB, NLB, Hipotekarna, Erste, Raiffeisen, Intesa, UniCredit and Addiko. Generic table detection covers most other text-based PDFs.") }}</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">{{ _("Can I edit the extracted transactions?") }}</button>
+            </h3>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">{{ _("Yes. The on-page preview is fully editable. Correct any date, description, reference or amount before downloading, and your edits are included in both XLSX and CSV exports.") }}</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">{{ _("What are the free limits?") }}</button>
+            </h3>
+            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">{{ _("Anonymous visitors can convert 1 page every 24 hours. A free registered account converts 5 pages every 24 hours and keeps a conversion history. Paid plans use a monthly page allowance.") }}</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">{{ _("Do you support scanned PDFs?") }}</button>
+            </h3>
+            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">{{ _("The converter requires a text-based PDF from online banking. Scanned image statements need OCR and are not supported yet. Business customers can contact us about custom workflows.") }}</div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6" aria-expanded="false" aria-controls="faq6">{{ _("Can I use the API?") }}</button>
+            </h3>
+            <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">{{ _("Yes. REST API access with Bearer authentication is included in the Business / Enterprise plan. See the API documentation for request examples and response schemas.") }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-card">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <h2>{{ _("Ready to turn that PDF into a clean workbook?") }}</h2>
+          <p>{{ _("No signup. No software. Just your statement, your transactions and an Excel file you can trust.") }}</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <a href="#converter" class="btn btn-accent btn-lg"><i class="bi bi-cloud-arrow-up me-2" aria-hidden="true"></i>{{ _("Convert a statement") }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/uploader.js') }}" defer></script>
+{% endblock %}

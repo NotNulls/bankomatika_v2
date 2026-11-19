@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Quota reached — Bank Statement Converter") }}{% endblock %}
+{% block body_class %}site-body error-page{% endblock %}
+{% block content %}
+<section class="error-section">
+  <div class="container">
+    <div class="error-card">
+      <span class="error-code">429</span>
+      <h1>{{ _("You have reached your page allowance") }}</h1>
+      {% if quota %}
+        <p>{{ error_message }}</p>
+        <div class="error-quota">
+          <div><strong>{{ quota.used }}</strong><span>{{ _("pages used") }}</span></div>
+          <div><strong>{{ quota.limit }}</strong><span>{{ _("page limit") }}</span></div>
+          <div><strong>{{ quota.remaining }}</strong><span>{{ _("remaining") }}</span></div>
+        </div>
+        <p class="small-muted">{{ _("Your allowance refreshes on") }} {{ quota.resets_at|babel_datetime('medium') }}.</p>
+      {% else %}
+        <p>{{ _("Too many requests have been made. Please wait a moment and try again.") }}</p>
+      {% endif %}
+      <div class="d-flex flex-wrap justify-content-center gap-2">
+        {% if not current_user.is_authenticated %}
+          <a href="{{ url_for('auth.register') }}" class="btn btn-accent">{{ _("Create a free account for 5 pages/day") }}</a>
+        {% endif %}
+        <a href="{{ url_for('main.pricing') }}" class="btn btn-outline-navy">{{ _("Compare plans") }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

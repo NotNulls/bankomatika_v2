@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Privacy Policy — Bank Statement Converter") }}{% endblock %}
+{% block meta_description %}{{ _("How Bank Statement Converter handles uploaded PDFs, account data, usage logs and privacy rights.") }}{% endblock %}
+{% block body_class %}site-body legal-page{% endblock %}
+
+{% block content %}
+<section class="page-hero page-hero-left page-hero-compact">
+  <div class="container">
+    <span class="eyebrow">{{ _("Privacy") }}</span>
+    <h1>{{ _("Privacy Policy") }}</h1>
+    <p class="page-hero-copy">{{ _("Last updated:") }} {{ current_year }}</p>
+  </div>
+</section>
+
+<section class="section-pad pt-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 d-none d-lg-block">
+        <nav class="legal-nav sticky-top" aria-label="{{ _('Privacy navigation') }}">
+          <a href="#summary">{{ _("Summary") }}</a>
+          <a href="#documents">{{ _("Uploaded documents") }}</a>
+          <a href="#account">{{ _("Account data") }}</a>
+          <a href="#usage">{{ _("Usage data") }}</a>
+          <a href="#cookies">{{ _("Cookies") }}</a>
+          <a href="#sharing">{{ _("Sharing") }}</a>
+          <a href="#retention">{{ _("Retention") }}</a>
+          <a href="#rights">{{ _("Your rights") }}</a>
+          <a href="#contact">{{ _("Contact") }}</a>
+        </nav>
+      </div>
+      <div class="col-lg-9 legal-content">
+        <div class="callout callout-info" id="summary">
+          <i class="bi bi-shield-check" aria-hidden="true"></i>
+          <div>
+            <strong>{{ _("The short version") }}</strong>
+            <p class="mb-0">{{ _("We process your statement only to convert it, delete the raw PDF immediately, purge previews after about one hour, and never sell your data or use document content to train models.") }}</p>
+          </div>
+        </div>
+
+        <h2 id="documents">{{ _("1. Uploaded documents") }}</h2>
+        <p>{{ _("When you upload a PDF, we store it temporarily in a private upload directory so the parser can read it. The file is removed in a guaranteed cleanup step immediately after extraction, including when parsing fails. The extracted rows are held in the database for approximately one hour to support the editable preview and downloads, after which the payload is purged. We do not use your document content for advertising or model training.") }}</p>
+
+        <h2 id="account">{{ _("2. Account data") }}</h2>
+        <p>{{ _("If you register, we store your email address, optional full name, a salted password hash, plan tier, quota counters, billing-cycle dates, preferred interface language and account creation time. We never store plaintext passwords. If you create API keys, we store a short display prefix and a keyed hash, never the full key.") }}</p>
+
+        <h2 id="usage">{{ _("3. Usage data") }}</h2>
+        <p>{{ _("To enforce quotas we record the number of pages converted, the associated account (if any), a one-way salted hash of the client IP address and a timestamp. We do not store the raw IP address in the usage log. This data is used for rate limiting, abuse prevention and aggregate service metrics.") }}</p>
+
+        <h2 id="cookies">{{ _("4. Cookies and local storage") }}</h2>
+        <p>{{ _("We use a small number of essential cookies: a signed session cookie for language choice and sign-in state, and a remember-me cookie if you select that option. We do not use advertising cookies. Static assets may be served by a CDN, which receives standard request metadata.") }}</p>
+
+        <h2 id="sharing">{{ _("5. Sharing and processors") }}</h2>
+        <p>{{ _("We use infrastructure and content-delivery providers to host and serve the application. They process data only on our instructions and under appropriate safeguards. We may disclose information if required by law or to protect the service and its users. We do not sell personal data.") }}</p>
+
+        <h2 id="retention">{{ _("6. Retention") }}</h2>
+        <p>{{ _("Raw uploaded PDFs: deleted immediately after extraction. Parsed preview payloads: approximately one hour. Usage logs and conversion history: retained while needed for quota enforcement, account history and legal obligations. Account data: retained until you delete your account or ask us to erase it, subject to legal retention requirements.") }}</p>
+
+        <h2 id="rights">{{ _("7. Your rights") }}</h2>
+        <p>{{ _("Depending on your jurisdiction, you may have rights to access, correct, export or erase personal data, object to or restrict processing, or withdraw consent. To exercise these rights, contact us. You may also lodge a complaint with your local data protection authority.") }}</p>
+
+        <h2 id="contact">{{ _("8. Contact") }}</h2>
+        <p>{{ _("For privacy requests, contact") }} <a href="mailto:{{ support_email }}">{{ support_email }}</a>. {{ _("We aim to respond within 30 days.") }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

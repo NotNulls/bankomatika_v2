@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Sign in — Bank Statement Converter") }}{% endblock %}
+{% block meta_description %}{{ _("Sign in to your Bank Statement Converter account to manage conversions, quotas and API keys.") }}{% endblock %}
+{% block body_class %}site-body auth-page{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+  <div class="container">
+    <div class="auth-shell">
+      <div class="row g-0">
+        <div class="col-lg-5 auth-aside">
+          <div class="auth-aside-inner">
+            <a class="auth-brand" href="{{ url_for('main.index') }}">
+              <span class="brand-mark" aria-hidden="true"><i class="bi bi-file-earmark-spreadsheet"></i></span>
+              <span>{{ app_name }}</span>
+            </a>
+            <h1>{{ _("Welcome back") }}</h1>
+            <p>{{ _("Pick up where you left off and keep your statement workflow moving.") }}</p>
+            <ul class="auth-benefits">
+              <li><i class="bi bi-check2-circle" aria-hidden="true"></i><span><strong>{{ _("5 pages every 24 hours") }}</strong>{{ _("on the free registered plan") }}</span></li>
+              <li><i class="bi bi-check2-circle" aria-hidden="true"></i><span><strong>{{ _("Conversion history") }}</strong>{{ _("for every statement you process") }}</span></li>
+              <li><i class="bi bi-check2-circle" aria-hidden="true"></i><span><strong>{{ _("API key manager") }}</strong>{{ _("for Business / Enterprise accounts") }}</span></li>
+            </ul>
+            <div class="auth-security">
+              <i class="bi bi-shield-lock" aria-hidden="true"></i>
+              <span>{{ _("Your documents are deleted immediately after parsing.") }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="auth-form-wrap">
+            <div class="auth-form-head">
+              <span class="eyebrow">{{ _("Sign in") }}</span>
+              <h2>{{ _("Access your workspace") }}</h2>
+              <p>{{ _("New here?") }} <a href="{{ url_for('auth.register') }}">{{ _("Create a free account") }}</a>.</p>
+            </div>
+            <form method="post" action="{{ url_for('auth.login') }}" class="auth-form">
+              <input type="hidden" name="next" value="{{ next_target or '' }}">
+              <div class="mb-3">
+                <label class="form-label" for="login-email">{{ _("Email address") }}</label>
+                <input class="form-control form-control-lg" id="login-email" name="email" type="email" autocomplete="email" required value="{{ email or '' }}" placeholder="you@firm.com">
+              </div>
+              <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                  <label class="form-label" for="login-password">{{ _("Password") }}</label>
+                  <a class="form-hint-link" href="mailto:{{ support_email }}?subject={{ _('Password help')|urlencode }}">{{ _("Forgot password?") }}</a>
+                </div>
+                <input class="form-control form-control-lg" id="login-password" name="password" type="password" autocomplete="current-password" required>
+              </div>
+              <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" value="1" id="remember" name="remember">
+                <label class="form-check-label" for="remember">{{ _("Keep me signed in for 14 days") }}</label>
+              </div>
+              <button class="btn btn-accent btn-lg w-100" type="submit">{{ _("Sign in") }} <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i></button>
+            </form>
+            {% if config.DEBUG %}
+              <div class="demo-creds">
+                <p class="demo-title"><i class="bi bi-terminal me-1" aria-hidden="true"></i>{{ _("Demo accounts (development)") }}</p>
+                <p><code>pro@example.com</code> / <code>demo1234</code> — {{ _("Starter / Pro") }}</p>
+                <p><code>biz@example.com</code> / <code>demo1234</code> — {{ _("Business / Enterprise") }}</p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

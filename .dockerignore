@@ -1,0 +1,23 @@
+# Python/environment
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.env
+.pytest_cache/
+.coverage
+htmlcov/
+*.sqlite
+*.db
+instance/*
+!instance/uploads/
+!instance/uploads/.gitkeep
+!instance/test-uploads/
+!instance/test-uploads/.gitkeep
+
+# Assets not needed in the runtime image
+.git/
+.gitignore
+tests/
+messages.pot
+README.md

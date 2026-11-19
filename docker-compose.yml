@@ -1,0 +1,47 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: bank_statement_converter
+      POSTGRES_USER: bsk_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in your environment or .env}
+    volumes:
+      - bsk_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bsk_user -d bank_statement_converter"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      FLASK_ENV: production
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY in your environment or .env}
+      DATABASE_URL: postgresql://bsk_user:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in your environment or .env}@db:5432/bank_statement_converter
+      UPLOAD_FOLDER: /data/uploads
+      CONVERSION_RETENTION_SECONDS: "3600"
+      MAX_PDF_PAGES: "500"
+      TRUST_PROXY_HEADERS: "0"
+      # This compose file serves plain HTTP locally. Set to 1 (or remove this
+      # line) when placing the app behind an HTTPS reverse proxy.
+      SESSION_COOKIE_SECURE: "0"
+      SUPPORT_EMAIL: ${SUPPORT_EMAIL:-support@example.com}
+      SALES_EMAIL: ${SALES_EMAIL:-sales@example.com}
+    command: >
+      sh -c "flask --app run.py db upgrade &&
+             gunicorn --bind 0.0.0.0:8000 --workers 3 --timeout 180
+             --access-logfile - --error-logfile - run:app"
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - bsk_uploads:/data/uploads
+
+volumes:
+  bsk_pgdata:
+  bsk_uploads:

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Contact sales — Bank Statement Converter") }}{% endblock %}
+{% block meta_description %}{{ _("Contact the Bank Statement Converter enterprise team about volume pricing, custom bank formats, API integrations and security reviews.") }}{% endblock %}
+{% block body_class %}site-body{% endblock %}
+
+{% block content %}
+<section class="page-hero page-hero-left">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <span class="eyebrow">{{ _("Enterprise enquiries") }}</span>
+        <h1>{{ _("Let's scope your statement workflow") }}</h1>
+        <p class="page-hero-copy">{{ _("Tell us about your banks, volumes and integration requirements. We will reply within one business day with next steps.") }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad pt-0">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <div class="contact-side">
+          <h2>{{ _("Enterprise includes") }}</h2>
+          <ul class="enterprise-list enterprise-list-dark">
+            <li><i class="bi bi-check2-circle" aria-hidden="true"></i>{{ _("2,500+ pages per month with volume pricing") }}</li>
+            <li><i class="bi bi-check2-circle" aria-hidden="true"></i>{{ _("REST API and key management") }}</li>
+            <li><i class="bi bi-check2-circle" aria-hidden="true"></i>{{ _("Custom bank parser development") }}</li>
+            <li><i class="bi bi-check2-circle" aria-hidden="true"></i>{{ _("Priority parsing and support") }}</li>
+            <li><i class="bi bi-check2-circle" aria-hidden="true"></i>{{ _("Security review and DPA") }}</li>
+          </ul>
+          <div class="contact-direct">
+            <p class="mb-1">{{ _("Prefer email?") }}</p>
+            <a href="mailto:{{ sales_email }}">{{ sales_email }}</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="contact-card">
+          <h2 class="h3">{{ _("Enterprise contact form") }}</h2>
+          <p class="contact-sub">{{ _("All fields marked required help us route your enquiry.") }}</p>
+          <form method="post" action="{{ url_for('main.contact') }}" class="row g-3">
+            <input type="hidden" name="plan" value="{{ request.args.get('plan', 'business') }}">
+            <div class="position-absolute" style="left: -9999px;" aria-hidden="true">
+              <label for="website-contact">Website</label>
+              <input type="text" id="website-contact" name="website" tabindex="-1" autocomplete="off">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="name-contact">{{ _("Full name") }} <span class="text-danger">*</span></label>
+              <input class="form-control" id="name-contact" name="name" required autocomplete="name" value="{{ form.get('name', '') }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="email-contact">{{ _("Work email") }} <span class="text-danger">*</span></label>
+              <input class="form-control" id="email-contact" name="email" type="email" required autocomplete="email" value="{{ form.get('email', '') }}">
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="company-contact">{{ _("Company") }}</label>
+              <input class="form-control" id="company-contact" name="company" autocomplete="organization" value="{{ form.get('company', '') }}">
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="plan-contact">{{ _("I'm interested in") }}</label>
+              <select class="form-select" id="plan-contact" name="plan">
+                <option value="starter" {% if plan == 'starter' %}selected{% endif %}>{{ _("Starter / Pro — 500 pages per month") }}</option>
+                <option value="business" {% if plan == 'business' %}selected{% endif %}>{{ _("Business / Enterprise — 2,500+ pages per month") }}</option>
+                <option value="custom" {% if plan == 'custom' %}selected{% endif %}>{{ _("Custom volume or bank format") }}</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="message-contact">{{ _("How can we help?") }} <span class="text-danger">*</span></label>
+              <textarea class="form-control" id="message-contact" name="message" rows="6" required placeholder="{{ _('Banks, monthly statement volume, API or integration needs…') }}">{{ form.get('message', '') }}</textarea>
+            </div>
+            <div class="col-12 d-flex flex-wrap align-items-center gap-3">
+              <button type="submit" class="btn btn-accent">{{ _("Send enquiry") }} <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i></button>
+              <span class="form-note">{{ _("We never share your details.") }}</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

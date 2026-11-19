@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% block title %}{{ _("API Documentation — Bank Statement Converter") }}{% endblock %}
+{% block meta_description %}{{ _("REST API v1 documentation for converting PDF bank statements to structured JSON, Excel and CSV with Bearer authentication.") }}{% endblock %}
+{% block body_class %}site-body api-page{% endblock %}
+
+{% block content %}
+<section class="page-hero page-hero-left">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9">
+        <span class="eyebrow">{{ _("Developer API") }}</span>
+        <h1>{{ _("Convert statements from your own stack") }}</h1>
+        <p class="page-hero-copy">{{ _("A single REST endpoint turns a PDF bank statement into structured transactions, an XLSX download and a CSV download. Authenticate with a Bearer API key.") }}</p>
+        <div class="api-hero-meta">
+          <span><i class="bi bi-shield-lock" aria-hidden="true"></i> {{ _("Bearer authentication") }}</span>
+          <span><i class="bi bi-box" aria-hidden="true"></i> {{ _("JSON responses") }}</span>
+          <span><i class="bi bi-graph-up" aria-hidden="true"></i> {{ _("Monthly page quotas") }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container api-layout">
+  <div class="row g-5">
+    <aside class="col-lg-3 d-none d-lg-block">
+      <nav class="api-nav sticky-top" aria-label="{{ _('API documentation navigation') }}">
+        <p class="api-nav-title">{{ _("On this page") }}</p>
+        <a href="#authentication">{{ _("Authentication") }}</a>
+        <a href="#endpoint">{{ _("Endpoint") }}</a>
+        <a href="#request">{{ _("Request") }}</a>
+        <a href="#response">{{ _("Response") }}</a>
+        <a href="#downloads">{{ _("Downloads") }}</a>
+        <a href="#errors">{{ _("Errors") }}</a>
+        <a href="#limits">{{ _("Rate limits") }}</a>
+      </nav>
+    </aside>
+
+    <div class="col-lg-9 api-content">
+      <div class="callout callout-info">
+        <i class="bi bi-info-circle" aria-hidden="true"></i>
+        <div>
+          <strong>{{ _("API access is included with Business / Enterprise.") }}</strong>
+          <p class="mb-0">{{ _("Create and manage keys from your dashboard. Keys are shown once and stored only as a hash.") }}</p>
+        </div>
+        <a href="{{ url_for('dashboard.index') if current_user.is_authenticated else url_for('auth.register') }}" class="btn btn-sm btn-outline-navy ms-auto">{{ _("API keys") }}</a>
+      </div>
+
+      <section id="authentication" class="api-section">
+        <h2>{{ _("Authentication") }}</h2>
+        <p>{{ _("Send your API key in the standard HTTP Authorization header. Keys are prefixed with") }} <code>bsk_live_</code>.</p>
+        <pre class="code-block"><code>Authorization: Bearer bsk_live_your_key_here</code></pre>
+        <p class="small-muted">{{ _("The X-API-Key header is also accepted for convenience, but Bearer is recommended. Never expose a key in client-side code.") }}</p>
+      </section>
+
+      <section id="endpoint" class="api-section">
+        <h2>{{ _("Endpoint") }}</h2>
+        <div class="endpoint-row">
+          <span class="method-badge">POST</span>
+          <code>{{ api_endpoint }}</code>
+        </div>
+        <p>{{ _("Send a multipart/form-data request with a single PDF field named") }} <code>file</code>. {{ _("The maximum upload is 25 MB.") }}</p>
+        <div class="api-table-wrap">
+          <table class="table api-table">
+            <thead><tr><th>{{ _("Field") }}</th><th>{{ _("Type") }}</th><th>{{ _("Required") }}</th><th>{{ _("Description") }}</th></tr></thead>
+            <tbody>
+              <tr><td><code>file</code></td><td>{{ _("binary") }}</td><td>{{ _("Yes") }}</td><td>{{ _("PDF bank statement, text-based, up to 25 MB.") }}</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="request" class="api-section">
+        <h2>{{ _("Request example") }}</h2>
+        <div class="code-tabs">
+          <p class="code-label">cURL</p>
+          <pre class="code-block"><code>curl -X POST "{{ api_endpoint }}" \
+  -H "Authorization: Bearer $BSK_API_KEY" \
+  -F "file=@statement.pdf"</code></pre>
+        </div>
+        <p class="code-label mt-4">Python</p>
+        <pre class="code-block"><code>import os
+import requests
+
+response = requests.post(
+    "{{ api_endpoint }}",
+    headers={"Authorization": "Bearer " + os.environ["BSK_API_KEY"]},
+    files={"file": open("statement.pdf", "rb")},
+    timeout=120,
+)
+response.raise_for_status()
+data = response.json()
+for row in data["rows"]:
+    print(row["date"], row["description"], row["debit"], row["credit"])</code></pre>
+      </section>
+
+      <section id="response" class="api-section">
+        <h2>{{ _("Response") }}</h2>
+        <p>{{ _("A successful call returns the parsed rows, page count, bank detection, quota state and signed download URLs.") }}</p>
+        <pre class="code-block"><code>{
+  "success": true,
+  "api_version": "v1",
+  "job_id": 42,
+  "token": "signed-preview-token",
+  "original_filename": "statement.pdf",
+  "page_count": 1,
+  "row_count": 3,
+  "detected_bank": "CKB",
+  "warnings": [],
+  "rows": [
+    {
+      "date": "2024-02-01",
+      "description": "Grocery Market",
+      "reference": "REF-001",
+      "debit": 1250.5,
+      "credit": null,
+      "balance": 15000.0
+    }
+  ],
+  "quota": {
+    "scope": "paid",
+    "limit": 2500,
+    "used": 1,
+    "remaining": 2499,
+    "window": "month",
+    "label": "2,500 pages / month",
+    "percent_used": 0,
+    "resets_at": "2026-12-18T00:00:00Z",
+    "retry_after": 0,
+    "allowed": true,
+    "pages_requested": 0
+  },
+  "downloads": {
+    "xlsx": "https://example.com/convert/download/.../xlsx",
+    "csv": "https://example.com/convert/download/.../csv"
+  }
+}</code></pre>
+        <div class="response-fields">
+          <div><code>rows[]</code><span>{{ _("Date is ISO YYYY-MM-DD. Debit, credit and balance are numeric or null.") }}</span></div>
+          <div><code>token</code><span>{{ _("Signed, expiring capability for preview and downloads.") }}</span></div>
+          <div><code>quota</code><span>{{ _("Current monthly page allowance after this conversion.") }}</span></div>
+          <div><code>downloads</code><span>{{ _("Signed URLs valid while the parsed preview is retained (one hour).") }}</span></div>
+        </div>
+      </section>
+
+      <section id="downloads" class="api-section">
+        <h2>{{ _("Downloads") }}</h2>
+        <p>{{ _("Use the signed URLs from the response to download an Excel workbook or CSV. The URLs are capability links and expire with the one-hour preview window.") }}</p>
+        <pre class="code-block"><code>curl -L "https://example.com/convert/download/&lt;token&gt;/xlsx" -o statement.xlsx
+curl -L "https://example.com/convert/download/&lt;token&gt;/csv" -o statement.csv</code></pre>
+      </section>
+
+      <section id="errors" class="api-section">
+        <h2>{{ _("Errors") }}</h2>
+        <div class="api-table-wrap">
+          <table class="table api-table">
+            <thead><tr><th>{{ _("Status") }}</th><th>{{ _("Code") }}</th><th>{{ _("Meaning") }}</th></tr></thead>
+            <tbody>
+              <tr><td><span class="status-code">400</span></td><td><code>no_file</code>, <code>invalid_file_type</code>, <code>invalid_pdf</code></td><td>{{ _("The request is missing a valid PDF upload.") }}</td></tr>
+              <tr><td><span class="status-code">401</span></td><td><code>missing_api_key</code>, <code>invalid_api_key</code></td><td>{{ _("API key is missing, invalid or revoked.") }}</td></tr>
+              <tr><td><span class="status-code">403</span></td><td><code>api_plan_required</code></td><td>{{ _("Your account plan does not include API access.") }}</td></tr>
+              <tr><td><span class="status-code">413</span></td><td><code>file_too_large</code></td><td>{{ _("The upload exceeds 25 MB.") }}</td></tr>
+              <tr><td><span class="status-code">422</span></td><td><code>pdf_encrypted</code>, <code>no_transactions</code>, <code>pdf_parse_error</code></td><td>{{ _("The PDF is protected, scanned or contains no detectable transactions.") }}</td></tr>
+              <tr><td><span class="status-code">429</span></td><td><code>quota_exceeded</code></td><td>{{ _("Monthly page allowance exhausted. The Retry-After header is set.") }}</td></tr>
+              <tr><td><span class="status-code">500</span></td><td><code>conversion_failed</code></td><td>{{ _("Unexpected server error; safe to retry with backoff.") }}</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small-muted">{{ _("Error responses use the shape:") }} <code>{"success": false, "error": "...", "message": "..."}</code></p>
+      </section>
+
+      <section id="limits" class="api-section">
+        <h2>{{ _("Rate limits and quotas") }}</h2>
+        <p>{{ _("API calls consume pages from your monthly Business quota (2,500 pages by default). The exact PDF page count is checked before parsing, so an oversized statement is rejected without consuming pages. Every response includes the remaining allowance.") }}</p>
+        <div class="quota-callout">
+          <i class="bi bi-hourglass-split" aria-hidden="true"></i>
+          <div><strong>{{ _("Retry responsibly") }}</strong><span>{{ _("If you receive a 429, respect the Retry-After header. For higher volume, contact enterprise sales.") }}</span></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ _("File too large — Bank Statement Converter") }}{% endblock %}
+{% block body_class %}site-body error-page{% endblock %}
+{% block content %}
+<section class="error-section">
+  <div class="container">
+    <div class="error-card">
+      <span class="error-code">413</span>
+      <h1>{{ _("That PDF is too large") }}</h1>
+      <p>{{ _("The maximum upload size is 25 MB. Try compressing the statement or splitting it into smaller files.") }}</p>
+      <a href="{{ url_for('main.index') }}#converter" class="btn btn-accent">{{ _("Choose another PDF") }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
